@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -99,10 +100,16 @@ namespace streetsofraval
         private GameEvent m_OnEnergyUsed;
         [SerializeField]
         private GameEvent m_OnPlayerDeath;
+        [SerializeField]
+        private GameEvent m_OnEnableShop;
+        [SerializeField]
+        private Shopping Shopping;
 
         //LayerMask of the Pickups for casting it through Physics2D.CircleCast instead of OnTriggerStay
         [SerializeField]
         LayerMask m_PickupLayerMask;
+
+        bool m_BoolShopAvailable = false;
 
         private void Awake()
         {
@@ -142,7 +149,19 @@ namespace streetsofraval
             m_Input.FindActionMap("PlayerActions").FindAction("Crouch").started += Crouch;
             m_Input.FindActionMap("PlayerActions").FindAction("Crouch").canceled += ReturnToIdleState;
             m_Input.FindActionMap("PlayerActions").Enable();
+            Shopping.OnEntrar += EntrarShop;
+            Shopping.OnSortir += SortirShop;
             InitState(PlayerMachineStates.IDLE);
+        }
+
+        private void SortirShop()
+        {
+            m_BoolShopAvailable = true;
+        }
+
+        private void EntrarShop()
+        {
+            m_BoolShopAvailable = false;
         }
 
         private void OnDisable()
