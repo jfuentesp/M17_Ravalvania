@@ -148,5 +148,14 @@ namespace streetsofraval
             m_Player.transform.position = m_PlayerSpawnPoint;
             m_Player.gameObject.SetActive(true);
         }
+
+        public void UseCoins(int coin)
+        {
+            if(coin > m_Score)
+            {
+                return;
+            }
+            m_Score -= coin;
+        }
     }
 }
