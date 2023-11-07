@@ -13,7 +13,7 @@ public class HealableBehaviour : MonoBehaviour
     }
 
     //Function that adds health points to the Health compoment
-    public void GetHeal(float healAmount)
+    public void OnHeal(float healAmount)
     {
         m_Health.ChangeHealth(healAmount);
     }

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ShootableBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Prefab of the bullet to instantiate")]
+    [SerializeField]
+    GameObject m_BulletPrefab;
 
-    // Update is called once per frame
-    void Update()
+    // Function that shoots a bullet
+    private void Shoot(Vector2 spawnPosition)
     {
-        
+        GameObject prefab = Instantiate(m_BulletPrefab);
+        prefab.transform.position = spawnPosition;
+        prefab.GetComponent<BulletBehaviour>().InitBullet(transform.position);
     }
 }
