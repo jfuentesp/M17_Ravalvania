@@ -7,7 +7,6 @@ public class MovableBehaviour : MonoBehaviour
 {
     //Movement will have a direction and a speed, and a clamp if needs to move by Forces. Also it will need a RigidBody to set the movement.
     private Rigidbody2D m_Rigidbody;
-    private Vector2 m_Direction;
 
     [Header("Speed of the Entity")]
     [SerializeField]
@@ -18,6 +17,8 @@ public class MovableBehaviour : MonoBehaviour
     private float m_VelocityClamp;
     [SerializeField]
     private float m_ForceToAdd;
+    [SerializeField]
+    private bool m_IsFlipped;
 
     private void Awake()
     {
@@ -25,16 +26,29 @@ public class MovableBehaviour : MonoBehaviour
     }
 
     //Function that moves by Velocity (no force interactions with effectors)
-    private void MoveByVelocity(Vector2 direction)
+    public void OnMoveByVelocity(Vector2 direction)
     {
         m_Rigidbody.velocity = direction * m_Speed;
     }
 
     //Function that moves by Forces (interacts with effectors)
-    private void MoveByForce(Vector2 direction)
+    public void OnMoveByForce(Vector2 direction)
     {
         float currentVelocity = Mathf.Clamp(m_Rigidbody.velocity.x, 0, m_VelocityClamp);
         if(currentVelocity < m_VelocityClamp) 
             m_Rigidbody.AddForce(direction * m_ForceToAdd);
+    }
+    //Stops the entity movement (sets it to Vector3.zero)
+    public void OnStopMovement()
+    {
+        m_Rigidbody.velocity = Vector3.zero;
+    }
+    //Compares which direction the entity is looking. Then, rotates the object in the looking direction. 
+    public void OnFlipCharacter(Vector2 direction)
+    {
+        if (direction == Vector2.zero)
+            return;
+        m_IsFlipped = direction.x < 0 ? true : false;
+        m_Rigidbody.transform.eulerAngles = m_IsFlipped ? Vector3.up * 180 : Vector3.zero;
     }
 }

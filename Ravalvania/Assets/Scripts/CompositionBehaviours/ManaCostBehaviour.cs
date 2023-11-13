@@ -8,6 +8,7 @@ public class ManaCostBehaviour : MonoBehaviour
     ManaBehaviour m_Mana;
     [SerializeField]
     private float m_ManaCost;
+    public float ManaCost => m_ManaCost;
     //In case that we need more than one ManaCost we can do a List of costs (attacks)
 
     private void Awake()

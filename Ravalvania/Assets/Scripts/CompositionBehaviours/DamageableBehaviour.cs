@@ -27,9 +27,19 @@ public class DamageableBehaviour : MonoBehaviour
     {
         m_Health.ChangeHealth(m_AttackDamage);
     }
-    //Function that updates damage (either if a debuff or a debuff is applied or on a level up) 
-    public void OnUpdateDamage(float damageAmount)
+    //Function that updates base damage (either if a buff or a debuff is applied or on a level up) 
+    public void OnUpdateBaseDamage(float damageAmount)
     {
-        m_AttackDamage = damageAmount;
+        m_BaseAttackDamage += damageAmount;
+    }
+    //Function that updates damage (either if a buff or a debuff is applied or on a level up) 
+    public void OnUpdateDamage(float damage)
+    {
+        m_AttackDamage += damage;
+    }
+    //Function that sets damage 
+    public void OnSetDamage(float damage)
+    {
+        m_AttackDamage = damage;
     }
 }

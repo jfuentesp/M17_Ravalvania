@@ -9,7 +9,7 @@ public class ShootableBehaviour : MonoBehaviour
     GameObject m_BulletPrefab;
 
     // Function that shoots a bullet
-    private void Shoot(Vector2 spawnPosition)
+    public void Shoot(Vector2 spawnPosition)
     {
         GameObject prefab = Instantiate(m_BulletPrefab);
         prefab.transform.position = spawnPosition;
