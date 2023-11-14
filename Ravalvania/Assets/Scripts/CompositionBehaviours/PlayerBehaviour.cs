@@ -8,7 +8,6 @@ using UnityEngine.InputSystem.EnhancedTouch;
 namespace ravalvania
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    [RequireComponent(typeof(InputAction))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(MovableBehaviour))]
     [RequireComponent(typeof(HealthBehaviour))]
@@ -17,6 +16,7 @@ namespace ravalvania
     [RequireComponent(typeof(ManaCostBehaviour))]
     [RequireComponent(typeof(ShootableBehaviour))]
     [RequireComponent(typeof(DamageableBehaviour))]
+    [RequireComponent(typeof(ComboBehaviour))]
     [RequireComponent(typeof(JumpBehaviour))]
     public class PlayerBehaviour : MonoBehaviour
     {
@@ -42,6 +42,7 @@ namespace ravalvania
         private ManaCostBehaviour m_ManaCost;
         private ShootableBehaviour m_Shooting;
         private DamageableBehaviour m_Damaging;
+        private ComboBehaviour m_Combo;
         private JumpBehaviour m_Jumping;
 
         //Player animator
@@ -65,7 +66,7 @@ namespace ravalvania
         private enum PlayerMachineStates { NONE, IDLE, WALK, ATTACK1, ATTACK2, COMBO1, COMBO2, SUPER, JUMP, CROUCHATTACK1, CROUCHATTACK2, CROUCH, HIT }
         private PlayerMachineStates m_CurrentState;
 
-        private HitboxInfo m_Hitbox;
+        private BoxCollider2D m_Collider;
 
         [Header("LayerMask of the pickups")]
         [SerializeField]
@@ -91,7 +92,6 @@ namespace ravalvania
                 Destroy(this.gameObject);
                 return;
             }
-
             //Player components
             m_Animator = GetComponent<Animator>();
             m_Rigidbody = GetComponent<Rigidbody2D>();
@@ -102,7 +102,9 @@ namespace ravalvania
             m_ManaCost = GetComponent<ManaCostBehaviour>();
             m_Shooting = GetComponent<ShootableBehaviour>();
             m_Damaging = GetComponent<DamageableBehaviour>();
-            
+            m_Combo = GetComponent<ComboBehaviour>();
+            m_Jumping = GetComponent<JumpBehaviour>();
+            m_Collider = GetComponent<BoxCollider2D>();
         }
 
         private void OnEnable()
@@ -146,6 +148,24 @@ namespace ravalvania
         {
             //Each frame, player behaviour will be listening 
             UpdateState();
+        }
+
+        public void EndHit()
+        {
+            ChangeState(PlayerMachineStates.IDLE);
+        }
+
+        //Function used to go back to idle state after performing an inputname.canceled action
+        private void ReturnToIdleState(InputAction.CallbackContext context)
+        {
+            ChangeState(PlayerMachineStates.IDLE);
+        }
+
+        private IEnumerator OnPlayerHitCoroutine()
+        {
+            m_Collider.enabled = false;
+            yield return new WaitForSeconds(1f);
+            m_Collider.enabled = true;
         }
 
         /******** !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState ********/
@@ -222,6 +242,7 @@ namespace ravalvania
                     //Crouch sets the movement to zero and it doesn't move.
                     m_Moving.OnStopMovement();
                     m_Animator.Play(m_CrouchAnimationName);
+                    StartCoroutine(OnPlayerHitCoroutine());
                     break;
 
                 case PlayerMachineStates.CROUCHATTACK1:
@@ -246,30 +267,7 @@ namespace ravalvania
         {
             switch (m_CurrentState)
             {
-                case PlayerMachineStates.IDLE:
-
-                    break;
-
-                case PlayerMachineStates.WALK:
-
-                    break;
-
-                case PlayerMachineStates.JUMP:
-
-                    break;
-
-                case PlayerMachineStates.ATTACK1:
-
-                    break;
-
-                case PlayerMachineStates.ATTACK2:
-
-                    break;
-
-                case PlayerMachineStates.CROUCH:
-
-                    break;
-
+                //If needs to leave a Coroutine or do something at the finish of the action...
                 default:
                     break;
             }
@@ -314,6 +312,7 @@ namespace ravalvania
         }
         /* !!! FINISHING THE BUILD OF THE STATE MACHINE !!! */
 
+        /* !!!! ACTIONS WITH STATE MACHINE !!!! */
         private void Attack1(InputAction.CallbackContext context)
         {
             switch (m_CurrentState)
@@ -327,21 +326,21 @@ namespace ravalvania
                     break;
 
                 case PlayerMachineStates.ATTACK1:
-                    if (m_ComboAvailable && m_ManaCost.ManaCost >= m_Mana.CurrentMana)
+                    if (m_Combo.ComboAvailable && m_ManaCost.ManaCost >= m_Mana.CurrentMana)
                         ChangeState(PlayerMachineStates.COMBO1);
                     else
                         ChangeState(PlayerMachineStates.ATTACK1);
                     break;
 
                 case PlayerMachineStates.ATTACK2:
-                    if (m_ComboAvailable)
+                    if (m_Combo.ComboAvailable)
                         ChangeState(PlayerMachineStates.ATTACK1);
                     else
                         ChangeState(PlayerMachineStates.ATTACK2);
                     break;
 
                 case PlayerMachineStates.CROUCH:
-                    if (m_ComboAvailable)
+                    if (m_Combo.ComboAvailable)
                         ChangeState(PlayerMachineStates.CROUCHATTACK2);
                     else
                         ChangeState(PlayerMachineStates.CROUCHATTACK1);
@@ -350,7 +349,89 @@ namespace ravalvania
                 default:
                     break;
             }
-
         }
+
+        private void Attack2(InputAction.CallbackContext context)
+        {
+            switch (m_CurrentState)
+            {
+                case PlayerMachineStates.IDLE:
+                    ChangeState(PlayerMachineStates.ATTACK2);
+                    break;
+
+                case PlayerMachineStates.WALK:
+                    ChangeState(PlayerMachineStates.ATTACK2);
+                    break;
+
+                case PlayerMachineStates.ATTACK1:
+                    if (m_Combo.ComboAvailable)
+                        ChangeState(PlayerMachineStates.ATTACK2);
+                    else
+                        ChangeState(PlayerMachineStates.ATTACK1);
+                    break;
+
+                case PlayerMachineStates.ATTACK2:
+                    if (m_Combo.ComboAvailable)
+                        ChangeState(PlayerMachineStates.COMBO2);
+                    else
+                        ChangeState(PlayerMachineStates.ATTACK2);
+                    break;
+
+                case PlayerMachineStates.CROUCH:
+                    if (m_Combo.ComboAvailable)
+                        ChangeState(PlayerMachineStates.CROUCHATTACK1);
+                    else
+                        ChangeState(PlayerMachineStates.CROUCHATTACK2);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void Jump(InputAction.CallbackContext context)
+        {
+            switch (m_CurrentState)
+            {
+                case PlayerMachineStates.IDLE:
+                    if (m_Rigidbody.velocity.y == 0)
+                        ChangeState(PlayerMachineStates.JUMP);
+                    break;
+
+                case PlayerMachineStates.WALK:
+                    if (m_Rigidbody.velocity.y == 0)
+                        ChangeState(PlayerMachineStates.JUMP);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void Crouch(InputAction.CallbackContext context)
+        {
+            switch (m_CurrentState)
+            {
+                case PlayerMachineStates.IDLE:
+                    ChangeState(PlayerMachineStates.CROUCH);
+                    break;
+
+                case PlayerMachineStates.WALK:
+                    ChangeState(PlayerMachineStates.CROUCH);
+                    break;
+
+                case PlayerMachineStates.ATTACK1:
+                    ChangeState(PlayerMachineStates.CROUCH);
+                    break;
+
+                case PlayerMachineStates.ATTACK2:
+                    ChangeState(PlayerMachineStates.CROUCH);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        /* !!!!!!! FINISHING ACTIONS !!!!!!! */
     }
 }
