@@ -11,6 +11,7 @@ public class HealthBehaviour : MonoBehaviour
     private float m_CurrentHealth;
     //Getter of the Entity current health
     public float CurrentHealth => m_CurrentHealth;
+    public float MaxHealth => m_MaxHealth;
     [SerializeField]
     private bool m_IsAlive;
     //Getter of the alive state of the Entity

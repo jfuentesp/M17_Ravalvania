@@ -19,6 +19,7 @@ public class MovableBehaviour : MonoBehaviour
     private float m_ForceToAdd;
     [SerializeField]
     private bool m_IsFlipped;
+    public bool IsFlipped => m_IsFlipped;
 
     private void Awake()
     {
@@ -34,8 +35,8 @@ public class MovableBehaviour : MonoBehaviour
     //Function that moves by Forces (interacts with effectors)
     public void OnMoveByForce(Vector2 direction)
     {
-        float currentVelocity = Mathf.Clamp(m_Rigidbody.velocity.x, 0, m_VelocityClamp);
-        if(currentVelocity < m_VelocityClamp) 
+        float currentVelocity = Mathf.Clamp(m_Rigidbody.velocity.x, -m_VelocityClamp, m_VelocityClamp);
+        if(currentVelocity < m_VelocityClamp && currentVelocity > -m_VelocityClamp) 
             m_Rigidbody.AddForce(direction * m_ForceToAdd);
     }
     //Stops the entity movement (sets it to Vector3.zero)

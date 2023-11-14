@@ -12,8 +12,7 @@ using UnityEngine;
  * 4. Ranger: Fires projectiles. You can hit the projectiles with the melee attack to block or crouch. sprite: enemy4
  */
 
-namespace streetsofraval
-{
+
     public class EnemyThiefBehaviour : MonoBehaviour
     {
         //Reference to this gameobject Rigidbody
@@ -110,7 +109,7 @@ namespace streetsofraval
         } 
 
         //Simple function that manages the damage the enemy receives
-        public void EnemyIsDamaged(int damage)
+        public void EnemyIsDamaged(float damage)
         {
             m_EnemyHitpoints -= damage;
             ChangeState(EnemyMachineStates.HIT);
@@ -142,12 +141,12 @@ namespace streetsofraval
         {
             if (collision.CompareTag("PlayerHitbox"))
             {
-                EnemyIsDamaged(collision.GetComponent<HitboxInfo>().HitboxDamage);
+                EnemyIsDamaged(collision.GetComponent<DamageableBehaviour>().AttackDamage);
             }
             if (collision.CompareTag("PlayerProjectile"))
             {
                 //Projectiles only do damage once, so we disable it after getting the damage
-                EnemyIsDamaged(collision.GetComponent<PlayerBulletBehaviour>().BulletDamage);
+                EnemyIsDamaged(collision.GetComponent<DamageableBehaviour>().AttackDamage);
                 collision.gameObject.SetActive(false);
             }
         }
@@ -314,4 +313,4 @@ namespace streetsofraval
             }
         }
     }
-}
+

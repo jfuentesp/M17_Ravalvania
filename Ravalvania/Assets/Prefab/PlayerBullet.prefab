@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 7810064125871647264}
   - component: {fileID: 8236509732765355091}
   - component: {fileID: 6195859898415341410}
+  - component: {fileID: -3776281249106941195}
+  - component: {fileID: 3632166229802902567}
+  - component: {fileID: 8138562777568490070}
   m_Layer: 11
   m_Name: PlayerBullet
   m_TagString: PlayerProjectile
@@ -199,3 +202,45 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-3776281249106941195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670673920421057896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91a5394848de33428a3306de34b0a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxHealth: 0
+  m_IsAlive: 0
+--- !u!114 &3632166229802902567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670673920421057896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883033426c128c043a9d5579456af11d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BaseAttackDamage: 0
+--- !u!114 &8138562777568490070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670673920421057896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32ac796c7380de45b2e8b750fd2fc1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BulletSpeed: 3
+  m_BulletLifeTime: 4
+  m_IsDestroyedOnTime: 1

@@ -8,6 +8,7 @@ public class JumpBehaviour : MonoBehaviour
     private Rigidbody2D m_Rigidbody;
 
     [Header("Force added to the jump")]
+    [SerializeField]
     private float m_Force;
 
     void Awake()

@@ -9,10 +9,11 @@ public class ShootableBehaviour : MonoBehaviour
     GameObject m_BulletPrefab;
 
     // Function that shoots a bullet
-    public void Shoot(Vector2 spawnPosition)
+    public void Shoot(Vector2 spawnPosition, bool flipped)
     {
+        Vector2 direction = flipped ? -Vector2.right : Vector2.right;
         GameObject prefab = Instantiate(m_BulletPrefab);
         prefab.transform.position = spawnPosition;
-        prefab.GetComponent<BulletBehaviour>().InitBullet(transform.position);
+        prefab.GetComponent<BulletBehaviour>().InitBullet(direction);
     }
 }

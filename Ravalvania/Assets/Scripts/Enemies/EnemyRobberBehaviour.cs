@@ -9,8 +9,7 @@ using UnityEngine;
  * 4. Ranger: Fires projectiles. You can hit the projectiles with the melee attack to block or crouch. sprite: enemy4
  */
 
-namespace streetsofraval
-{
+
     public class EnemyRobberBehaviour : MonoBehaviour
     {
         //Reference to this gameobject Rigidbody
@@ -277,4 +276,4 @@ namespace streetsofraval
             }
         }
     }
-}
+

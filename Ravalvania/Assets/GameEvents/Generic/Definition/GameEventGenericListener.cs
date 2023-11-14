@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace streetsofraval { 
 /// <summary>
 /// The only thing we must do is create more abstract classes if we need more parameters 
 /// to send. It's important that for each listener, there should be a generic game event
@@ -81,4 +80,4 @@ public abstract class GameEventListener<T0, T1> : MonoBehaviour
         Response.Invoke(parameter0, parameter1);
     }
 }
-}
+

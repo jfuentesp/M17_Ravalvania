@@ -5,13 +5,11 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 
-namespace streetsofraval
-{
-    public class PlayerBehaviour : MonoBehaviour
+    public class PlayerBehaviourOld : MonoBehaviour
     {
         //Instance of the Player. Refers to this own gameobject. It needs to be an instance if the prefabs should refer to this object. (As enemies, for example)
-        private static PlayerBehaviour m_Instance;
-        public static PlayerBehaviour PlayerInstance => m_Instance; //A getter for the instance of the player. Similar to get { return m_Instance }. (Accessor)
+        private static PlayerBehaviourOld m_Instance;
+        public static PlayerBehaviourOld PlayerInstance => m_Instance; //A getter for the instance of the player. Similar to get { return m_Instance }. (Accessor)
 
         //Reference to the InputSystem
         [Header("Reference to the Input System")]
@@ -611,5 +609,5 @@ namespace streetsofraval
         /* !!! FINISHING THE BUILD OF THE STATE MACHINE !!! */
 
     }
-}
+
 

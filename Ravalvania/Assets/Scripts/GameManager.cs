@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
-namespace streetsofraval
-{
+
     public class GameManager : MonoBehaviour
     {
         //Instance of the GameManager. Refers to this own gameobject.
@@ -149,4 +148,4 @@ namespace streetsofraval
             m_Player.gameObject.SetActive(true);
         }
     }
-}
+

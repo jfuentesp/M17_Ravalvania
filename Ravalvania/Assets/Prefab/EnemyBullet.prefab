@@ -15,6 +15,9 @@ GameObject:
   - component: {fileID: 3929291621976514221}
   - component: {fileID: 2127030292344066833}
   - component: {fileID: 6107077165787448778}
+  - component: {fileID: 1643917982409367911}
+  - component: {fileID: 110170730153189509}
+  - component: {fileID: -8559502990253078810}
   m_Layer: 12
   m_Name: EnemyBullet
   m_TagString: EnemyProjectile
@@ -199,3 +202,45 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1643917982409367911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9135328012695836461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91a5394848de33428a3306de34b0a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxHealth: 0
+  m_IsAlive: 0
+--- !u!114 &110170730153189509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9135328012695836461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883033426c128c043a9d5579456af11d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BaseAttackDamage: 0
+--- !u!114 &-8559502990253078810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9135328012695836461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32ac796c7380de45b2e8b750fd2fc1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BulletSpeed: 3
+  m_BulletLifeTime: 4
+  m_IsDestroyedOnTime: 1

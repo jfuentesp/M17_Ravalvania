@@ -10,6 +10,7 @@ public class ManaBehaviour : MonoBehaviour
     private float m_CurrentMana;
     //Getter of the Entity's current mana
     public float CurrentMana => m_CurrentMana;
+    public float MaxMana => m_MaxMana;
 
     void Start()
     {

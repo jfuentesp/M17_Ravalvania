@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace streetsofraval
-{
+
     public class EnemyGangBehaviour : MonoBehaviour
     {
         //Reference to this gameobject Rigidbody
@@ -323,5 +322,5 @@ namespace streetsofraval
             }
         }
     }
-}
+
 

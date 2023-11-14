@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace streetsofraval { 
+
 /// <summary>
 /// The only thing we must do is create more abstract classes if we need more parameters 
 /// to send. It's important that for each game event, there should be a generic listener
@@ -96,4 +96,4 @@ public abstract class GameEvent<T0, T1> : ScriptableObject
             m_eventListeners.Remove(listener);
     }
 }
-}
+

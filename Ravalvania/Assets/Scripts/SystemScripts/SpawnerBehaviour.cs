@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace streetsofraval 
-{ 
+
     public class SpawnerBehaviour : MonoBehaviour
     {
         //Instance of the Spawner. Refers to this own gameobject.
@@ -210,4 +209,4 @@ namespace streetsofraval
        
         }
     }
-}
+

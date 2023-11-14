@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace streetsofraval { 
+
 //And now we create a new GameEvent that extends from the generic abstract class
 //filename = Default file name
 //menuName = Name that shows upon right click -> scriptable objects -> ... to create a new
@@ -10,4 +10,4 @@ namespace streetsofraval {
 public class GameEventInt : GameEvent<int>
 {
 }
-}
+

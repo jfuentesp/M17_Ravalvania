@@ -5,8 +5,7 @@ using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.EnhancedTouch;
 
-namespace ravalvania
-{
+
     [RequireComponent(typeof(Rigidbody2D))]
     [RequireComponent(typeof(Animator))]
     [RequireComponent(typeof(MovableBehaviour))]
@@ -119,7 +118,6 @@ namespace ravalvania
             m_Input.FindActionMap("PlayerActions").FindAction("Crouch").started += Crouch;
             m_Input.FindActionMap("PlayerActions").FindAction("Crouch").canceled += ReturnToIdleState;
             m_Input.FindActionMap("PlayerActions").Enable();
-            InitState(PlayerMachineStates.IDLE);
         }
 
         private void OnDisable()
@@ -220,7 +218,8 @@ namespace ravalvania
                     m_Moving.OnStopMovement();
                     m_Animator.Play(m_Combo1AnimationName);
                     //Then we call for the shooting action and we pass the spawnpoint. We do substract the mana.
-                    m_Shooting.Shoot(transform.position);
+                    m_Shooting.Shoot(transform.position, m_Moving.IsFlipped);
+                    Debug.Log("disparo");
                     m_Mana.OnChangeMana(m_ManaCost.ManaCost);
                     m_OnEnergyUsed.Raise();
                     break;
@@ -236,13 +235,13 @@ namespace ravalvania
                     //Will play the animation and then set the state to Idle
                     m_Moving.OnStopMovement();
                     m_Animator.Play(m_HitAnimationName);
+                    StartCoroutine(OnPlayerHitCoroutine());
                     break;
 
                 case PlayerMachineStates.CROUCH:
                     //Crouch sets the movement to zero and it doesn't move.
                     m_Moving.OnStopMovement();
                     m_Animator.Play(m_CrouchAnimationName);
-                    StartCoroutine(OnPlayerHitCoroutine());
                     break;
 
                 case PlayerMachineStates.CROUCHATTACK1:
@@ -326,7 +325,7 @@ namespace ravalvania
                     break;
 
                 case PlayerMachineStates.ATTACK1:
-                    if (m_Combo.ComboAvailable && m_ManaCost.ManaCost >= m_Mana.CurrentMana)
+                    if (m_Combo.ComboAvailable && m_ManaCost.ManaCost <= m_Mana.CurrentMana)
                         ChangeState(PlayerMachineStates.COMBO1);
                     else
                         ChangeState(PlayerMachineStates.ATTACK1);
@@ -434,4 +433,4 @@ namespace ravalvania
         }
         /* !!!!!!! FINISHING ACTIONS !!!!!!! */
     }
-}
+
