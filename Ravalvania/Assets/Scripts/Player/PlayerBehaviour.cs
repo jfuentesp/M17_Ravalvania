@@ -103,6 +103,8 @@ namespace streetsofraval
         [SerializeField]
         private GameEvent m_OnEnableShop;
         [SerializeField]
+        private GameEvent m_OnDisableShop;
+        [SerializeField]
         private Shopping Shopping;
 
         //LayerMask of the Pickups for casting it through Physics2D.CircleCast instead of OnTriggerStay
@@ -148,6 +150,8 @@ namespace streetsofraval
             m_Input.FindActionMap("PlayerActions").FindAction("Jump").performed += Jump;
             m_Input.FindActionMap("PlayerActions").FindAction("Crouch").started += Crouch;
             m_Input.FindActionMap("PlayerActions").FindAction("Crouch").canceled += ReturnToIdleState;
+            m_Input.FindActionMap("PlayerActions").FindAction("Inventory").performed += InventoryEnabled;
+            m_Input.FindActionMap("PlayerActions").FindAction("Inventory").canceled += InventoryDisable;
             m_Input.FindActionMap("PlayerActions").Enable();
             Shopping.OnEntrar += EntrarShop;
             Shopping.OnSortir += SortirShop;
@@ -156,12 +160,13 @@ namespace streetsofraval
 
         private void SortirShop()
         {
-            m_BoolShopAvailable = true;
+            m_BoolShopAvailable = false;
+            m_OnDisableShop.Raise();
         }
 
         private void EntrarShop()
         {
-            m_BoolShopAvailable = false;
+            m_BoolShopAvailable = true;
         }
 
         private void OnDisable()
@@ -175,7 +180,21 @@ namespace streetsofraval
             m_Input.FindActionMap("PlayerActions").FindAction("Jump").performed -= Jump;
             m_Input.FindActionMap("PlayerActions").FindAction("Crouch").started -= Crouch;
             m_Input.FindActionMap("PlayerActions").FindAction("Crouch").canceled -= ReturnToIdleState;
+            m_Input.FindActionMap("PlayerActions").FindAction("Inventory").performed -= InventoryEnabled;
+            m_Input.FindActionMap("PlayerActions").FindAction("Inventory").canceled -= InventoryDisable;
             m_Input.FindActionMap("PlayerActions").Disable();
+            Shopping.OnEntrar -= EntrarShop;
+            Shopping.OnSortir -= SortirShop;
+        }
+
+        private void InventoryDisable(InputAction.CallbackContext context)
+        {
+            Debug.Log("Inventario OFF");
+        }
+
+        private void InventoryEnabled(InputAction.CallbackContext context)
+        {
+            Debug.Log("Inventario ON");
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -620,6 +639,10 @@ namespace streetsofraval
                         pickup.GetComponent<PickupBehaviour>().GetPickup();
                         Destroy(pickup.gameObject);
                     }
+
+                    if(m_BoolShopAvailable)
+                        m_OnEnableShop.Raise();
+
                     break;
 
                 default:

@@ -33,8 +33,8 @@ namespace streetsofraval
             //If I set the Instances on the Start() function, it throws an error. I must instance them in the UpdateGUI function, then works.
             m_GameManager = GameManager.GameManagerInstance;
             m_Player = PlayerBehaviour.PlayerInstance;
-            m_Spawner = SpawnerBehaviour.SpawnerInstance;
-            m_EnemiesText.text = m_Spawner.Enemies + "/" + m_Spawner.TotalEnemies;
+            //m_Spawner = SpawnerBehaviour.SpawnerInstance;
+            //m_EnemiesText.text = m_Spawner.Enemies + "/" + m_Spawner.TotalEnemies;
             m_WaveText.text = "Wave: " + m_GameManager.Wave;
             m_ScoreText.text = "Score: " + m_GameManager.Score;
             m_Lives.text = "Player lives: " + m_GameManager.Lives;

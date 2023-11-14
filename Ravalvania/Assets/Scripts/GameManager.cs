@@ -149,13 +149,18 @@ namespace streetsofraval
             m_Player.gameObject.SetActive(true);
         }
 
-        public void UseCoins(int coin)
+        public void ComprarVides(int coin)
         {
-            if(coin > m_Score)
+            
+            if (coin > m_Score)
             {
+                Debug.Log("No tens suficients punts");
                 return;
             }
             m_Score -= coin;
+            AddLives(1);
+            m_OnGUIUpdate.Raise();
+            
         }
     }
 }
