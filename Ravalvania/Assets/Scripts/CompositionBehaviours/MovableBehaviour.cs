@@ -10,7 +10,9 @@ public class MovableBehaviour : MonoBehaviour
 
     [Header("Speed of the Entity")]
     [SerializeField]
+    private float m_InitialSpeed;
     private float m_Speed;
+    public float Speed => m_Speed;
 
     [Header("Velocity clamp to move by Forces and ForceToAdd")]
     [SerializeField]
@@ -24,6 +26,7 @@ public class MovableBehaviour : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
+        m_Speed = m_InitialSpeed;
     }
 
     //Function that moves by Velocity (no force interactions with effectors)
@@ -38,6 +41,7 @@ public class MovableBehaviour : MonoBehaviour
         float currentVelocity = Mathf.Clamp(m_Rigidbody.velocity.x, -m_VelocityClamp, m_VelocityClamp);
         if(currentVelocity < m_VelocityClamp && currentVelocity > -m_VelocityClamp) 
             m_Rigidbody.AddForce(direction * m_ForceToAdd);
+        OnFlipCharacter(direction);
     }
     //Stops the entity movement (sets it to Vector3.zero)
     public void OnStopMovement()
@@ -51,5 +55,11 @@ public class MovableBehaviour : MonoBehaviour
             return;
         m_IsFlipped = direction.x < 0 ? true : false;
         m_Rigidbody.transform.eulerAngles = m_IsFlipped ? Vector3.up * 180 : Vector3.zero;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        m_Speed = speed;
+        m_VelocityClamp = speed;
     }
 }

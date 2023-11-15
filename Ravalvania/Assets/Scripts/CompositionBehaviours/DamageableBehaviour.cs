@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(HealthBehaviour))]
 public class DamageableBehaviour : MonoBehaviour
 {
     HealthBehaviour m_Health;
@@ -14,7 +13,7 @@ public class DamageableBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        m_Health = GetComponent<HealthBehaviour>();
+        m_Health = GetComponentInParent<HealthBehaviour>();
     }
 
     private void Start()
@@ -23,9 +22,9 @@ public class DamageableBehaviour : MonoBehaviour
     }
 
     //Function that substracts damage to the Health component
-    public void OnDealingDamage()
+    public void OnDealingDamage(float damage)
     {
-        m_Health.ChangeHealth(m_AttackDamage);
+        m_Health.ChangeHealth(-damage);
     }
     //Function that updates base damage (either if a buff or a debuff is applied or on a level up) 
     public void OnUpdateBaseDamage(float damageAmount)

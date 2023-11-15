@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,25 +6,32 @@ using UnityEngine;
 
 public class AttackableBehaviour : MonoBehaviour
 {
-    //An attackable object will have an attack damage and a Hitbox
-    private HitboxInfo m_Hitbox;
-    
-    [Header("Attack damage")]
-    [SerializeField]
-    private float m_Damage;
+    private bool m_TargetDetected;
+    public bool TargetDetected => m_TargetDetected;
 
     private void Awake()
     {
-        m_Hitbox = GetComponent<HitboxInfo>();
+        m_TargetDetected = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if(collision.CompareTag("Player"))
+        {
+            m_TargetDetected = true;
+        }
     }
 
-    private void Attack() { 
-    
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            m_TargetDetected = false;
+        }
+    }
+
+    public void SetTargetDetected(bool isDetected)
+    {
+        m_TargetDetected = isDetected;
     }
 }

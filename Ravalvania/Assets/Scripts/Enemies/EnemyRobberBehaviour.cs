@@ -2,278 +2,201 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/* !!!! LIST OF ENEMIES:
- * 1. Thief: Turns invisible and static once you look at him. He follows you when you do not look at him and tries to stab you. sprite: enemy2
- * 2. Gang: Walks towards you an tries to stab you. If he is hit, he tries to runaway and throw you projectiles. sprite: enemy1
- * 3. Robber: Tank. Takes time to hit you, but he can resist more attacks. sprite: enemy3
- * 4. Ranger: Fires projectiles. You can hit the projectiles with the melee attack to block or crouch. sprite: enemy4
- */
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(MovableBehaviour))]
+[RequireComponent(typeof(HealthBehaviour))]
+[RequireComponent(typeof(PatrolBehaviour))]
+[RequireComponent(typeof(DropableBehaviour))]
+public class EnemyRobberBehaviour : MonoBehaviour
+{
+    //Components
+    private Rigidbody2D m_Rigidbody;
+    private MovableBehaviour m_Moving;
+    private HealthBehaviour m_Health;
+    private DamageableBehaviour m_Damaging;
+    private PatrolBehaviour m_Patrol;
+    private ChaseBehaviour m_Chase;
+    private AttackableBehaviour m_Attacking;
+    private DropableBehaviour m_Dropping;
 
+    //Animator
+    private Animator m_Animator;
 
-    public class EnemyRobberBehaviour : MonoBehaviour
+    //Player reference
+    private GameObject m_TargetPlayer;
+
+    //Animation names
+    private const string m_IdleAnimationName = "idle";
+    private const string m_WalkAnimationName = "walk";
+    private const string m_Attack1AnimationName = "attack1";
+    private const string m_HitAnimationName = "hit";
+    private const string m_DieAnimationName = "die";
+
+    //Reference to this sprite renderer
+    private SpriteRenderer m_SpriteRenderer;
+    private bool m_IsInvulnerable;
+    public bool IsInvulnerable => m_IsInvulnerable;
+
+    //States from Enemy statemachine
+    private enum EnemyMachineStates { IDLE, PATROL, CHASE, ATTACK, FLEE, HIT }
+    private EnemyMachineStates m_CurrentState;
+
+    private void Awake()
     {
-        //Reference to this gameobject Rigidbody
-        private Rigidbody2D m_RigidBody;
-        //Reference to this gameobject Animator
-        private Animator m_Animator;
-        //Reference to this sprite renderer
-        private SpriteRenderer m_SpriteRenderer;
+        m_Animator = GetComponent<Animator>();
+        m_Rigidbody = GetComponent<Rigidbody2D>();
+        m_Moving = GetComponent<MovableBehaviour>();
+        m_Health = GetComponent<HealthBehaviour>();
+        m_Damaging = GetComponentInChildren<DamageableBehaviour>();
+        m_Patrol = GetComponent<PatrolBehaviour>();
+        m_Chase = GetComponentInChildren<ChaseBehaviour>();
+        m_Attacking = GetComponent<AttackableBehaviour>();
+        m_Dropping = GetComponent<DropableBehaviour>();
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        m_IsInvulnerable = false;
+    }
 
-        //States from Enemy statemachine
-        private enum EnemyMachineStates { IDLE, PATROL, CHASE, ATTACK, FLEE, HIT }
-        private EnemyMachineStates m_CurrentState;
+    // Start is called before the first frame update
+    void Start()
+    {
+        InitState(EnemyMachineStates.IDLE);
+    }
 
-        [Header("Enemy parameters")]
-        private float m_EnemyMaxHitpoints;
-        private float m_EnemyHitpoints;
-        private float m_EnemyDamage;
-        [SerializeField]
-        private float m_InitialSpeed;
-        private float m_EnemySpeed;
-        private int m_EnemyScore;
-        private int m_EnemySpawnPoint;
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateState();
+    }
 
-        //Animation names
-        private const string m_IdleAnimationName = "idle";
-        private const string m_WalkAnimationName = "walk";
-        private const string m_Attack1AnimationName = "attack1";
-        //private const string m_Attack2AnimationName = "attack2";
-        private const string m_HitAnimationName = "hit";
-        private const string m_DieAnimationName = "die";
-
-        private bool m_IsFlipped;
-
-        //Waypoint to patrol
-        private Vector2 m_SpawnPosition;
-        private float m_Direction;
-
-        //Player reference
-        PlayerBehaviour m_Player;
-
-        //Child references
-        HitboxInfo m_Hitbox;
-        AreaBehaviour m_ChaseArea;
-        AreaBehaviour m_AttackArea;
-
-        [SerializeField]
-        GameEventInt m_OnEnemyDeath;
-
-        //Pickup prefab
-        [SerializeField]
-        private GameObject m_Pickup;
-
-        private void Awake()
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("PlayerHitbox") && !m_IsInvulnerable)
         {
-            m_RigidBody = GetComponent<Rigidbody2D>();
-            m_Animator = GetComponent<Animator>();
-            m_SpriteRenderer = GetComponent<SpriteRenderer>();
-            m_Hitbox = this.transform.GetChild(0).GetComponent<HitboxInfo>();
-            m_AttackArea = this.transform.GetChild(1).GetComponent<AreaBehaviour>();
-            m_ChaseArea = this.transform.GetChild(2).GetComponent<AreaBehaviour>();
-            m_SpawnPosition = transform.position;
-            m_Direction = 1;
-            m_EnemySpeed = m_InitialSpeed;
-            //Ternary. Equals to: if (spawnpoint is 0, then false. Else true) and saves the result inside the variable
-            m_IsFlipped = m_EnemySpawnPoint == 0 ? false : true;
-            m_SpawnPosition = transform.position;
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-            m_Player = PlayerBehaviour.PlayerInstance;
-            InitState(EnemyMachineStates.IDLE);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            UpdateState();
-        }
-
-        public void InitEnemy(EnemyScriptableObject enemyInfo, int spawnpoint)
-        {
-            m_EnemyMaxHitpoints = enemyInfo.EnemyMaxHP;
-            m_EnemyHitpoints = m_EnemyMaxHitpoints;
-            m_EnemyDamage = enemyInfo.EnemyDamage;
-            m_EnemySpeed = enemyInfo.EnemySpeed;
-            m_SpriteRenderer.color = enemyInfo.SpriteColor;
-            m_EnemyScore = enemyInfo.ScoreValue;
-            m_Direction = spawnpoint == 0 ? 1 : -1;
-        }
-
-        //Simple function that manages the damage the enemy receives
-        public void EnemyIsDamaged(int damage)
-        {
-            m_EnemyHitpoints -= damage;
+            m_Damaging.OnDealingDamage(collision.gameObject.GetComponentInChildren<DamageableBehaviour>().AttackDamage);
             ChangeState(EnemyMachineStates.HIT);
-            if (m_EnemyHitpoints <= 0)
-            {
-                gameObject.SetActive(false);
-                SpawnPickup();
-                m_OnEnemyDeath.Raise(m_EnemyScore);              
-            }
         }
 
-        private void SpawnPickup()
+        if (collision.CompareTag("PlayerProjectile") && !m_IsInvulnerable)
         {
-            //25% chances of dropping a pickup
-            int probability = Random.Range(0, 5);
-            if (probability == 0)
-            {
-                GameObject m_CurrentPickup = Instantiate(m_Pickup);
-                m_CurrentPickup.transform.position = transform.position;
-            }
-        }
-
-        public void EndOfHit()
-        {
-            ChangeState(EnemyMachineStates.IDLE);
-        }
-
-        private void OnEnable()
-        {
-            //m_OnEnemySpawned.Raise();
-            InitState(EnemyMachineStates.IDLE);
-        }
-
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.CompareTag("PlayerHitbox"))
-            {
-                EnemyIsDamaged(collision.GetComponent<HitboxInfo>().HitboxDamage);
-            }
-            if (collision.CompareTag("PlayerProjectile"))
-            {
-                //Projectiles only do damage once, so we disable it after getting the damage
-                EnemyIsDamaged(collision.GetComponent<PlayerBulletBehaviour>().BulletDamage);
-                collision.gameObject.SetActive(false);
-            }
-        }
-
-        /* !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState */
-        private void ChangeState(EnemyMachineStates newState)
-        {
-            //if the actual state is the same as the state we are trying to set, it exits the function
-            if (newState == m_CurrentState)
-                return;
-            //First, it will do the actions to exit the current state, then will initiate the new state.
-            ExitState();
-            InitState(newState);
-        }
-
-        /* InitState will run every instruction that has to be started ONLY when enters a state */
-        private void InitState(EnemyMachineStates currentState)
-        {
-            //We declare that the current state of the object is the new state we declare on the function
-            m_CurrentState = currentState;
-
-            //Then it will compare the current state to run the state actions
-            switch (m_CurrentState)
-            {
-                case EnemyMachineStates.IDLE:
-
-                    m_RigidBody.velocity = Vector3.zero;
-                    m_Animator.Play(m_IdleAnimationName);
-
-                    break;
-
-                case EnemyMachineStates.CHASE:
-
-                    m_Animator.Play(m_WalkAnimationName);
-                    m_EnemySpeed = m_InitialSpeed / 2;
-
-                    break;
-
-                case EnemyMachineStates.HIT:
-
-                    m_RigidBody.velocity = Vector3.zero;
-                    m_Animator.Play(m_HitAnimationName);
-                    break;
-
-                case EnemyMachineStates.FLEE:
-
-                    m_Animator.Play(m_WalkAnimationName);
-                    m_EnemySpeed = m_InitialSpeed / 2;
-
-                    break;
-
-                case EnemyMachineStates.ATTACK:
-                    //Attack will set the velocity to zero, so it cant move while attacking
-                    m_RigidBody.velocity = Vector3.zero;
-                    m_Hitbox.SetDamage((int)m_EnemyDamage);
-                    m_Animator.Play(m_Attack1AnimationName);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        /* ExitState will run every instruction that has to be started ONLY when exits a state */
-        private void ExitState()
-        {
-            switch (m_CurrentState)
-            {
-                case EnemyMachineStates.IDLE:
-
-                    break;
-
-                case EnemyMachineStates.PATROL:
-
-                    break;
-
-                case EnemyMachineStates.CHASE:
-
-                    break;
-
-                case EnemyMachineStates.FLEE:
-
-                    break;
-
-                case EnemyMachineStates.ATTACK:
-
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        /* UpdateState will control every frame since it will be called from Update() and will control when it changes the state */
-        private void UpdateState()
-        {
-            m_RigidBody.transform.eulerAngles = m_IsFlipped ? Vector3.up * 180 : Vector3.zero;
-
-            switch (m_CurrentState)
-            {
-                case EnemyMachineStates.IDLE:
-
-                    if (m_ChaseArea.PlayerDetected)
-                        ChangeState(EnemyMachineStates.CHASE);
-
-                    break;
-
-                case EnemyMachineStates.CHASE:
-                  
-                    Vector2 direction = new Vector2(m_Player.transform.position.x - transform.position.x, m_Player.transform.position.y - transform.position.y).normalized;
-                    m_RigidBody.velocity =  new Vector2(direction.x * m_EnemySpeed, m_RigidBody.velocity.y);
-                    m_IsFlipped = m_RigidBody.velocity.x < 0 ? true : false;
-
-                    if (m_AttackArea.PlayerDetected)
-                        ChangeState(EnemyMachineStates.ATTACK);
-                    if (!m_ChaseArea.PlayerDetected)
-                        ChangeState(EnemyMachineStates.IDLE);
-
-                    break;
-
-                case EnemyMachineStates.ATTACK:
-
-                    break;
-
-                default:
-                    break;
-            }
+            m_Damaging.OnDealingDamage(collision.gameObject.GetComponent<DamageableBehaviour>().AttackDamage);
+            ChangeState(EnemyMachineStates.HIT);
+            Destroy(collision.gameObject);
         }
     }
 
+    public void EndOfHit()
+    {
+        ChangeState(EnemyMachineStates.CHASE);
+    }
+
+    public void InitEnemy(EnemyScriptableObject enemyInfo, int spawnpoint)
+    {
+        m_Health.SetMaxHealth(enemyInfo.EnemyMaxHP);
+        m_Damaging.OnSetDamage(enemyInfo.EnemyDamage);
+        m_Moving.SetSpeed(enemyInfo.EnemySpeed);
+        m_SpriteRenderer.color = enemyInfo.SpriteColor;
+        m_Dropping.SetCoins(enemyInfo.ScoreValue);
+    }
+
+    /* !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState */
+    private void ChangeState(EnemyMachineStates newState)
+    {
+        //if the actual state is the same as the state we are trying to set, it exits the function
+        if (newState == m_CurrentState)
+            return;
+        //First, it will do the actions to exit the current state, then will initiate the new state.
+        ExitState();
+        InitState(newState);
+    }
+
+    /* InitState will run every instruction that has to be started ONLY when enters a state */
+    private void InitState(EnemyMachineStates currentState)
+    {
+        //We declare that the current state of the object is the new state we declare on the function
+        m_CurrentState = currentState;
+
+        //Then it will compare the current state to run the state actions
+        switch (m_CurrentState)
+        {
+            case EnemyMachineStates.IDLE:
+                m_Moving.OnStopMovement();
+                m_Animator.Play(m_IdleAnimationName);
+                break;
+
+            case EnemyMachineStates.PATROL:
+                m_Patrol.OnPatrolByTime();
+                m_Animator.Play(m_WalkAnimationName);
+                break;
+
+            case EnemyMachineStates.CHASE:
+                m_Animator.Play(m_WalkAnimationName);
+                break;
+
+            case EnemyMachineStates.HIT:
+                m_Moving.OnStopMovement();
+                m_Animator.Play(m_HitAnimationName);
+                break;
+
+            case EnemyMachineStates.FLEE:
+                m_Animator.Play(m_WalkAnimationName);
+                m_Moving.SetSpeed(m_Moving.Speed / 2);
+                break;
+
+            case EnemyMachineStates.ATTACK:
+                //Attack will set the velocity to zero, so it cant move while attacking
+                m_Moving.OnStopMovement();
+                m_Animator.Play(m_Attack1AnimationName);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /* ExitState will run every instruction that has to be started ONLY when exits a state */
+    private void ExitState()
+    {
+        switch (m_CurrentState)
+        {
+            case EnemyMachineStates.PATROL:
+                m_Patrol.OnPatrolStop();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    /* UpdateState will control every frame since it will be called from Update() and will control when it changes the state */
+    private void UpdateState()
+    {
+        Vector2 direction = m_Moving.IsFlipped ? -Vector2.right : Vector2.right;
+        m_Moving.OnFlipCharacter(direction);
+
+        switch (m_CurrentState)
+        {
+            case EnemyMachineStates.IDLE:
+                if (m_Chase.TargetDetected)
+                    ChangeState(EnemyMachineStates.CHASE);
+                break;
+
+            case EnemyMachineStates.PATROL:
+                m_Moving.OnMoveByForce(m_Patrol.PatrolDirection);
+                if (m_Chase.TargetDetected)
+                    ChangeState(EnemyMachineStates.CHASE);
+                break;
+
+            case EnemyMachineStates.CHASE:
+                m_Chase.OnTargetChase();
+                if (m_Attacking.TargetDetected)
+                    ChangeState(EnemyMachineStates.ATTACK);
+                if (!m_Chase.TargetDetected)
+                    ChangeState(EnemyMachineStates.PATROL);
+                break;
+
+            default:
+                break;
+        }
+    }
+}

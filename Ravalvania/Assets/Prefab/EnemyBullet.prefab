@@ -216,6 +216,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 0
   m_IsAlive: 0
+  m_OnDeathEvent: {fileID: 0}
+  m_IsDestroyedOnDeath: 0
 --- !u!114 &110170730153189509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883033426c128c043a9d5579456af11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BaseAttackDamage: 0
+  m_BaseAttackDamage: 1
 --- !u!114 &-8559502990253078810
 MonoBehaviour:
   m_ObjectHideFlags: 0

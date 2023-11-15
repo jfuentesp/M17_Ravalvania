@@ -16,11 +16,20 @@ public class HealthBehaviour : MonoBehaviour
     private bool m_IsAlive;
     //Getter of the alive state of the Entity
     public bool IsAlive => m_IsAlive;
+    [SerializeField]
+    private GameEvent m_OnDeathEvent;
+    [SerializeField]
+    private bool m_IsDestroyedOnDeath;
 
     void Start()
     {
         m_CurrentHealth = m_MaxHealth;       
         m_IsAlive = true;
+    }
+
+    public void SetMaxHealth(float maxHealth)
+    {
+        m_MaxHealth = maxHealth;
     }
 
     //Public function that Changes health. If health drops to zero, the object is no longer alive, so it can notify other elements.
@@ -29,10 +38,25 @@ public class HealthBehaviour : MonoBehaviour
         m_CurrentHealth += amountToChange;
         if(m_CurrentHealth > m_MaxHealth)
             m_CurrentHealth = m_MaxHealth;
-        if (m_CurrentHealth < 0)
+        if (m_CurrentHealth <= 0)
         {
             m_CurrentHealth = 0;
             m_IsAlive = false;
+            OnDeath();
         }
+    }
+
+    public void OnDeath()
+    {
+        if (m_IsDestroyedOnDeath)
+        {
+            Destroy(gameObject);
+        } 
+        else
+        {
+            gameObject.SetActive(false);
+        }
+        if(m_OnDeathEvent != null)  
+            m_OnDeathEvent.Raise();
     }
 }
