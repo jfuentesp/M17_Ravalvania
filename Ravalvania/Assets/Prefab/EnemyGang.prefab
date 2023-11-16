@@ -363,7 +363,7 @@ GameObject:
   - component: {fileID: 2508743996317794500}
   - component: {fileID: 7758081250743885223}
   - component: {fileID: 399451473741577770}
-  - component: {fileID: 513771199439873353}
+  - component: {fileID: 827020750205830924}
   m_Layer: 7
   m_Name: EnemyGang
   m_TagString: Enemy
@@ -606,7 +606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Coins: 0
   m_Pickups: []
---- !u!114 &513771199439873353
+--- !u!114 &827020750205830924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
