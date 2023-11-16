@@ -12,10 +12,8 @@ GameObject:
   - component: {fileID: 117600470363929903}
   - component: {fileID: 7437288752562181005}
   - component: {fileID: 6858581915834009544}
-  - component: {fileID: 3929291621976514221}
   - component: {fileID: 2127030292344066833}
   - component: {fileID: 6107077165787448778}
-  - component: {fileID: 1643917982409367911}
   - component: {fileID: 110170730153189509}
   - component: {fileID: -8559502990253078810}
   m_Layer: 12
@@ -154,21 +152,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3929291621976514221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9135328012695836461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4d1190826691444d868d23b3dd9c61b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BulletDamage: 1
-  m_BulletSpeed: 3
-  m_BulletLifetime: 4
 --- !u!114 &2127030292344066833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,22 +185,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1643917982409367911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9135328012695836461}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c91a5394848de33428a3306de34b0a25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MaxHealth: 0
-  m_IsAlive: 0
-  m_OnDeathEvent: {fileID: 0}
-  m_IsDestroyedOnDeath: 0
 --- !u!114 &110170730153189509
 MonoBehaviour:
   m_ObjectHideFlags: 0

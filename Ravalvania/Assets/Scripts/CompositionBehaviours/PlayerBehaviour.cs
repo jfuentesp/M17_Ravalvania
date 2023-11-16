@@ -239,7 +239,7 @@ public class PlayerBehaviour : MonoBehaviour
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_Combo1AnimationName);
                 //Then we call for the shooting action and we pass the spawnpoint. We do substract the mana.
-                m_Shooting.Shoot(transform.position, m_Moving.IsFlipped);
+                m_Shooting.Shoot();
                 Debug.Log("disparo");
                 m_Mana.OnChangeMana(m_ManaCost.ManaCost);
                 m_OnEnergyUsed.Raise();

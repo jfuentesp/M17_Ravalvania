@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(HealthBehaviour))]
 [RequireComponent(typeof(PatrolBehaviour))]
 [RequireComponent(typeof(DropableBehaviour))]
+[RequireComponent(typeof(ShootableBehaviour))]
 public class EnemyRangedBehaviour : MonoBehaviour
 {
     //Components
@@ -19,6 +20,7 @@ public class EnemyRangedBehaviour : MonoBehaviour
     private ChaseBehaviour m_Chase;
     private AttackableBehaviour m_Attacking;
     private DropableBehaviour m_Dropping;
+    private ShootableBehaviour m_Shooting;
 
     //Animator
     private Animator m_Animator;
@@ -51,16 +53,17 @@ public class EnemyRangedBehaviour : MonoBehaviour
         m_Damaging = GetComponentInChildren<DamageableBehaviour>();
         m_Patrol = GetComponent<PatrolBehaviour>();
         m_Chase = GetComponentInChildren<ChaseBehaviour>();
-        m_Attacking = GetComponent<AttackableBehaviour>();
+        m_Attacking = GetComponentInChildren<AttackableBehaviour>();
         m_Dropping = GetComponent<DropableBehaviour>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        m_Shooting = GetComponent<ShootableBehaviour>();
         m_IsInvulnerable = false;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        InitState(EnemyMachineStates.IDLE);
+        InitState(EnemyMachineStates.PATROL);
     }
 
     // Update is called once per frame

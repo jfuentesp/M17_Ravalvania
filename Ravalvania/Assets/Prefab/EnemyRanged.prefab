@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7792859417453589849}
+  - component: {fileID: 463921991153150484}
   m_Layer: 10
   m_Name: EnemyHitbox
   m_TagString: EnemyHitbox
@@ -31,6 +32,19 @@ Transform:
   m_Father: {fileID: 694108887917401546}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &463921991153150484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728083253268079836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883033426c128c043a9d5579456af11d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BaseAttackDamage: 1
 --- !u!1 &1613112849731970801
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,6 +289,7 @@ GameObject:
   - component: {fileID: 8265924002485527443}
   - component: {fileID: 7978670946167674492}
   - component: {fileID: 2867124414825592807}
+  - component: {fileID: 3007886067392512872}
   - component: {fileID: 5902197602880738053}
   m_Layer: 7
   m_Name: EnemyRanged
@@ -518,6 +533,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Coins: 0
   m_Pickups: []
+--- !u!114 &3007886067392512872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8355550360489551964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d62e8b3c3604cc940b538c61edce53f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BulletPrefab: {fileID: 9135328012695836461, guid: 971655f3a1ec5e040b46c8b1984a54c0, type: 3}
 --- !u!114 &5902197602880738053
 MonoBehaviour:
   m_ObjectHideFlags: 0
