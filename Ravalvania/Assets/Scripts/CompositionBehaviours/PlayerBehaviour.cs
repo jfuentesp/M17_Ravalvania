@@ -31,6 +31,8 @@ public class PlayerBehaviour : MonoBehaviour
     public InputActionAsset Input => m_Input;
     private InputAction m_MovementAction;
     public InputAction MovementAction => m_MovementAction;
+    private InputActionMap m_CurrentActionMap;
+
 
     //Components
     private Rigidbody2D m_Rigidbody;
@@ -73,6 +75,11 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     LayerMask m_PickupLayerMask;
 
+    [Header("Is this object player1 or player2?")]
+    [SerializeField]
+    PlayerEnum m_PlayerSelect;
+
+
     [Header("References to GameEvents")]
     [SerializeField]
     private GameEvent m_OnPlayerDamage;
@@ -107,34 +114,34 @@ public class PlayerBehaviour : MonoBehaviour
         m_Jumping = GetComponent<JumpBehaviour>();
         m_Sprite = GetComponent<SpriteRenderer>();
         m_IsInvulnerable = false;
+
+        //Setting the Input Controls
+        Assert.IsNotNull(m_InputAsset);
+        m_Input = Instantiate(m_InputAsset);
+        m_CurrentActionMap = m_Input.FindActionMap("PlayerActions");
+        //If the PlayerSelected Enum is Player1, will use the P1 inputs. If its 2, it will use the P2 inputs.
+        m_CurrentActionMap.bindingMask = m_PlayerSelect == PlayerEnum.PLAYER1 ? InputBinding.MaskByGroup("player1") : InputBinding.MaskByGroup("player2");
+        m_MovementAction = m_CurrentActionMap.FindAction("Movement");
     }
 
     private void OnEnable()
     {
-        //Setting the input variables. Don't forget to enable.
-        Assert.IsNotNull(m_InputAsset);
-        m_Input = Instantiate(m_InputAsset);
-        m_MovementAction = m_Input.FindActionMap("PlayerActions").FindAction("Movement");
-        m_Input.FindActionMap("PlayerActions").FindAction("Attack1").performed += Attack1;
-        m_Input.FindActionMap("PlayerActions").FindAction("Attack2").performed += Attack2;
-        m_Input.FindActionMap("PlayerActions").FindAction("Jump").performed += Jump;
-        m_Input.FindActionMap("PlayerActions").FindAction("Crouch").started += Crouch;
-        m_Input.FindActionMap("PlayerActions").FindAction("Crouch").canceled += ReturnToIdleState;
-        m_Input.FindActionMap("PlayerActions").Enable();
+        m_CurrentActionMap.FindAction("Attack1").performed += Attack1;
+        m_CurrentActionMap.FindAction("Attack2").performed += Attack2;
+        m_CurrentActionMap.FindAction("Jump").performed += Jump;
+        m_CurrentActionMap.FindAction("Crouch").started += Crouch;
+        m_CurrentActionMap.FindAction("Crouch").canceled += ReturnToIdleState;
+        m_CurrentActionMap.Enable();
     }
 
     private void OnDisable()
     {
-        //Disabling the inputs variables and delegates.
-        Assert.IsNotNull(m_InputAsset);
-        m_Input = Instantiate(m_InputAsset);
-        m_MovementAction = m_Input.FindActionMap("PlayerActions").FindAction("Movement");
-        m_Input.FindActionMap("PlayerActions").FindAction("Attack1").performed -= Attack1;
-        m_Input.FindActionMap("PlayerActions").FindAction("Attack2").performed -= Attack2;
-        m_Input.FindActionMap("PlayerActions").FindAction("Jump").performed -= Jump;
-        m_Input.FindActionMap("PlayerActions").FindAction("Crouch").started -= Crouch;
-        m_Input.FindActionMap("PlayerActions").FindAction("Crouch").canceled -= ReturnToIdleState;
-        m_Input.FindActionMap("PlayerActions").Disable();
+        m_CurrentActionMap.FindAction("Attack1").performed -= Attack1;
+        m_CurrentActionMap.FindAction("Attack2").performed -= Attack2;
+        m_CurrentActionMap.FindAction("Jump").performed -= Jump;
+        m_CurrentActionMap.FindAction("Crouch").started -= Crouch;
+        m_CurrentActionMap.FindAction("Crouch").canceled -= ReturnToIdleState;
+        m_CurrentActionMap.Disable();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
