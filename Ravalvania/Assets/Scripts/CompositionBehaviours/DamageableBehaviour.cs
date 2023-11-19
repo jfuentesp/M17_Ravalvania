@@ -12,6 +12,7 @@ public class DamageableBehaviour : MonoBehaviour
     public float BaseAttackDamage => m_BaseAttackDamage;
     private float m_AttackDamage;
     public float AttackDamage => m_AttackDamage;
+    private float m_ComboMultiplier;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class DamageableBehaviour : MonoBehaviour
     private void Start()
     {
         m_AttackDamage = m_BaseAttackDamage;
+        m_ComboMultiplier = 1;
     }
 
     //Function that substracts damage to the Health component
@@ -33,7 +35,7 @@ public class DamageableBehaviour : MonoBehaviour
             damage = damage * 2 - m_Defense.Defense;
         else
             damage = damage * damage / m_Defense.Defense;
-        m_Health.ChangeHealth(-damage);
+        m_Health.ChangeHealth(-damage * m_ComboMultiplier);
     }
     //Function that updates base damage (either if a buff or a debuff is applied or on a level up) 
     public void OnUpdateBaseDamage(float damageAmount)
@@ -49,5 +51,10 @@ public class DamageableBehaviour : MonoBehaviour
     public void OnSetDamage(float damage)
     {
         m_AttackDamage = damage;
+    }
+
+    public void SetComboMultiplier(float multiplier)
+    {
+        m_ComboMultiplier = multiplier;
     }
 }

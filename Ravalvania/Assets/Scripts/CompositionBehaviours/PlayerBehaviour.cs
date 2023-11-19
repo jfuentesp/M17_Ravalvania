@@ -18,6 +18,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(ComboBehaviour))]
 [RequireComponent(typeof(DefenseBehaviour))]
 [RequireComponent(typeof(JumpBehaviour))]
+[RequireComponent(typeof(LevelingBehaviour))]
 public class PlayerBehaviour : MonoBehaviour
 {
     //Instance of the Player. Refers to this own gameobject. It needs to be an instance if the prefabs should refer to this object. (As enemies, for example)
@@ -47,6 +48,7 @@ public class PlayerBehaviour : MonoBehaviour
     private ComboBehaviour m_Combo;
     private JumpBehaviour m_Jumping;
     private DefenseBehaviour m_Defense;
+    private LevelingBehaviour m_Leveling;
 
     //Player animator
     private Animator m_Animator;
@@ -81,6 +83,9 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     PlayerEnum m_PlayerSelect;
 
+    [Header("Reference to the base statistics")]
+    [SerializeField]
+    private PlayerScriptableObject m_PlayerInfo;
 
     [Header("References to GameEvents")]
     [SerializeField]
@@ -116,6 +121,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_Jumping = GetComponent<JumpBehaviour>();
         m_Defense = GetComponent<DefenseBehaviour>();
         m_Sprite = GetComponent<SpriteRenderer>();
+        m_Leveling = GetComponent<LevelingBehaviour>();
         m_IsInvulnerable = false;
 
         //Setting the Input Controls
@@ -177,6 +183,15 @@ public class PlayerBehaviour : MonoBehaviour
         UpdateState();
     }
 
+    private void OnPlayerInit()
+    {
+        m_Damaging.OnUpdateBaseDamage(m_PlayerInfo.PlayerDamage);
+        m_Health.SetMaxHealthBase(m_PlayerInfo.PlayerMaxHP);
+        m_Mana.SetMaxManaBase(m_PlayerInfo.PlayerMaxMana);
+        m_Defense.OnSetBaseDefense(m_PlayerInfo.PlayerDefense);
+        m_Moving.SetSpeedBase(m_PlayerInfo.PlayerSpeed);
+    }
+
     public void EndHit()
     {
         ChangeState(PlayerMachineStates.IDLE);
@@ -234,14 +249,14 @@ public class PlayerBehaviour : MonoBehaviour
                 //Attack will set the velocity to zero, so it cant move while attacking
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_Attack1AnimationName);
-                m_Damaging.OnSetDamage(m_Damaging.AttackDamage);
+                m_Damaging.SetComboMultiplier(1);
                 break;
 
             case PlayerMachineStates.ATTACK2:
                 //Attack will set the velocity to zero, so it cant move while attacking
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_Attack2AnimationName);
-                m_Damaging.OnSetDamage((float)(m_Damaging.AttackDamage * 1.5));
+                m_Damaging.SetComboMultiplier(1.5f);
                 break;
 
             case PlayerMachineStates.COMBO1:
@@ -259,7 +274,7 @@ public class PlayerBehaviour : MonoBehaviour
                 //Attack will set the velocity to zero, so it cant move while attacking
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_Combo2AnimationName);
-                m_Damaging.OnSetDamage((float)(m_Damaging.AttackDamage * 1.5));
+                m_Damaging.SetComboMultiplier(1.5f);
                 break;
 
             case PlayerMachineStates.HIT:
@@ -279,12 +294,14 @@ public class PlayerBehaviour : MonoBehaviour
                 //Attack will set the velocity to zero, so it cant move while attacking
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_CrouchAttack1AnimationName);
+                m_Damaging.SetComboMultiplier(1);
                 break;
 
             case PlayerMachineStates.CROUCHATTACK2:
                 //Attack will set the velocity to zero, so it cant move while attacking
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_CrouchAttack2AnimationName);
+                m_Damaging.SetComboMultiplier(1);
                 break;
 
             default:

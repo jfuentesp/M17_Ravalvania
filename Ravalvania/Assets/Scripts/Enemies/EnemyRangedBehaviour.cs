@@ -98,7 +98,7 @@ public class EnemyRangedBehaviour : MonoBehaviour
 
     public void InitEnemy(EnemyScriptableObject enemyInfo, int spawnpoint)
     {
-        m_Health.SetMaxHealth(enemyInfo.EnemyMaxHP);
+        m_Health.SetMaxHealthBase(enemyInfo.EnemyMaxHP);
         m_Damaging.OnSetDamage(enemyInfo.EnemyDamage);
         m_Moving.SetSpeed(enemyInfo.EnemySpeed);
         m_SpriteRenderer.color = enemyInfo.SpriteColor;

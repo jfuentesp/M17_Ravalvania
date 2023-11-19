@@ -17,7 +17,17 @@ public class DefenseBehaviour : MonoBehaviour
         m_Defense = m_BaseDefense;
     }
 
-    private void OnSetDefense(float defense)
+    public void OnSetBaseDefense(float baseDefense)
+    {
+        m_BaseDefense = baseDefense;
+    }
+
+    public void OnAddDefense(float defense)
+    {
+        m_Defense += defense;
+    }
+
+    public void OnSetDefense(float defense)
     {
         m_Defense = defense;
     }

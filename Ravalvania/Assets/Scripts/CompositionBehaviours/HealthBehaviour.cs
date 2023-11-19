@@ -8,6 +8,7 @@ public class HealthBehaviour : MonoBehaviour
     [Header("Health of the Entity")]
     [SerializeField]
     private float m_MaxHealth;
+    private float m_MaxHealthBase;
     private float m_CurrentHealth;
     //Getter of the Entity current health
     public float CurrentHealth => m_CurrentHealth;
@@ -27,9 +28,15 @@ public class HealthBehaviour : MonoBehaviour
         m_IsAlive = true;
     }
 
-    public void SetMaxHealth(float maxHealth)
+    public void SetMaxHealthBase(float maxHealth)
     {
-        m_MaxHealth = maxHealth;
+        m_MaxHealthBase = maxHealth;
+    }
+
+    public void AddMaxHealth(float maxHealth)
+    {
+        m_MaxHealth += maxHealth;
+        m_CurrentHealth += maxHealth;
     }
 
     //Public function that Changes health. If health drops to zero, the object is no longer alive, so it can notify other elements.
@@ -48,6 +55,9 @@ public class HealthBehaviour : MonoBehaviour
 
     public void OnDeath()
     {
+        if (m_OnDeathEvent != null)
+            m_OnDeathEvent.Raise();
+
         if (m_IsDestroyedOnDeath)
         {
             Destroy(gameObject);
@@ -56,7 +66,5 @@ public class HealthBehaviour : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-        if(m_OnDeathEvent != null)  
-            m_OnDeathEvent.Raise();
     }
 }

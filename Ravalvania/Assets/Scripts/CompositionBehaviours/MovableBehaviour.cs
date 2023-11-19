@@ -26,6 +26,10 @@ public class MovableBehaviour : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    private void Start()
+    {
         m_Speed = m_InitialSpeed;
     }
 
@@ -55,6 +59,18 @@ public class MovableBehaviour : MonoBehaviour
             return;
         m_IsFlipped = direction.x < 0 ? true : false;
         m_Rigidbody.transform.eulerAngles = m_IsFlipped ? Vector3.up * 180 : Vector3.zero;
+    }
+
+    public void SetSpeedBase(float speed)
+    {
+        m_InitialSpeed = speed;
+        m_VelocityClamp = speed;
+    }
+
+    public void AddSpeed(float speed)
+    {
+        m_Speed += speed;
+        m_VelocityClamp += speed;
     }
 
     public void SetSpeed(float speed)
