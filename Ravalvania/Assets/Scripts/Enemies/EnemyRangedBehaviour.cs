@@ -9,6 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(PatrolBehaviour))]
 [RequireComponent(typeof(DropableBehaviour))]
 [RequireComponent(typeof(ShootableBehaviour))]
+[RequireComponent(typeof(DefenseBehaviour))]
 public class EnemyRangedBehaviour : MonoBehaviour
 {
     //Components
@@ -21,6 +22,7 @@ public class EnemyRangedBehaviour : MonoBehaviour
     private AttackableBehaviour m_Attacking;
     private DropableBehaviour m_Dropping;
     private ShootableBehaviour m_Shooting;
+    private DefenseBehaviour m_Defense;
 
     //Animator
     private Animator m_Animator;
@@ -57,6 +59,7 @@ public class EnemyRangedBehaviour : MonoBehaviour
         m_Dropping = GetComponent<DropableBehaviour>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_Shooting = GetComponent<ShootableBehaviour>();
+        m_Defense = GetComponent<DefenseBehaviour>();
         m_IsInvulnerable = false;
     }
 

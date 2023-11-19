@@ -364,6 +364,7 @@ GameObject:
   - component: {fileID: 7758081250743885223}
   - component: {fileID: 399451473741577770}
   - component: {fileID: 827020750205830924}
+  - component: {fileID: 4006561792620681706}
   m_Layer: 7
   m_Name: EnemyGang
   m_TagString: Enemy
@@ -618,3 +619,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f5e0c8bcda14f4b838a69d46246a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4006561792620681706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5928369246542215919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09e80938f376e547aabef0957994ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BaseDefense: 1
+  m_Defense: 0

@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 661940911296968014}
   - component: {fileID: 2258415623658503569}
   - component: {fileID: 8966929919464806317}
+  - component: {fileID: 3999634697589270503}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -548,3 +549,17 @@ MonoBehaviour:
   m_OnPlayerDamage: {fileID: 11400000, guid: fec59b4a96c41a0489ceab4f2a4c0d6b, type: 2}
   m_OnEnergyUsed: {fileID: 11400000, guid: 68ab744b819042b44bd183c5eda15031, type: 2}
   m_OnPlayerDeath: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}
+--- !u!114 &3999634697589270503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277890847289425898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09e80938f376e547aabef0957994ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BaseDefense: 1
+  m_Defense: 0

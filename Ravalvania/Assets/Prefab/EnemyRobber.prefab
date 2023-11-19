@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: -4066434893318279787}
   - component: {fileID: 5826090949682673570}
   - component: {fileID: 8768474242185979973}
+  - component: {fileID: 2831079310756553513}
   m_Layer: 7
   m_Name: EnemyRobber
   m_TagString: Enemy
@@ -406,6 +407,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PatrolTime: 3
   m_DefaultDirection: 0
+--- !u!114 &2831079310756553513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504963644105037084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09e80938f376e547aabef0957994ecb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BaseDefense: 2
+  m_Defense: 0
 --- !u!1 &5268943914328177657
 GameObject:
   m_ObjectHideFlags: 0

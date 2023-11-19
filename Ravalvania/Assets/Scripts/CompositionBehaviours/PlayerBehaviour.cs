@@ -16,6 +16,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(ManaCostBehaviour))]
 [RequireComponent(typeof(ShootableBehaviour))]
 [RequireComponent(typeof(ComboBehaviour))]
+[RequireComponent(typeof(DefenseBehaviour))]
 [RequireComponent(typeof(JumpBehaviour))]
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -45,6 +46,7 @@ public class PlayerBehaviour : MonoBehaviour
     private DamageableBehaviour m_Damaging;
     private ComboBehaviour m_Combo;
     private JumpBehaviour m_Jumping;
+    private DefenseBehaviour m_Defense;
 
     //Player animator
     private Animator m_Animator;
@@ -112,6 +114,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_Damaging = GetComponentInChildren<DamageableBehaviour>();
         m_Combo = GetComponent<ComboBehaviour>();
         m_Jumping = GetComponent<JumpBehaviour>();
+        m_Defense = GetComponent<DefenseBehaviour>();
         m_Sprite = GetComponent<SpriteRenderer>();
         m_IsInvulnerable = false;
 

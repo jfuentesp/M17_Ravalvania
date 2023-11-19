@@ -5,6 +5,8 @@ using UnityEngine;
 public class DamageableBehaviour : MonoBehaviour
 {
     HealthBehaviour m_Health;
+    DefenseBehaviour m_Defense;
+
     [SerializeField]
     private float m_BaseAttackDamage;
     public float BaseAttackDamage => m_BaseAttackDamage;
@@ -14,6 +16,7 @@ public class DamageableBehaviour : MonoBehaviour
     private void Awake()
     {
         m_Health = GetComponentInParent<HealthBehaviour>();
+        m_Defense = GetComponentInParent<DefenseBehaviour>();
     }
 
     private void Start()
@@ -24,6 +27,12 @@ public class DamageableBehaviour : MonoBehaviour
     //Function that substracts damage to the Health component
     public void OnDealingDamage(float damage)
     {
+        //Damage function -> if damage is higher or equal than defense, we raise it double and substract def so the value is not zero.
+        //Else, it will be multiplied by its value / defense so the damage can't skyrocket
+        if (damage >= m_Defense.Defense)
+            damage = damage * 2 - m_Defense.Defense;
+        else
+            damage = damage * damage / m_Defense.Defense;
         m_Health.ChangeHealth(-damage);
     }
     //Function that updates base damage (either if a buff or a debuff is applied or on a level up) 

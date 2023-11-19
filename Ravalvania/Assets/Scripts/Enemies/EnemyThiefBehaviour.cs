@@ -9,6 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(DamageableBehaviour))]
 [RequireComponent(typeof(PatrolBehaviour))]
 [RequireComponent(typeof(DropableBehaviour))]
+[RequireComponent(typeof(DefenseBehaviour))]
 public class EnemyThiefBehaviour : MonoBehaviour
 {
     //Components
@@ -20,6 +21,7 @@ public class EnemyThiefBehaviour : MonoBehaviour
     private ChaseBehaviour m_Chase;
     private AttackableBehaviour m_Attacking;
     private DropableBehaviour m_Dropping;
+    private DefenseBehaviour m_Defense;
 
     //Animator
     private Animator m_Animator;
@@ -54,6 +56,7 @@ public class EnemyThiefBehaviour : MonoBehaviour
         m_Attacking = GetComponentInChildren<AttackableBehaviour>();
         m_Dropping = GetComponent<DropableBehaviour>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        m_Defense = GetComponent<DefenseBehaviour>();
         m_IsInvulnerable = false;
     }
 

@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(HealthBehaviour))]
 [RequireComponent(typeof(PatrolBehaviour))]
 [RequireComponent(typeof(DropableBehaviour))]
+[RequireComponent(typeof(DefenseBehaviour))]
 public class EnemyGangBehaviour : MonoBehaviour
 {
     //Components
@@ -19,6 +20,7 @@ public class EnemyGangBehaviour : MonoBehaviour
     private ChaseBehaviour m_Chase;
     private AttackableBehaviour m_Attacking;
     private DropableBehaviour m_Dropping;
+    private DefenseBehaviour m_Defense;
 
     //Animator
     private Animator m_Animator;
@@ -54,6 +56,7 @@ public class EnemyGangBehaviour : MonoBehaviour
         m_Attacking = GetComponent<AttackableBehaviour>();
         m_Dropping = GetComponent<DropableBehaviour>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
+        m_Defense = GetComponent<DefenseBehaviour>();
         m_IsInvulnerable = false;
     }
 
