@@ -27,9 +27,19 @@ public class LevelingBehaviour : MonoBehaviour
     public int Experience => m_Experience;
     public int ExpGivenOnDeath => m_ExpGivenOnDeath;
 
+    //Components required to levelup
+    private HealthBehaviour m_Health;
+    private DamageableBehaviour m_Damage;
+    private DefenseBehaviour m_Defense;
+    private ManaBehaviour m_Mana;
+
     // Start is called before the first frame update
     void Start()
     {
+        m_Health = GetComponent<HealthBehaviour>();
+        m_Damage = GetComponentInChildren<DamageableBehaviour>();
+        m_Defense = GetComponent<DefenseBehaviour>();
+        m_Mana = GetComponent<ManaBehaviour>();
         //Player experience and level starts fresh. So player experience is 0 and level is 1.
         m_Level = 1;
         m_Experience = 0;
@@ -59,12 +69,21 @@ public class LevelingBehaviour : MonoBehaviour
     {
         m_Level++;
         m_ExperienceUntilNextLevel = CalculateNextLevelExperience();
+        IncreaseStatsOnLevelUp();
     }
     
     public void AddExperience(int experience)
     {
         m_Experience += experience;
         CheckLevelUp();
+    }
+
+    public void IncreaseStatsOnLevelUp()
+    {
+        m_Health.AddMaxHealth(m_Level * 2);
+        m_Mana.AddMaxMana(m_Level * 2);
+        m_Damage.OnUpdateDamage(m_Level);
+        m_Defense.OnAddDefense(m_Level);
     }
 
     public void OnSetExperienceOnDeath(int experience)

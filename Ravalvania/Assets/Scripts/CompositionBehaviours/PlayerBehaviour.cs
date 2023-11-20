@@ -19,11 +19,9 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(DefenseBehaviour))]
 [RequireComponent(typeof(JumpBehaviour))]
 [RequireComponent(typeof(LevelingBehaviour))]
+[RequireComponent(typeof(EquipableBehaviour))]
 public class PlayerBehaviour : MonoBehaviour
 {
-    //Instance of the Player. Refers to this own gameobject. It needs to be an instance if the prefabs should refer to this object. (As enemies, for example)
-    private static PlayerBehaviour m_Instance;
-    public static PlayerBehaviour PlayerInstance => m_Instance; //A getter for the instance of the player. Similar to get { return m_Instance }. (Accessor)
 
     //Reference to the InputSystem
     [Header("Reference to the Input System")]
@@ -49,6 +47,7 @@ public class PlayerBehaviour : MonoBehaviour
     private JumpBehaviour m_Jumping;
     private DefenseBehaviour m_Defense;
     private LevelingBehaviour m_Leveling;
+    private EquipableBehaviour m_Equipable;
 
     //Player animator
     private Animator m_Animator;
@@ -95,18 +94,11 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private GameEvent m_OnPlayerDeath;
 
+    [SerializeField]
+    private OrbEnum m_OrbType;
+
     private void Awake()
     {
-        //First, we initialize an instance of Player. If there is already an instance, it destroys the element and returns.
-        if (m_Instance == null)
-        {
-            m_Instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-            return;
-        }
         //Player components
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody2D>();
@@ -122,6 +114,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_Defense = GetComponent<DefenseBehaviour>();
         m_Sprite = GetComponent<SpriteRenderer>();
         m_Leveling = GetComponent<LevelingBehaviour>();
+        m_Equipable = GetComponent<EquipableBehaviour>();
         m_IsInvulnerable = false;
 
         //Setting the Input Controls
@@ -191,6 +184,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_Mana.SetMaxManaBase(m_PlayerInfo.PlayerMaxMana);
         m_Defense.OnSetBaseDefense(m_PlayerInfo.PlayerDefense);
         m_Moving.SetSpeedBase(m_PlayerInfo.PlayerSpeed);
+        m_OrbType = OrbEnum.NONE;
     }
 
     public void EndHit()
@@ -211,6 +205,11 @@ public class PlayerBehaviour : MonoBehaviour
         yield return new WaitForSeconds(1f);
         m_Sprite.color = Color.white;
         m_IsInvulnerable = false;
+    }
+
+    public void SetOrbType(OrbEnum orbType)
+    {
+        m_OrbType = orbType;
     }
 
     /******** !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState ********/
