@@ -105,6 +105,10 @@ namespace streetsofraval
         [SerializeField]
         private GameEvent m_OnDisableShop;
         [SerializeField]
+        private GameEvent m_ObrirInventory;
+        [SerializeField]
+        private GameEvent m_TancarInventory;
+        [SerializeField]
         private Shopping Shopping;
 
         //LayerMask of the Pickups for casting it through Physics2D.CircleCast instead of OnTriggerStay
@@ -190,11 +194,13 @@ namespace streetsofraval
         private void InventoryDisable(InputAction.CallbackContext context)
         {
             Debug.Log("Inventario OFF");
+            m_TancarInventory.Raise();
         }
 
         private void InventoryEnabled(InputAction.CallbackContext context)
         {
             Debug.Log("Inventario ON");
+            m_ObrirInventory.Raise();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

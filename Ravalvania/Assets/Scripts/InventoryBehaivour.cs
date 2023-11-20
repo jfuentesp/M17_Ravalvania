@@ -27,6 +27,7 @@ public class InventoryBehaivour : MonoBehaviour
     {
         
     }
+    /*
     public void AbrirInventario()
     {
         if(InventoryAbierto)
@@ -39,6 +40,7 @@ public class InventoryBehaivour : MonoBehaviour
             InventoryAbierto=true;
         }
     }
+    */
     public void ConsumeItem(Item item)
     {
         if (!item.UsedBy(gameObject))
