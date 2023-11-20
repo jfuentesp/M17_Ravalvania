@@ -82,7 +82,7 @@ using UnityEngine;
         // Start is called before the first frame update
         void Start()
         {
-            m_Player = PlayerBehaviour.PlayerInstance;
+            //m_Player = PlayerBehaviour.PlayerInstance;
             InitState(EnemyMachineStates.PATROL);
         }
 

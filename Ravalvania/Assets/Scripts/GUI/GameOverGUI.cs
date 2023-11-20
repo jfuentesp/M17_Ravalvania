@@ -23,10 +23,10 @@ namespace streetsofraval {
         void Start()
         {
             m_GameManager = GameManager.GameManagerInstance;
-            m_Score.text = "Your Score: " + m_GameManager.Score;
-            m_Wave.text = "Your Wave: " + m_GameManager.Wave;
-            m_PlayAgainButton.onClick.AddListener(m_GameManager.PlayAgain);
-            m_MainMenuButton.onClick.AddListener(m_GameManager.MainMenuScene);
+            //m_Score.text = "Your Score: " + m_GameManager.Score;
+            //m_Wave.text = "Your Wave: " + m_GameManager.Wave;
+            //m_PlayAgainButton.onClick.AddListener(m_GameManager.PlayAgain);
+            //m_MainMenuButton.onClick.AddListener(m_GameManager.MainMenuScene);
         }
     }
 }
