@@ -11,11 +11,11 @@ public class DesplegarInventari : MonoBehaviour
     private GameObject m_ItemPrefab;
     [SerializeField]
     private Inventory m_Backpack;
-    void Start()
-    {
-        FillDisplay();
-    }
 
+    void OnEnable()
+    {
+        RefreshBackpack();
+    }
     private void ClearDisplay()
     {
         foreach (Transform child in m_ParentInventory.transform)
