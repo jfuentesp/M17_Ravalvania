@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 3007886067392512872}
   - component: {fileID: 5902197602880738053}
   - component: {fileID: 8401925215784748363}
+  - component: {fileID: 2174501568510437509}
   m_Layer: 7
   m_Name: EnemyRanged
   m_TagString: Enemy
@@ -308,7 +309,7 @@ Transform:
   m_GameObject: {fileID: 8355550360489551964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7792859417453589849}
@@ -504,8 +505,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 10
   m_IsAlive: 1
-  m_OnDeathEvent: {fileID: 0}
+  m_OnDeathEvent: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}
+  m_OnDeathExpEvent: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
   m_IsDestroyedOnDeath: 0
+  m_GivesExpOnDeath: 1
 --- !u!114 &7978670946167674492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559,6 +562,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80057ac3b9f85f3458d235cf55324f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_EnemyTier:
+  - {fileID: 11400000, guid: 1565c3ee12035b548bc2f61cdc8e062f, type: 2}
+  - {fileID: 11400000, guid: bd9410bc9cd8405498078fcdf8500fb0, type: 2}
+  - {fileID: 11400000, guid: 47ae0228bb80b83458a1c60eb4e25990, type: 2}
 --- !u!114 &8401925215784748363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -573,3 +580,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseDefense: 1
   m_Defense: 0
+--- !u!114 &2174501568510437509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8355550360489551964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209bf07ffdf52c24c9994825a1dee5cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Level: 0
+  m_LevelMax: 0
+  m_Experience: 0
+  m_ExpGivenOnDeath: 0
+  m_ConstantX: 0
+  m_RatioY: 0

@@ -609,8 +609,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Level: 0
-  m_LevelMax: 0
-  m_Experience: 0
+  m_LevelMax: 20
+  m_Experience: 390
   m_ExpGivenOnDeath: 0
   m_ConstantX: 0
   m_RatioY: 0

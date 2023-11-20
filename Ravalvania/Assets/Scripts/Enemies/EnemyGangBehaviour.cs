@@ -56,7 +56,7 @@ public class EnemyGangBehaviour : MonoBehaviour
         m_Damaging = GetComponentInChildren<DamageableBehaviour>();
         m_Patrol = GetComponent<PatrolBehaviour>();
         m_Chase = GetComponentInChildren<ChaseBehaviour>();
-        m_Attacking = GetComponent<AttackableBehaviour>();
+        m_Attacking = GetComponentInChildren<AttackableBehaviour>();
         m_Dropping = GetComponent<DropableBehaviour>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_Defense = GetComponent<DefenseBehaviour>();
@@ -67,6 +67,7 @@ public class EnemyGangBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitEnemy();
         InitState(EnemyMachineStates.PATROL);
     }
 
@@ -97,13 +98,17 @@ public class EnemyGangBehaviour : MonoBehaviour
         ChangeState(EnemyMachineStates.CHASE);
     }
 
-    public void InitEnemy(EnemyScriptableObject enemyInfo, int spawnpoint)
+    public void InitEnemy()
     {
+        int rand = Random.Range(0, m_EnemyTier.Count);
+        EnemyScriptableObject enemyInfo = m_EnemyTier[rand];
         m_Health.SetMaxHealthBase(enemyInfo.EnemyMaxHP);
         m_Damaging.OnSetDamage(enemyInfo.EnemyDamage);
+        m_Defense.OnSetBaseDefense(enemyInfo.EnemyDefense);
         m_Moving.SetSpeed(enemyInfo.EnemySpeed);
         m_SpriteRenderer.color = enemyInfo.SpriteColor;
         m_Dropping.SetCoins(enemyInfo.MoneyValue);
+        m_Leveling.OnSetExperienceOnDeath(enemyInfo.ExperienceValue);
     }
 
     /* !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState */

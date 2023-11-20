@@ -70,6 +70,7 @@ public class EnemyRangedBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitEnemy();
         InitState(EnemyMachineStates.PATROL);
     }
 
@@ -100,13 +101,17 @@ public class EnemyRangedBehaviour : MonoBehaviour
         ChangeState(EnemyMachineStates.CHASE);
     }
 
-    public void InitEnemy(EnemyScriptableObject enemyInfo, int spawnpoint)
+    public void InitEnemy()
     {
+        int rand = Random.Range(0, m_EnemyTier.Count);
+        EnemyScriptableObject enemyInfo = m_EnemyTier[rand];
         m_Health.SetMaxHealthBase(enemyInfo.EnemyMaxHP);
         m_Damaging.OnSetDamage(enemyInfo.EnemyDamage);
+        m_Defense.OnSetBaseDefense(enemyInfo.EnemyDefense);
         m_Moving.SetSpeed(enemyInfo.EnemySpeed);
         m_SpriteRenderer.color = enemyInfo.SpriteColor;
         m_Dropping.SetCoins(enemyInfo.MoneyValue);
+        m_Leveling.OnSetExperienceOnDeath(enemyInfo.ExperienceValue);
     }
 
     /* !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState */

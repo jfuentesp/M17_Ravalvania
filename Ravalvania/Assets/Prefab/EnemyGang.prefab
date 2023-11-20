@@ -365,6 +365,7 @@ GameObject:
   - component: {fileID: 399451473741577770}
   - component: {fileID: 827020750205830924}
   - component: {fileID: 4006561792620681706}
+  - component: {fileID: 3313590082818184228}
   m_Layer: 7
   m_Name: EnemyGang
   m_TagString: Enemy
@@ -577,8 +578,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 15
   m_IsAlive: 1
-  m_OnDeathEvent: {fileID: 0}
+  m_OnDeathEvent: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}
+  m_OnDeathExpEvent: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
   m_IsDestroyedOnDeath: 0
+  m_GivesExpOnDeath: 1
 --- !u!114 &7758081250743885223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,6 +622,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f5e0c8bcda14f4b838a69d46246a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_EnemyTier:
+  - {fileID: 11400000, guid: 62cc740c093fe434982ae4f0bca1b2b4, type: 2}
+  - {fileID: 11400000, guid: 619610fde82358c458414df0ec6c8de5, type: 2}
+  - {fileID: 11400000, guid: 906597642b25ce147adecb888ecb354b, type: 2}
 --- !u!114 &4006561792620681706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,3 +640,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseDefense: 1
   m_Defense: 0
+--- !u!114 &3313590082818184228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5928369246542215919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209bf07ffdf52c24c9994825a1dee5cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Level: 0
+  m_LevelMax: 0
+  m_Experience: 0
+  m_ExpGivenOnDeath: 0
+  m_ConstantX: 0
+  m_RatioY: 0

@@ -366,6 +366,7 @@ GameObject:
   - component: {fileID: 6839367916145125611}
   - component: {fileID: 1235149116153982570}
   - component: {fileID: 9038322239278264643}
+  - component: {fileID: 5570512642124954377}
   m_Layer: 7
   m_Name: EnemyThief
   m_TagString: Enemy
@@ -635,6 +636,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca9ff693e151f6418bddc04189dd11c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_EnemyTier:
+  - {fileID: 11400000, guid: a58c70ceb29389a4c93be36867346dab, type: 2}
+  - {fileID: 11400000, guid: 2469eed83002b2b4d951bb1481c7bbc3, type: 2}
+  - {fileID: 11400000, guid: cca15cb64501e0e43b5be2dc083dc663, type: 2}
 --- !u!114 &9038322239278264643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,3 +654,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseDefense: 0
   m_Defense: 0
+--- !u!114 &5570512642124954377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8127328366898293269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209bf07ffdf52c24c9994825a1dee5cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Level: 0
+  m_LevelMax: 0
+  m_Experience: 0
+  m_ExpGivenOnDeath: 0
+  m_ConstantX: 0
+  m_RatioY: 0

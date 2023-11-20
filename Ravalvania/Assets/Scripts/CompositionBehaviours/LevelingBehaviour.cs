@@ -66,4 +66,9 @@ public class LevelingBehaviour : MonoBehaviour
         m_Experience += experience;
         CheckLevelUp();
     }
+
+    public void OnSetExperienceOnDeath(int experience)
+    {
+        m_ExpGivenOnDeath = experience;
+    }
 }

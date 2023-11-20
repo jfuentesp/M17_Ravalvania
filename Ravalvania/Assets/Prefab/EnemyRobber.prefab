@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 5826090949682673570}
   - component: {fileID: 8768474242185979973}
   - component: {fileID: 2831079310756553513}
+  - component: {fileID: 7011598063934286192}
   m_Layer: 7
   m_Name: EnemyRobber
   m_TagString: Enemy
@@ -156,7 +157,7 @@ Transform:
   m_GameObject: {fileID: 3504963644105037084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3937591858506270168}
@@ -352,8 +353,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 20
   m_IsAlive: 1
-  m_OnDeathEvent: {fileID: 0}
+  m_OnDeathEvent: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}
+  m_OnDeathExpEvent: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
   m_IsDestroyedOnDeath: 0
+  m_GivesExpOnDeath: 1
 --- !u!114 &-344343773907116210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,6 +396,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11867f06388a70a4ab929b9fa25a72d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_EnemyTier:
+  - {fileID: 11400000, guid: 70ee3a7772119834ea90d45f6d225ee3, type: 2}
+  - {fileID: 11400000, guid: 40f039789b5494f4782a523a1750a370, type: 2}
+  - {fileID: 11400000, guid: ac812832ad085fd4da561edb23e0c656, type: 2}
 --- !u!114 &8768474242185979973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,6 +428,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseDefense: 2
   m_Defense: 0
+--- !u!114 &7011598063934286192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504963644105037084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209bf07ffdf52c24c9994825a1dee5cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Level: 0
+  m_LevelMax: 0
+  m_Experience: 0
+  m_ExpGivenOnDeath: 0
+  m_ConstantX: 0
+  m_RatioY: 0
 --- !u!1 &5268943914328177657
 GameObject:
   m_ObjectHideFlags: 0
