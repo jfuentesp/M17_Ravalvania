@@ -18,7 +18,7 @@ public interface IPoisonable
 }
 public interface IHealableOT
 {
-    public void heal(float heal, int time);
+    public void healOverTime(float heal, float tick, float duration);
 }
 public interface IItem
 {

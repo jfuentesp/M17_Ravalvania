@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 
 namespace streetsofraval
 {
-    public class PlayerBehaviour : MonoBehaviour
+    public class PlayerBehaviour : MonoBehaviour, IHealable, IHealableOT
     {
         //Instance of the Player. Refers to this own gameobject. It needs to be an instance if the prefabs should refer to this object. (As enemies, for example)
         private static PlayerBehaviour m_Instance;
@@ -653,6 +653,27 @@ namespace streetsofraval
 
                 default:
                     break;
+            }
+        }
+
+        public void heal(float heal)
+        {
+            m_Hitpoints = Mathf.Clamp(m_Hitpoints + heal, 0, m_MaxHitpoints);
+        }
+
+        public void healOverTime(float heal, float tick, float duration)
+        {
+            StartCoroutine(hot(heal, tick, duration));
+        }
+
+        private IEnumerator hot(float heal, float tick, float duration)
+        {
+            float time = 0;
+            while (time < duration)
+            {
+                this.heal(heal);
+                yield return new WaitForSeconds(tick);
+                time += tick;
             }
         }
 
