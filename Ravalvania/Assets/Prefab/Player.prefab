@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 3564244684448958168}
   - component: {fileID: 1204660700434743522}
   - component: {fileID: 1271892629026844175}
+  - component: {fileID: -6509483918799557640}
   - component: {fileID: 4680303939019942867}
   - component: {fileID: 9046121316828188487}
   - component: {fileID: 3835284986932373302}
@@ -197,6 +198,7 @@ GameObject:
   - component: {fileID: 2258415623658503569}
   - component: {fileID: 8966929919464806317}
   - component: {fileID: 3999634697589270503}
+  - component: {fileID: 4950642935795205617}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -421,6 +423,34 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-6509483918799557640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277890847289425898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63eb494f441e8146b4ea46b66af9647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4950642935795205617}
+        m_TargetAssemblyTypeName: LevelingBehaviour, Assembly-CSharp
+        m_MethodName: AddExperience
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4680303939019942867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,8 +481,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 30
   m_IsAlive: 1
-  m_OnDeathEvent: {fileID: 0}
+  m_OnDeathEvent: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}
+  m_OnDeathExpEvent: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
   m_IsDestroyedOnDeath: 0
+  m_GivesExpOnDeath: 0
 --- !u!114 &3835284986932373302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,6 +578,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   m_PlayerSelect: 0
+  m_PlayerInfo: {fileID: 11400000, guid: f5f4c43b207d10d44ae99a82653f1049, type: 2}
   m_OnPlayerDamage: {fileID: 11400000, guid: fec59b4a96c41a0489ceab4f2a4c0d6b, type: 2}
   m_OnEnergyUsed: {fileID: 11400000, guid: 68ab744b819042b44bd183c5eda15031, type: 2}
   m_OnPlayerDeath: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}
@@ -563,3 +596,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_BaseDefense: 1
   m_Defense: 0
+--- !u!114 &4950642935795205617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277890847289425898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209bf07ffdf52c24c9994825a1dee5cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Level: 0
+  m_LevelMax: 0
+  m_Experience: 0
+  m_ExpGivenOnDeath: 0
+  m_ConstantX: 0
+  m_RatioY: 0

@@ -174,6 +174,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         //In this case, we can use InitState directly instead of ChangeState as it doesn't have to Exit any state previously. 
         InitState(PlayerMachineStates.IDLE);
+        OnPlayerInit();
     }
 
     // Update is called once per frame

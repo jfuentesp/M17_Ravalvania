@@ -16,16 +16,22 @@ public class EnemyScriptableObject : ScriptableObject
     [SerializeField]
     private float m_EnemySpeed;
     [SerializeField]
+    private float m_EnemyDefense;
+    [SerializeField]
     private Color m_SpriteColor;
     [SerializeField]
-    private int m_ScoreValue;
+    private int m_ExperienceValue;
+    [SerializeField]
+    private int m_MoneyValue;
 
 
     public float EnemyMaxHP => m_EnemyMaxHP;
     public float EnemyDamage => m_EnemyDamage;
     public float EnemySpeed => m_EnemySpeed;
+    public float EnemyDefense => m_EnemyDefense;
     public Color SpriteColor => m_SpriteColor;
-    public int ScoreValue => m_ScoreValue;
+    public int ExperienceValue => m_ExperienceValue;
+    public int MoneyValue => m_MoneyValue;
 }
 
 

@@ -12,6 +12,8 @@ public class LevelingBehaviour : MonoBehaviour
     [SerializeField]
     private int m_Experience;
     [SerializeField]
+    private int m_ExpGivenOnDeath;
+    [SerializeField]
     private float m_ConstantX; //Default 0.05
     [SerializeField]
     private float m_RatioY; // Default 2
@@ -23,6 +25,7 @@ public class LevelingBehaviour : MonoBehaviour
     public int Level => m_Level;
     public int LevelMax => m_LevelMax;
     public int Experience => m_Experience;
+    public int ExpGivenOnDeath => m_ExpGivenOnDeath;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +61,7 @@ public class LevelingBehaviour : MonoBehaviour
         m_ExperienceUntilNextLevel = CalculateNextLevelExperience();
     }
     
-    private void AddExperience(int experience)
+    public void AddExperience(int experience)
     {
         m_Experience += experience;
         CheckLevelUp();

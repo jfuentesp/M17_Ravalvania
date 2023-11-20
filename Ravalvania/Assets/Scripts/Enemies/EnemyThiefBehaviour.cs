@@ -10,6 +10,7 @@ using UnityEngine;
 [RequireComponent(typeof(PatrolBehaviour))]
 [RequireComponent(typeof(DropableBehaviour))]
 [RequireComponent(typeof(DefenseBehaviour))]
+[RequireComponent(typeof(LevelingBehaviour))]
 public class EnemyThiefBehaviour : MonoBehaviour
 {
     //Components
@@ -22,9 +23,14 @@ public class EnemyThiefBehaviour : MonoBehaviour
     private AttackableBehaviour m_Attacking;
     private DropableBehaviour m_Dropping;
     private DefenseBehaviour m_Defense;
+    private LevelingBehaviour m_Leveling;  
 
     //Animator
     private Animator m_Animator;
+
+    //Scriptable object references (Enemy tier on spawn)
+    [SerializeField]
+    List<EnemyScriptableObject> m_EnemyTier;
 
     //Animation names
     private const string m_IdleAnimationName = "idle";
@@ -57,6 +63,7 @@ public class EnemyThiefBehaviour : MonoBehaviour
         m_Dropping = GetComponent<DropableBehaviour>();
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_Defense = GetComponent<DefenseBehaviour>();
+        m_Leveling = GetComponent<LevelingBehaviour>();
         m_IsInvulnerable = false;
     }
 
@@ -97,7 +104,7 @@ public class EnemyThiefBehaviour : MonoBehaviour
         m_Damaging.OnSetDamage(enemyInfo.EnemyDamage);
         m_Moving.SetSpeed(enemyInfo.EnemySpeed);
         m_SpriteRenderer.color = enemyInfo.SpriteColor;
-        m_Dropping.SetCoins(enemyInfo.ScoreValue);
+        m_Dropping.SetCoins(enemyInfo.MoneyValue);
     }
 
     /* !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState */

@@ -10,6 +10,7 @@ using UnityEngine;
 [RequireComponent(typeof(DropableBehaviour))]
 [RequireComponent(typeof(ShootableBehaviour))]
 [RequireComponent(typeof(DefenseBehaviour))]
+[RequireComponent(typeof(LevelingBehaviour))]
 public class EnemyRangedBehaviour : MonoBehaviour
 {
     //Components
@@ -23,12 +24,14 @@ public class EnemyRangedBehaviour : MonoBehaviour
     private DropableBehaviour m_Dropping;
     private ShootableBehaviour m_Shooting;
     private DefenseBehaviour m_Defense;
+    private LevelingBehaviour m_Leveling;
 
     //Animator
     private Animator m_Animator;
 
-    //Player reference
-    private GameObject m_TargetPlayer;
+    //Scriptable object references (Enemy tier on spawn)
+    [SerializeField]
+    List<EnemyScriptableObject> m_EnemyTier;
 
     //Animation names
     private const string m_IdleAnimationName = "idle";
@@ -60,6 +63,7 @@ public class EnemyRangedBehaviour : MonoBehaviour
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_Shooting = GetComponent<ShootableBehaviour>();
         m_Defense = GetComponent<DefenseBehaviour>();
+        m_Leveling = GetComponent<LevelingBehaviour>();
         m_IsInvulnerable = false;
     }
 
@@ -102,7 +106,7 @@ public class EnemyRangedBehaviour : MonoBehaviour
         m_Damaging.OnSetDamage(enemyInfo.EnemyDamage);
         m_Moving.SetSpeed(enemyInfo.EnemySpeed);
         m_SpriteRenderer.color = enemyInfo.SpriteColor;
-        m_Dropping.SetCoins(enemyInfo.ScoreValue);
+        m_Dropping.SetCoins(enemyInfo.MoneyValue);
     }
 
     /* !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState */

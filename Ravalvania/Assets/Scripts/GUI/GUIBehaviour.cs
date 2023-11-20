@@ -35,7 +35,7 @@ public class GUIBehaviour : MonoBehaviour
         m_PlayerHealth = PlayerBehaviour.PlayerInstance.GetComponent<HealthBehaviour>();
         m_PlayerMana = PlayerBehaviour.PlayerInstance.GetComponent<ManaBehaviour>();
         m_Spawner = SpawnerBehaviour.SpawnerInstance;
-        m_EnemiesText.text = m_Spawner.Enemies + "/" + m_Spawner.TotalEnemies;
+        //m_EnemiesText.text = m_Spawner.Enemies + "/" + m_Spawner.TotalEnemies;
         m_WaveText.text = "Wave: " + m_GameManager.Wave;
         m_ScoreText.text = "Score: " + m_GameManager.Score;
         m_Lives.text = "Player lives: " + m_GameManager.Lives;

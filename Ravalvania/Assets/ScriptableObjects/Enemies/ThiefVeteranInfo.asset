@@ -16,4 +16,5 @@ MonoBehaviour:
   m_EnemyDamage: 2
   m_EnemySpeed: 2
   m_SpriteColor: {r: 1, g: 0.70980394, b: 0, a: 1}
-  m_ScoreValue: 160
+  m_ExperienceValue: 115
+  m_MoneyValue: 0

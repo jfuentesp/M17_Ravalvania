@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class HealthBehaviour : MonoBehaviour
 {
+    private LevelingBehaviour m_Leveling;
+
     [Header("Health of the Entity")]
     [SerializeField]
     private float m_MaxHealth;
@@ -20,10 +22,16 @@ public class HealthBehaviour : MonoBehaviour
     [SerializeField]
     private GameEvent m_OnDeathEvent;
     [SerializeField]
+    private GameEventInt m_OnDeathExpEvent;
+    [SerializeField]
     private bool m_IsDestroyedOnDeath;
+    [SerializeField]
+    private bool m_GivesExpOnDeath;
 
     void Start()
     {
+        if(m_GivesExpOnDeath)
+            m_Leveling = GetComponent<LevelingBehaviour>();
         m_CurrentHealth = m_MaxHealth;       
         m_IsAlive = true;
     }
@@ -55,9 +63,14 @@ public class HealthBehaviour : MonoBehaviour
 
     public void OnDeath()
     {
-        if (m_OnDeathEvent != null)
+        if (m_OnDeathEvent != null || m_OnDeathExpEvent != null)
+        {
+            if (m_GivesExpOnDeath)
+            {
+                m_OnDeathExpEvent.Raise(m_Leveling.ExpGivenOnDeath);
+            }
             m_OnDeathEvent.Raise();
-
+        }            
         if (m_IsDestroyedOnDeath)
         {
             Destroy(gameObject);

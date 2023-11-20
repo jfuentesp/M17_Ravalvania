@@ -100,7 +100,7 @@ using UnityEngine;
             m_EnemyDamage = enemyInfo.EnemyDamage;
             m_EnemySpeed = enemyInfo.EnemySpeed;
             m_SpriteRenderer.color = enemyInfo.SpriteColor;
-            m_EnemyScore = enemyInfo.ScoreValue;
+            //m_EnemyScore = enemyInfo.ScoreValue;
             m_Direction = spawnpoint == 0 ? 1 : -1;
         }
 
