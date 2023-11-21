@@ -44,6 +44,8 @@ public class EnemyRangedBehaviour : MonoBehaviour
     private SpriteRenderer m_SpriteRenderer;
     private bool m_IsInvulnerable;
     public bool IsInvulnerable => m_IsInvulnerable;
+    private int m_EnemyType; 
+    public int EnemyType => m_EnemyType; //Variable for Mission comparison
 
     //States from Enemy statemachine
     private enum EnemyMachineStates { IDLE, PATROL, CHASE, ATTACK, FLEE, HIT }

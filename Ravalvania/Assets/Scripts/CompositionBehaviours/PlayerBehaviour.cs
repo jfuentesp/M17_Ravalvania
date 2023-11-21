@@ -78,11 +78,11 @@ public class PlayerBehaviour : MonoBehaviour
 
     [Header("LayerMask of the pickups")]
     [SerializeField]
-    LayerMask m_PickupLayerMask;
+    private LayerMask m_PickupLayerMask;
 
     [Header("Is this object player1 or player2?")]
     [SerializeField]
-    PlayerEnum m_PlayerSelect;
+    private EPlayer m_PlayerSelect;
 
     [Header("Reference to the base statistics")]
     [SerializeField]
@@ -97,7 +97,7 @@ public class PlayerBehaviour : MonoBehaviour
     private GameEvent m_OnPlayerDeath;
 
     [SerializeField]
-    private OrbEnum m_OrbType;
+    private EOrb m_OrbType;
 
     private void Awake()
     {
@@ -125,7 +125,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_Input = Instantiate(m_InputAsset);
         m_CurrentActionMap = m_Input.FindActionMap("PlayerActions");
         //If the PlayerSelected Enum is Player1, will use the P1 inputs. If its 2, it will use the P2 inputs.
-        m_CurrentActionMap.bindingMask = m_PlayerSelect == PlayerEnum.PLAYER1 ? InputBinding.MaskByGroup("player1") : InputBinding.MaskByGroup("player2");
+        m_CurrentActionMap.bindingMask = m_PlayerSelect == EPlayer.PLAYER1 ? InputBinding.MaskByGroup("player1") : InputBinding.MaskByGroup("player2");
         m_MovementAction = m_CurrentActionMap.FindAction("Movement");
     }
 
@@ -187,7 +187,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_Mana.SetMaxManaBase(m_PlayerInfo.PlayerMaxMana);
         m_Defense.OnSetBaseDefense(m_PlayerInfo.PlayerDefense);
         m_Moving.SetSpeedBase(m_PlayerInfo.PlayerSpeed);
-        m_OrbType = OrbEnum.NONE;
+        m_OrbType = EOrb.NONE;
     }
 
     public void EndHit()
@@ -210,7 +210,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_IsInvulnerable = false;
     }
 
-    public void SetOrbType(OrbEnum orbType)
+    public void SetOrbType(EOrb orbType)
     {
         m_OrbType = orbType;
     }

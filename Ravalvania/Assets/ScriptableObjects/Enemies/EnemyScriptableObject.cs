@@ -10,6 +10,10 @@ using UnityEngine.SocialPlatforms.Impl;
 public class EnemyScriptableObject : ScriptableObject
 {
     [SerializeField]
+    private int m_EnemyType;
+    [SerializeField]
+    private string m_EnemyName;
+    [SerializeField]
     private float m_EnemyMaxHP;
     [SerializeField]
     private float m_EnemyDamage;
@@ -25,6 +29,8 @@ public class EnemyScriptableObject : ScriptableObject
     private int m_MoneyValue;
 
 
+    public int EnemyType => m_EnemyType;
+    public string EnemyName => m_EnemyName;
     public float EnemyMaxHP => m_EnemyMaxHP;
     public float EnemyDamage => m_EnemyDamage;
     public float EnemySpeed => m_EnemySpeed;

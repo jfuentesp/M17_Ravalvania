@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8b4a9720a044b4fb6f0381a7a0c534, type: 3}
   m_Name: RobberInfo
   m_EditorClassIdentifier: 
+  m_EnemyType: 7
   m_EnemyMaxHP: 7
   m_EnemyDamage: 1
   m_EnemySpeed: 0.5
+  m_EnemyDefense: 0
   m_SpriteColor: {r: 1, g: 1, b: 1, a: 1}
   m_ExperienceValue: 40
   m_MoneyValue: 0
