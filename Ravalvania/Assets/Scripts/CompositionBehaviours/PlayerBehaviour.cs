@@ -20,6 +20,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(JumpBehaviour))]
 [RequireComponent(typeof(LevelingBehaviour))]
 [RequireComponent(typeof(EquipableBehaviour))]
+[RequireComponent(typeof(EconomyBehaviour))]
 public class PlayerBehaviour : MonoBehaviour
 {
 
@@ -48,6 +49,7 @@ public class PlayerBehaviour : MonoBehaviour
     private DefenseBehaviour m_Defense;
     private LevelingBehaviour m_Leveling;
     private EquipableBehaviour m_Equipable;
+    private EconomyBehaviour m_Economy;
 
     //Player animator
     private Animator m_Animator;
@@ -115,6 +117,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_Sprite = GetComponent<SpriteRenderer>();
         m_Leveling = GetComponent<LevelingBehaviour>();
         m_Equipable = GetComponent<EquipableBehaviour>();
+        m_Economy = GetComponent<EconomyBehaviour>();
         m_IsInvulnerable = false;
 
         //Setting the Input Controls

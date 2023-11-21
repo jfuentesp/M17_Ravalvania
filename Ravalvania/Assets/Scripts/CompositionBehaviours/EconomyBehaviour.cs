@@ -11,9 +11,8 @@ public class EconomyBehaviour : MonoBehaviour
     private int m_PlayerCoins;
     public int PlayerCoins => m_PlayerCoins;
 
-    public void AddCoins(int amount)
+    public void ChangeCoins(int amount)
     {
         m_PlayerCoins += amount;
     }
-
 }
