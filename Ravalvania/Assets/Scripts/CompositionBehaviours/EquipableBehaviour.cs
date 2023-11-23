@@ -65,7 +65,7 @@ public class EquipableBehaviour : MonoBehaviour
     {
         if (m_EquippedOrb != null)
         {
-            m_PlayerOrb.SetOrbType(OrbEnum.NONE);
+            m_PlayerOrb.SetOrbType(EOrb.NONE);
             m_EquippedOrb = null;
         }
     }

@@ -10,9 +10,9 @@ public class Orb : ScriptableObject
     [SerializeField]
     private int m_Cost;
     [SerializeField]
-    private OrbEnum m_OrbType;
+    private EOrb m_OrbType;
 
     public string Name => m_OrbName;
     public int Cost => m_Cost;
-    public OrbEnum OrbType => m_OrbType;
+    public EOrb OrbType => m_OrbType;
 }

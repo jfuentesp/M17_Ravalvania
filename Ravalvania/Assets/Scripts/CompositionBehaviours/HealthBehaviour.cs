@@ -57,7 +57,6 @@ public class HealthBehaviour : MonoBehaviour
         {
             m_CurrentHealth = 0;
             m_IsAlive = false;
-            OnDeath();
         }
     }
 

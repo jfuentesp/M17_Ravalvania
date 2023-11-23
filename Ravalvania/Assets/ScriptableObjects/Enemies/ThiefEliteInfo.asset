@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8b4a9720a044b4fb6f0381a7a0c534, type: 3}
   m_Name: ThiefEliteInfo
   m_EditorClassIdentifier: 
+  m_EnemyType: 9
+  m_EnemyName: Elite Red Thief
   m_EnemyMaxHP: 8
   m_EnemyDamage: 2
   m_EnemySpeed: 1.5
+  m_EnemyDefense: 0
   m_SpriteColor: {r: 1, g: 0, b: 0, a: 1}
   m_ExperienceValue: 65
   m_MoneyValue: 0

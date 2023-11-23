@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8b4a9720a044b4fb6f0381a7a0c534, type: 3}
   m_Name: RobberEliteInfo
   m_EditorClassIdentifier: 
+  m_EnemyType: 6
+  m_EnemyName: Elite Red Robber
   m_EnemyMaxHP: 14
   m_EnemyDamage: 2
   m_EnemySpeed: 1
+  m_EnemyDefense: 0
   m_SpriteColor: {r: 1, g: 0, b: 0, a: 1}
   m_ExperienceValue: 90
   m_MoneyValue: 0
