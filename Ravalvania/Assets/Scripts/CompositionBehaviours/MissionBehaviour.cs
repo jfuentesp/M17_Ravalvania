@@ -35,13 +35,24 @@ public class MissionBehaviour : MonoBehaviour
     public int ValueRequired => m_ValueRequired; 
     public string Tooltip => m_Tooltip;
     public int CurrentValue => m_CurrentValue;
+    public bool IsMissionCompleted => m_IsMissionCompleted;
     public int ObjectiveType => m_ObjectiveType;
     public int CoinReward => m_CoinReward;
     public int ExpReward => m_ExpReward;
 
+    private EconomyBehaviour m_Player1Economy;
+    private LevelingBehaviour m_Player1Leveling;
+    private EconomyBehaviour m_Player2Economy;
+    private LevelingBehaviour m_Player2Leveling;
+
     private void Start()
     {
         m_LevelManager = LevelManager.LevelManagerInstance;
+        m_Player1Economy = m_LevelManager.Player1.GetComponent<EconomyBehaviour>();
+        m_Player1Leveling = m_LevelManager.Player1.GetComponent<LevelingBehaviour>();
+        m_Player2Economy = m_LevelManager.Player2.GetComponent<EconomyBehaviour>();
+        m_Player2Leveling = m_LevelManager.Player2.GetComponent<LevelingBehaviour>();
+        m_MissionType = EMission.NONE;
     }
 
     public void OnSetMission()
@@ -86,6 +97,7 @@ public class MissionBehaviour : MonoBehaviour
                 m_Tooltip = string.Format("Mission: Shoot {0} bullets!", m_ValueRequired - m_CurrentValue);
                 break;
         }
+        Debug.Log(m_Tooltip);
     }
 
     public void OnObjectiveCountdown()
@@ -99,5 +111,14 @@ public class MissionBehaviour : MonoBehaviour
                 m_Tooltip = "Mission accomplished! Collect your rewards at the Safehouse";
             }
         }
+    }
+
+    public void OnGiveRewards()
+    {
+        m_Player1Leveling.AddExperience(m_ExpReward);
+        m_Player2Leveling.AddExperience(m_ExpReward);
+        m_Player1Economy.ChangeCoins(m_CoinReward);
+        m_Player2Economy.ChangeCoins(m_CoinReward);
+        m_MissionType = EMission.NONE;
     }
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RangedInfo
   m_EditorClassIdentifier: 
   m_EnemyType: 4
+  m_EnemyName: Ranged
   m_EnemyMaxHP: 2
   m_EnemyDamage: 1
   m_EnemySpeed: 1

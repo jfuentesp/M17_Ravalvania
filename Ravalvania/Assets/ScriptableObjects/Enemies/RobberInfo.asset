@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RobberInfo
   m_EditorClassIdentifier: 
   m_EnemyType: 7
+  m_EnemyName: Robber
   m_EnemyMaxHP: 7
   m_EnemyDamage: 1
   m_EnemySpeed: 0.5

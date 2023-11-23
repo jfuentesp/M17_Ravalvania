@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RobberVeteranInfo
   m_EditorClassIdentifier: 
   m_EnemyType: 8
+  m_EnemyName: Veteran Yellow Robber
   m_EnemyMaxHP: 28
   m_EnemyDamage: 2
   m_EnemySpeed: 2

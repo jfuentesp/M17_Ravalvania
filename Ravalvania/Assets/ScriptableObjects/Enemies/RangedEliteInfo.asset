@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RangedEliteInfo
   m_EditorClassIdentifier: 
   m_EnemyType: 3
+  m_EnemyName: Elite Red Ranged
   m_EnemyMaxHP: 4
   m_EnemyDamage: 2
   m_EnemySpeed: 1

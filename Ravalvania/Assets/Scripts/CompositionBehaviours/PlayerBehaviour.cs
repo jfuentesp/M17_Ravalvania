@@ -21,9 +21,8 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(LevelingBehaviour))]
 [RequireComponent(typeof(EquipableBehaviour))]
 [RequireComponent(typeof(EconomyBehaviour))]
-public class PlayerBehaviour : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour, IObjectivable
 {
-
     //Reference to the InputSystem
     [Header("Reference to the Input System")]
     [SerializeField]
@@ -79,6 +78,9 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("LayerMask of the pickups")]
     [SerializeField]
     private LayerMask m_PickupLayerMask;
+    [Header("LaterMask of the interactables")]
+    [SerializeField]
+    private LayerMask m_InteractableLayerMask;
 
     [Header("Is this object player1 or player2?")]
     [SerializeField]
@@ -95,9 +97,16 @@ public class PlayerBehaviour : MonoBehaviour
     private GameEvent m_OnEnergyUsed;
     [SerializeField]
     private GameEvent m_OnPlayerDeath;
+    [SerializeField]
+    private GameEvent m_OnObjectiveCountdown;
 
+    [Header("Current Orb to set the Super")]
     [SerializeField]
     private EOrb m_OrbType;
+
+    //Mission component to check if an objective is clear and call the objective event to countdown
+    private MissionBehaviour m_Mission;
+    public MissionBehaviour PlayerMission => m_Mission;
 
     private void Awake()
     {
@@ -136,6 +145,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_CurrentActionMap.FindAction("Jump").performed += Jump;
         m_CurrentActionMap.FindAction("Crouch").started += Crouch;
         m_CurrentActionMap.FindAction("Crouch").canceled += ReturnToIdleState;
+        m_CurrentActionMap.FindAction("Interact").performed += Interact;
         m_CurrentActionMap.Enable();
     }
 
@@ -146,6 +156,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_CurrentActionMap.FindAction("Jump").performed -= Jump;
         m_CurrentActionMap.FindAction("Crouch").started -= Crouch;
         m_CurrentActionMap.FindAction("Crouch").canceled -= ReturnToIdleState;
+        m_CurrentActionMap.FindAction("Interact").performed -= Interact;
         m_CurrentActionMap.Disable();
     }
 
@@ -171,6 +182,7 @@ public class PlayerBehaviour : MonoBehaviour
         //In this case, we can use InitState directly instead of ChangeState as it doesn't have to Exit any state previously. 
         InitState(PlayerMachineStates.IDLE);
         OnPlayerInit();
+        m_Mission = LevelManager.LevelManagerInstance.GetComponent<MissionBehaviour>();
     }
 
     // Update is called once per frame
@@ -190,9 +202,27 @@ public class PlayerBehaviour : MonoBehaviour
         m_OrbType = EOrb.NONE;
     }
 
+    public void OnObjectiveCheck(EMission type)
+    {
+        if (m_Mission.MissionType == type)
+        {
+            m_OnObjectiveCountdown.Raise();
+        }
+    }
+
     public void EndHit()
     {
         ChangeState(PlayerMachineStates.IDLE);
+    }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        //This gets the gameobject of the pickup, just as it would do in OnTriggerEnter/Stay, but with less load since it's a "Raycast"
+        if (Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_InteractableLayerMask))
+        {
+            GameObject pickup = Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_InteractableLayerMask).collider.gameObject;
+            pickup.GetComponent<IInteractable>().interact();
+        } 
     }
 
     //Function used to go back to idle state after performing an inputname.canceled action
@@ -246,6 +276,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerMachineStates.JUMP:
                 m_Animator.Play(m_JumpAnimationName);
                 m_Jumping.JumpByForce();
+                OnObjectiveCheck(EMission.JUMP);
                 break;
 
             case PlayerMachineStates.ATTACK1:

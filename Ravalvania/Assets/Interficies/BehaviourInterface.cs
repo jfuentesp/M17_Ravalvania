@@ -28,3 +28,11 @@ public interface IItem
 
     public bool UsedBy(GameObject go);
 }
+public interface IInteractable
+{
+    public void interact();
+}
+public interface IObjectivable
+{
+    public void OnObjectiveCheck(EMission type);
+}

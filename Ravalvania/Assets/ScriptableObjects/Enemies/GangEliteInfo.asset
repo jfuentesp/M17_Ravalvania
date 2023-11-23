@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GangEliteInfo
   m_EditorClassIdentifier: 
   m_EnemyType: 0
+  m_EnemyName: 'Elite Red Gang '
   m_EnemyMaxHP: 7
   m_EnemyDamage: 2
   m_EnemySpeed: 1

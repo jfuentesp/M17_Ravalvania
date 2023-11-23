@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RobberEliteInfo
   m_EditorClassIdentifier: 
   m_EnemyType: 6
+  m_EnemyName: Elite Red Robber
   m_EnemyMaxHP: 14
   m_EnemyDamage: 2
   m_EnemySpeed: 1

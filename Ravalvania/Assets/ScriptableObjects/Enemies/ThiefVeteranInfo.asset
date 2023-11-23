@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ThiefVeteranInfo
   m_EditorClassIdentifier: 
   m_EnemyType: 11
+  m_EnemyName: Veteran Yellow Thief
   m_EnemyMaxHP: 16
   m_EnemyDamage: 2
   m_EnemySpeed: 2
