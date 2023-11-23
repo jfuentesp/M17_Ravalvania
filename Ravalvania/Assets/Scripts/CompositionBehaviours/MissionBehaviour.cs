@@ -79,7 +79,7 @@ public class MissionBehaviour : MonoBehaviour
                 PickupScriptableObject pickuprequirement = m_Pickups[Random.Range(0, m_Enemies.Count)];
                 m_ObjectiveName = pickuprequirement.PickupName;
                 m_ObjectiveType = pickuprequirement.PickupID;
-                m_Tooltip = string.Format("Mission: Kill {0} {1}!", m_ValueRequired - m_CurrentValue, m_ObjectiveName);
+                m_Tooltip = string.Format("Mission: Collect {0} {1}!", m_ValueRequired - m_CurrentValue, m_ObjectiveName);
                 break;
             case 2:
                 m_MissionType = EMission.JUMP;

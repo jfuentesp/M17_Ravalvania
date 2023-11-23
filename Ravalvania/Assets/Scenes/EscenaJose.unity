@@ -637,6 +637,7 @@ GameObject:
   - component: {fileID: 1785233372}
   - component: {fileID: 1785233371}
   - component: {fileID: 1785233373}
+  - component: {fileID: 1785233374}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -713,6 +714,34 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2081b999e5059d14baa49f90031508cc, type: 2}
   - {fileID: 11400000, guid: 162165b3b1c825747bbe92a160876b76, type: 2}
   - {fileID: 11400000, guid: 0430815d64681174fbaebe57467ab377, type: 2}
+--- !u!114 &1785233374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785233370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af697f02adf0024aa7eb51f600bd313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 6796b931cfb66be49b52202d8ff78240, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1785233373}
+        m_TargetAssemblyTypeName: MissionBehaviour, Assembly-CSharp
+        m_MethodName: OnObjectiveCountdown
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1978890998
 GameObject:
   m_ObjectHideFlags: 0

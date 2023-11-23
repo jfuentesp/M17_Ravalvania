@@ -11,7 +11,7 @@ using UnityEngine;
 [RequireComponent(typeof(DropableBehaviour))]
 [RequireComponent(typeof(DefenseBehaviour))]
 [RequireComponent(typeof(LevelingBehaviour))]
-public class EnemyThiefBehaviour : MonoBehaviour
+public class EnemyThiefBehaviour : MonoBehaviour, IObjectivable
 {
     //Components
     private Rigidbody2D m_Rigidbody;
@@ -45,10 +45,22 @@ public class EnemyThiefBehaviour : MonoBehaviour
     public bool IsInvulnerable => m_IsInvulnerable;
 
     //States from Enemy statemachine
-    private enum EnemyMachineStates { IDLE, PATROL, CHASE, ATTACK, FLEE, HIT }
+    private enum EnemyMachineStates { IDLE, PATROL, CHASE, ATTACK, FLEE, HIT, DEAD }
     private EnemyMachineStates m_CurrentState;
 
     private Vector2 m_PatrolDirection = Vector2.right;
+
+    //Mission info for Hit and Kill countdown
+    MissionBehaviour m_Mission;
+
+    [Header("GameEvent for the player XP increase")]
+    [SerializeField]
+    private GameEventInt m_OnEnemyDeathExp;
+
+    [Header("GameEvent for the mission")]
+    [SerializeField]
+    private GameEvent m_OnObjectiveCountdown;
+    private int m_EnemyID;
 
     private void Awake()
     {
@@ -69,8 +81,15 @@ public class EnemyThiefBehaviour : MonoBehaviour
 
     private void Start()
     {
+        m_Mission = LevelManager.LevelManagerInstance.GetComponent<MissionBehaviour>();
         InitEnemy();
         InitState(EnemyMachineStates.PATROL);
+    }
+
+    void OnEnable()
+    {
+        InitState(EnemyMachineStates.PATROL);
+        m_IsInvulnerable = false;
     }
 
     void Update()
@@ -84,6 +103,8 @@ public class EnemyThiefBehaviour : MonoBehaviour
         {
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponentInChildren<DamageableBehaviour>().AttackDamage);
             ChangeState(EnemyMachineStates.HIT);
+            if (!m_Health.IsAlive)
+                ChangeState(EnemyMachineStates.DEAD);
         }
 
         if (collision.CompareTag("PlayerProjectile") && !m_IsInvulnerable)
@@ -91,6 +112,8 @@ public class EnemyThiefBehaviour : MonoBehaviour
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponent<DamageableBehaviour>().AttackDamage);
             ChangeState(EnemyMachineStates.HIT);
             Destroy(collision.gameObject);
+            if (!m_Health.IsAlive)
+                ChangeState(EnemyMachineStates.DEAD);
         }
     }
 
@@ -110,6 +133,18 @@ public class EnemyThiefBehaviour : MonoBehaviour
         m_SpriteRenderer.color = enemyInfo.SpriteColor;
         m_Dropping.SetCoins(enemyInfo.MoneyValue);
         m_Leveling.OnSetExperienceOnDeath(enemyInfo.ExperienceValue);
+        m_EnemyID = enemyInfo.EnemyType;
+    }
+
+    public void OnObjectiveCheck(EMission type)
+    {
+        if (m_Mission.MissionType == type)
+            m_OnObjectiveCountdown.Raise();
+    }
+
+    public void OnDeath()
+    {
+        gameObject.SetActive(false);
     }
 
     /* !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState */
@@ -160,6 +195,15 @@ public class EnemyThiefBehaviour : MonoBehaviour
                 //Attack will set the velocity to zero, so it cant move while attacking
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_Attack1AnimationName);
+                break;
+
+            case EnemyMachineStates.DEAD:
+                m_IsInvulnerable = true;
+                m_Moving.OnStopMovement();
+                m_Animator.Play(m_DieAnimationName);
+                if (m_Mission != null && m_Mission.MissionType == EMission.KILL && m_Mission.ObjectiveType == m_EnemyID)
+                    m_OnObjectiveCountdown.Raise();
+                m_OnEnemyDeathExp.Raise(m_Leveling.ExpGivenOnDeath);
                 break;
 
             default:

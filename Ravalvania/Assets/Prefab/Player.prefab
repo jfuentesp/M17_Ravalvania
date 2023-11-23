@@ -587,6 +587,7 @@ MonoBehaviour:
   m_OnPlayerDamage: {fileID: 11400000, guid: fec59b4a96c41a0489ceab4f2a4c0d6b, type: 2}
   m_OnEnergyUsed: {fileID: 11400000, guid: 68ab744b819042b44bd183c5eda15031, type: 2}
   m_OnPlayerDeath: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}
+  m_OnObjectiveCountdown: {fileID: 11400000, guid: 6796b931cfb66be49b52202d8ff78240, type: 2}
   m_OrbType: 0
 --- !u!114 &3999634697589270503
 MonoBehaviour:

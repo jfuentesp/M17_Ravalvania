@@ -87,7 +87,7 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
     void OnEnable()
     {
         InitState(EnemyMachineStates.PATROL);
-        m_Rigidbody.isKinematic = false;
+        m_IsInvulnerable = false;
     }
 
     // Update is called once per frame
@@ -201,7 +201,7 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
             case EnemyMachineStates.DEAD:
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_DieAnimationName);
-                if (m_Mission.MissionType == EMission.KILL && m_Mission.ObjectiveType == m_EnemyID)
+                if (m_Mission != null && m_Mission.MissionType == EMission.KILL && m_Mission.ObjectiveType == m_EnemyID)
                     m_OnObjectiveCountdown.Raise();
                 m_OnEnemyDeathExp.Raise(m_Leveling.ExpGivenOnDeath);
                 break;

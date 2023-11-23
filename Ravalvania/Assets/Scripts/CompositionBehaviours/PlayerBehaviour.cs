@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
@@ -64,7 +65,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
     private const string m_SuperAnimationName = "super";
     private const string m_CrouchAnimationName = "crouch";
     private const string m_HitAnimationName = "hit";
-    private const string m_DeadAnimationName = "die";
+    private const string m_DeadAnimationName = "death";
     private const string m_CrouchAttack1AnimationName = "crouchattack1";
     private const string m_CrouchAttack2AnimationName = "crouchattack2";
 
@@ -147,6 +148,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
         m_CurrentActionMap.FindAction("Crouch").canceled += ReturnToIdleState;
         m_CurrentActionMap.FindAction("Interact").performed += Interact;
         m_CurrentActionMap.Enable();
+        m_IsInvulnerable = false;
     }
 
     private void OnDisable()
@@ -168,6 +170,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
             ChangeState(PlayerMachineStates.HIT);
             if (!m_Health.IsAlive)
                 OnDeath();
+            Debug.Log(m_Health.CurrentHealth);
         }
 
         if (collision.CompareTag("EnemyProjectile") && !m_IsInvulnerable)
@@ -176,7 +179,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
             ChangeState(PlayerMachineStates.HIT);
             Destroy(collision.gameObject);
             if (!m_Health.IsAlive)
-                OnDeath();
+                ChangeState(PlayerMachineStates.DEAD);
+            Debug.Log(m_Health.CurrentHealth);
         }
     }
 
@@ -249,8 +253,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
 
     private void OnDeath()
     {
+        gameObject.SetActive(false);
         m_OnPlayerDeath.Raise();
-        ChangeState(PlayerMachineStates.DEAD);
     }
 
     /******** !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState ********/
@@ -349,7 +353,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
             case PlayerMachineStates.DEAD:
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_DeadAnimationName);
-                m_Rigidbody.isKinematic = true;
+                m_IsInvulnerable = true;
                 break;
 
             default:
@@ -371,7 +375,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
     /* UpdateState will control every frame since it will be called from Update() and will control when it changes the state */
     private void UpdateState()
     {
-        m_Moving.OnFlipCharacter(m_MovementAction.ReadValue<Vector2>());
+        if(!m_IsInvulnerable)
+            m_Moving.OnFlipCharacter(m_MovementAction.ReadValue<Vector2>());
 
         switch (m_CurrentState)
         {
