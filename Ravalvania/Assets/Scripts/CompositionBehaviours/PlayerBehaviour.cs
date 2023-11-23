@@ -438,6 +438,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Jump(InputAction.CallbackContext context)
     {
+        Debug.Log("Im falling and i cant get up: "+m_Rigidbody.velocity.y);
         switch (m_CurrentState)
         {
             case PlayerMachineStates.IDLE:
