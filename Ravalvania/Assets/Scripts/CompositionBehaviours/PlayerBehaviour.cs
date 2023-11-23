@@ -64,11 +64,12 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
     private const string m_SuperAnimationName = "super";
     private const string m_CrouchAnimationName = "crouch";
     private const string m_HitAnimationName = "hit";
+    private const string m_DeadAnimationName = "die";
     private const string m_CrouchAttack1AnimationName = "crouchattack1";
     private const string m_CrouchAttack2AnimationName = "crouchattack2";
 
     //Variables for the current state and an Enum for setting the Player States
-    private enum PlayerMachineStates { NONE, IDLE, WALK, ATTACK1, ATTACK2, COMBO1, COMBO2, SUPER, JUMP, CROUCHATTACK1, CROUCHATTACK2, CROUCH, HIT }
+    private enum PlayerMachineStates { NONE, IDLE, WALK, ATTACK1, ATTACK2, COMBO1, COMBO2, SUPER, JUMP, CROUCHATTACK1, CROUCHATTACK2, CROUCH, HIT, DEAD }
     private PlayerMachineStates m_CurrentState;
 
     private bool m_IsInvulnerable;
@@ -106,7 +107,6 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
 
     //Mission component to check if an objective is clear and call the objective event to countdown
     private MissionBehaviour m_Mission;
-    public MissionBehaviour PlayerMission => m_Mission;
 
     private void Awake()
     {
@@ -166,6 +166,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
         {
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponentInChildren<DamageableBehaviour>().AttackDamage);
             ChangeState(PlayerMachineStates.HIT);
+            if (!m_Health.IsAlive)
+                OnDeath();
         }
 
         if (collision.CompareTag("EnemyProjectile") && !m_IsInvulnerable)
@@ -173,6 +175,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponent<DamageableBehaviour>().AttackDamage);
             ChangeState(PlayerMachineStates.HIT);
             Destroy(collision.gameObject);
+            if (!m_Health.IsAlive)
+                OnDeath();
         }
     }
 
@@ -205,9 +209,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
     public void OnObjectiveCheck(EMission type)
     {
         if (m_Mission.MissionType == type)
-        {
             m_OnObjectiveCountdown.Raise();
-        }
     }
 
     public void EndHit()
@@ -243,6 +245,12 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
     public void SetOrbType(EOrb orbType)
     {
         m_OrbType = orbType;
+    }
+
+    private void OnDeath()
+    {
+        m_OnPlayerDeath.Raise();
+        ChangeState(PlayerMachineStates.DEAD);
     }
 
     /******** !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState ********/
@@ -297,11 +305,11 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
                 //Attack will set the velocity to zero, so it cant move while attacking
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_Combo1AnimationName);
-                //Then we call for the shooting action and we pass the spawnpoint. We do substract the mana.
+                //Then we call for the shooting action and we pass the spawnpoint. We do substract the mana in the UpdateState().
                 m_Shooting.Shoot();
-                Debug.Log("disparo");
                 m_Mana.OnChangeMana(m_ManaCost.ManaCost);
                 m_OnEnergyUsed.Raise();
+                OnObjectiveCheck(EMission.SHOOT);
                 break;
 
             case PlayerMachineStates.COMBO2:
@@ -336,6 +344,12 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_CrouchAttack2AnimationName);
                 m_Damaging.SetComboMultiplier(1);
+                break;
+
+            case PlayerMachineStates.DEAD:
+                m_Moving.OnStopMovement();
+                m_Animator.Play(m_DeadAnimationName);
+                m_Rigidbody.isKinematic = true;
                 break;
 
             default:
