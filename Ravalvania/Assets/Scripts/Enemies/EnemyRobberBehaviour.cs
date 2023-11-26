@@ -81,7 +81,7 @@ public class EnemyRobberBehaviour : MonoBehaviour, IObjectivable
     {
         m_Mission = LevelManager.LevelManagerInstance.GetComponent<MissionBehaviour>();
         InitEnemy();
-        InitState(EnemyMachineStates.IDLE);
+        //InitState(EnemyMachineStates.PATROL);
     }
 
     void OnEnable()

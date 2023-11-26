@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static SaveData;
 
 public interface IDamageble
 {
@@ -35,4 +36,12 @@ public interface IInteractable
 public interface IObjectivable
 {
     public void OnObjectiveCheck(EMission type);
+}
+
+public interface ISaveableObject
+{
+    public PlayerData SavePlayer();
+    public MissionData SaveMission();
+    public InventoryData SaveInventory();
+    public void Load(PlayerData playerData, MissionData missionData, InventoryData inventoryData);
 }

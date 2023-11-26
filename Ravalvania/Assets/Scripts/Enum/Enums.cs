@@ -14,4 +14,8 @@ public enum EMission
 {
     NONE, KILL, PICK, JUMP, HIT, SHOOT
 }
+public enum EDoor
+{
+    NONE, SAFEHOUSE, WOODHOUSE, WOODCAVE, CAVE
+}
 
