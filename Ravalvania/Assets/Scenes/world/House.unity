@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 156695631}
   - component: {fileID: 156695630}
   - component: {fileID: 156695629}
+  - component: {fileID: 156695633}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -241,6 +242,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &156695633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156695628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d065bd76dfb62443bf3ef75e88b54cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InitialCoins: 0
 --- !u!1 &192851606
 GameObject:
   m_ObjectHideFlags: 0
@@ -15605,7 +15619,8 @@ PrefabInstance:
       propertyPath: m_PlayerSelect
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9065587982147826171, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -16442,7 +16457,8 @@ PrefabInstance:
       propertyPath: m_OnDeathExpEvent
       value: 
       objectReference: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9065587982147826171, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

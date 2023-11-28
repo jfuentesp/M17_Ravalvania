@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SaveData
 {
+
     [Serializable]
     public struct PlayerData
     {
@@ -40,5 +41,10 @@ public class SaveData
     {
 
     }
+
+    public string scene;
+    public int money;
+    public PlayerData player1;
+    public PlayerData player2;
 
 }

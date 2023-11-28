@@ -21,7 +21,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(JumpBehaviour))]
 [RequireComponent(typeof(LevelingBehaviour))]
 [RequireComponent(typeof(EquipableBehaviour))]
-public class PlayerBehaviour : MonoBehaviour, IObjectivable
+public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
 {
     //Reference to the InputSystem
     [Header("Reference to the Input System")]
@@ -253,6 +253,17 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
         gameObject.SetActive(false);
         m_OnPlayerDeath.Raise();
     }
+
+    public SaveData.PlayerData SavePlayer()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Load(SaveData.PlayerData _playerData)
+    {
+        throw new NotImplementedException();
+    }
+
 
     /******** !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState ********/
     private void ChangeState(PlayerMachineStates newState)
@@ -530,6 +541,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
                 break;
         }
     }
+
+
     /* !!!!!!! FINISHING ACTIONS !!!!!!! */
 }
 

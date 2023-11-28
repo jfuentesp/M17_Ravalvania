@@ -41,7 +41,5 @@ public interface IObjectivable
 public interface ISaveableObject
 {
     public PlayerData SavePlayer();
-    public MissionData SaveMission();
-    public InventoryData SaveInventory();
-    public void Load(PlayerData playerData, MissionData missionData, InventoryData inventoryData);
+    public void Load(PlayerData _playerData);
 }
