@@ -784,30 +784,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2611cd14806f24686b2b53503fb58e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnTime: 3
-  m_EnemiesToSpawn: 0
-  m_EnemiesSpawned: 0
-  m_LeftSpawnpoint: {fileID: 194080084}
-  m_RightSpawnpoint: {fileID: 732353364}
+  m_SpawnpointList: []
   m_RobberPool: {fileID: 1845233193}
   m_RangedPool: {fileID: 718400414}
   m_ThiefPool: {fileID: 939455562}
   m_GangPool: {fileID: 1953569643}
-  m_OnWaveCleared: {fileID: 11400000, guid: cc3eac07c636c9b42be2cdbdd46e0aaa, type: 2}
-  m_OnGUIUpdate: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
-  m_EnemyInfoList:
-  - {fileID: 11400000, guid: 70ee3a7772119834ea90d45f6d225ee3, type: 2}
-  - {fileID: 11400000, guid: 1565c3ee12035b548bc2f61cdc8e062f, type: 2}
-  - {fileID: 11400000, guid: a58c70ceb29389a4c93be36867346dab, type: 2}
-  - {fileID: 11400000, guid: 62cc740c093fe434982ae4f0bca1b2b4, type: 2}
-  - {fileID: 11400000, guid: 40f039789b5494f4782a523a1750a370, type: 2}
-  - {fileID: 11400000, guid: bd9410bc9cd8405498078fcdf8500fb0, type: 2}
-  - {fileID: 11400000, guid: 2469eed83002b2b4d951bb1481c7bbc3, type: 2}
-  - {fileID: 11400000, guid: 619610fde82358c458414df0ec6c8de5, type: 2}
-  - {fileID: 11400000, guid: ac812832ad085fd4da561edb23e0c656, type: 2}
-  - {fileID: 11400000, guid: 47ae0228bb80b83458a1c60eb4e25990, type: 2}
-  - {fileID: 11400000, guid: cca15cb64501e0e43b5be2dc083dc663, type: 2}
-  - {fileID: 11400000, guid: 906597642b25ce147adecb888ecb354b, type: 2}
 --- !u!114 &590105141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2865,6 +2846,7 @@ GameObject:
   - component: {fileID: 1578691674}
   - component: {fileID: 1578691675}
   - component: {fileID: 1578691676}
+  - component: {fileID: 1578691677}
   m_Layer: 5
   m_Name: GUI
   m_TagString: Untagged
@@ -3086,6 +3068,22 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1578691677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578691654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af697f02adf0024aa7eb51f600bd313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1594573674
 GameObject:
   m_ObjectHideFlags: 0
