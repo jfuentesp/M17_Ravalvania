@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootableBehaviour : MonoBehaviour
+public class ShootableBehaviour : MonoBehaviour, IObjectivable
 {
     [Header("Prefab of the bullet to instantiate")]
     [SerializeField]
@@ -21,5 +21,13 @@ public class ShootableBehaviour : MonoBehaviour
         GameObject prefab = Instantiate(m_BulletPrefab);
         prefab.transform.position = transform.position;
         prefab.GetComponent<BulletBehaviour>().InitBullet(direction);
+    }
+
+    public void OnObjectiveCheck(EMission type)
+    {
+        if(EMission.SHOOT == type)
+        {
+
+        }
     }
 }

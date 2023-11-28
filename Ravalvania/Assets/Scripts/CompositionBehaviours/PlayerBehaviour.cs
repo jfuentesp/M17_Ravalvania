@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.InputSystem;
@@ -20,9 +21,9 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(JumpBehaviour))]
 [RequireComponent(typeof(LevelingBehaviour))]
 [RequireComponent(typeof(EquipableBehaviour))]
-public class PlayerBehaviour : MonoBehaviour
+[RequireComponent(typeof(EconomyBehaviour))]
+public class PlayerBehaviour : MonoBehaviour, IObjectivable
 {
-
     //Reference to the InputSystem
     [Header("Reference to the Input System")]
     [SerializeField]
@@ -48,6 +49,7 @@ public class PlayerBehaviour : MonoBehaviour
     private DefenseBehaviour m_Defense;
     private LevelingBehaviour m_Leveling;
     private EquipableBehaviour m_Equipable;
+    private EconomyBehaviour m_Economy;
 
     //Player animator
     private Animator m_Animator;
@@ -63,11 +65,12 @@ public class PlayerBehaviour : MonoBehaviour
     private const string m_SuperAnimationName = "super";
     private const string m_CrouchAnimationName = "crouch";
     private const string m_HitAnimationName = "hit";
+    private const string m_DeadAnimationName = "death";
     private const string m_CrouchAttack1AnimationName = "crouchattack1";
     private const string m_CrouchAttack2AnimationName = "crouchattack2";
 
     //Variables for the current state and an Enum for setting the Player States
-    private enum PlayerMachineStates { NONE, IDLE, WALK, ATTACK1, ATTACK2, COMBO1, COMBO2, SUPER, JUMP, CROUCHATTACK1, CROUCHATTACK2, CROUCH, HIT }
+    private enum PlayerMachineStates { NONE, IDLE, WALK, ATTACK1, ATTACK2, COMBO1, COMBO2, SUPER, JUMP, CROUCHATTACK1, CROUCHATTACK2, CROUCH, HIT, DEAD }
     private PlayerMachineStates m_CurrentState;
 
     private bool m_IsInvulnerable;
@@ -76,11 +79,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     [Header("LayerMask of the pickups")]
     [SerializeField]
-    LayerMask m_PickupLayerMask;
+    private LayerMask m_PickupLayerMask;
+    [Header("LaterMask of the interactables")]
+    [SerializeField]
+    private LayerMask m_InteractableLayerMask;
 
     [Header("Is this object player1 or player2?")]
     [SerializeField]
-    PlayerEnum m_PlayerSelect;
+    private EPlayer m_PlayerSelect;
 
     [Header("Reference to the base statistics")]
     [SerializeField]
@@ -93,9 +99,15 @@ public class PlayerBehaviour : MonoBehaviour
     private GameEvent m_OnEnergyUsed;
     [SerializeField]
     private GameEvent m_OnPlayerDeath;
-
     [SerializeField]
-    private OrbEnum m_OrbType;
+    private GameEvent m_OnObjectiveCountdown;
+
+    [Header("Current Orb to set the Super")]
+    [SerializeField]
+    private EOrb m_OrbType;
+
+    //Mission component to check if an objective is clear and call the objective event to countdown
+    private MissionBehaviour m_Mission;
 
     private void Awake()
     {
@@ -115,6 +127,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_Sprite = GetComponent<SpriteRenderer>();
         m_Leveling = GetComponent<LevelingBehaviour>();
         m_Equipable = GetComponent<EquipableBehaviour>();
+        m_Economy = GetComponent<EconomyBehaviour>();
         m_IsInvulnerable = false;
 
         //Setting the Input Controls
@@ -122,7 +135,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_Input = Instantiate(m_InputAsset);
         m_CurrentActionMap = m_Input.FindActionMap("PlayerActions");
         //If the PlayerSelected Enum is Player1, will use the P1 inputs. If its 2, it will use the P2 inputs.
-        m_CurrentActionMap.bindingMask = m_PlayerSelect == PlayerEnum.PLAYER1 ? InputBinding.MaskByGroup("player1") : InputBinding.MaskByGroup("player2");
+        m_CurrentActionMap.bindingMask = m_PlayerSelect == EPlayer.PLAYER1 ? InputBinding.MaskByGroup("player1") : InputBinding.MaskByGroup("player2");
         m_MovementAction = m_CurrentActionMap.FindAction("Movement");
     }
 
@@ -133,7 +146,9 @@ public class PlayerBehaviour : MonoBehaviour
         m_CurrentActionMap.FindAction("Jump").performed += Jump;
         m_CurrentActionMap.FindAction("Crouch").started += Crouch;
         m_CurrentActionMap.FindAction("Crouch").canceled += ReturnToIdleState;
+        m_CurrentActionMap.FindAction("Interact").performed += Interact;
         m_CurrentActionMap.Enable();
+        m_IsInvulnerable = false;
     }
 
     private void OnDisable()
@@ -143,6 +158,7 @@ public class PlayerBehaviour : MonoBehaviour
         m_CurrentActionMap.FindAction("Jump").performed -= Jump;
         m_CurrentActionMap.FindAction("Crouch").started -= Crouch;
         m_CurrentActionMap.FindAction("Crouch").canceled -= ReturnToIdleState;
+        m_CurrentActionMap.FindAction("Interact").performed -= Interact;
         m_CurrentActionMap.Disable();
     }
 
@@ -152,6 +168,9 @@ public class PlayerBehaviour : MonoBehaviour
         {
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponentInChildren<DamageableBehaviour>().AttackDamage);
             ChangeState(PlayerMachineStates.HIT);
+            if (!m_Health.IsAlive)
+                OnDeath();
+            Debug.Log(m_Health.CurrentHealth);
         }
 
         if (collision.CompareTag("EnemyProjectile") && !m_IsInvulnerable)
@@ -159,6 +178,9 @@ public class PlayerBehaviour : MonoBehaviour
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponent<DamageableBehaviour>().AttackDamage);
             ChangeState(PlayerMachineStates.HIT);
             Destroy(collision.gameObject);
+            if (!m_Health.IsAlive)
+                ChangeState(PlayerMachineStates.DEAD);
+            Debug.Log(m_Health.CurrentHealth);
         }
     }
 
@@ -168,6 +190,7 @@ public class PlayerBehaviour : MonoBehaviour
         //In this case, we can use InitState directly instead of ChangeState as it doesn't have to Exit any state previously. 
         InitState(PlayerMachineStates.IDLE);
         OnPlayerInit();
+        m_Mission = LevelManager.LevelManagerInstance.GetComponent<MissionBehaviour>();
     }
 
     // Update is called once per frame
@@ -184,12 +207,28 @@ public class PlayerBehaviour : MonoBehaviour
         m_Mana.SetMaxManaBase(m_PlayerInfo.PlayerMaxMana);
         m_Defense.OnSetBaseDefense(m_PlayerInfo.PlayerDefense);
         m_Moving.SetSpeedBase(m_PlayerInfo.PlayerSpeed);
-        m_OrbType = OrbEnum.NONE;
+        m_OrbType = EOrb.NONE;
+    }
+
+    public void OnObjectiveCheck(EMission type)
+    {
+        if (m_Mission.MissionType == type)
+            m_OnObjectiveCountdown.Raise();
     }
 
     public void EndHit()
     {
         ChangeState(PlayerMachineStates.IDLE);
+    }
+
+    public void Interact(InputAction.CallbackContext context)
+    {
+        //This gets the gameobject of the pickup, just as it would do in OnTriggerEnter/Stay, but with less load since it's a "Raycast"
+        if (Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_InteractableLayerMask))
+        {
+            GameObject pickup = Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_InteractableLayerMask).collider.gameObject;
+            pickup.GetComponent<IInteractable>().interact();
+        } 
     }
 
     //Function used to go back to idle state after performing an inputname.canceled action
@@ -207,9 +246,15 @@ public class PlayerBehaviour : MonoBehaviour
         m_IsInvulnerable = false;
     }
 
-    public void SetOrbType(OrbEnum orbType)
+    public void SetOrbType(EOrb orbType)
     {
         m_OrbType = orbType;
+    }
+
+    private void OnDeath()
+    {
+        gameObject.SetActive(false);
+        m_OnPlayerDeath.Raise();
     }
 
     /******** !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState ********/
@@ -243,6 +288,7 @@ public class PlayerBehaviour : MonoBehaviour
             case PlayerMachineStates.JUMP:
                 m_Animator.Play(m_JumpAnimationName);
                 m_Jumping.JumpByForce();
+                OnObjectiveCheck(EMission.JUMP);
                 break;
 
             case PlayerMachineStates.ATTACK1:
@@ -263,11 +309,11 @@ public class PlayerBehaviour : MonoBehaviour
                 //Attack will set the velocity to zero, so it cant move while attacking
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_Combo1AnimationName);
-                //Then we call for the shooting action and we pass the spawnpoint. We do substract the mana.
+                //Then we call for the shooting action and we pass the spawnpoint. We do substract the mana in the UpdateState().
                 m_Shooting.Shoot();
-                Debug.Log("disparo");
                 m_Mana.OnChangeMana(m_ManaCost.ManaCost);
                 m_OnEnergyUsed.Raise();
+                OnObjectiveCheck(EMission.SHOOT);
                 break;
 
             case PlayerMachineStates.COMBO2:
@@ -304,6 +350,12 @@ public class PlayerBehaviour : MonoBehaviour
                 m_Damaging.SetComboMultiplier(1);
                 break;
 
+            case PlayerMachineStates.DEAD:
+                m_Moving.OnStopMovement();
+                m_Animator.Play(m_DeadAnimationName);
+                m_IsInvulnerable = true;
+                break;
+
             default:
                 break;
         }
@@ -323,7 +375,8 @@ public class PlayerBehaviour : MonoBehaviour
     /* UpdateState will control every frame since it will be called from Update() and will control when it changes the state */
     private void UpdateState()
     {
-        m_Moving.OnFlipCharacter(m_MovementAction.ReadValue<Vector2>());
+        if(!m_IsInvulnerable)
+            m_Moving.OnFlipCharacter(m_MovementAction.ReadValue<Vector2>());
 
         switch (m_CurrentState)
         {

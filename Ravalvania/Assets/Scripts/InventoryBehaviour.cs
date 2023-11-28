@@ -5,10 +5,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class InventoryBehaivour : MonoBehaviour
+public class InventoryBehaviour : MonoBehaviour
 {
     private PlayerBehaviour Owner;
-    public Player m_Owner;
     //private List<ItemSlot> items;
     private bool InventoryAbierto;
     [SerializeField]

@@ -199,6 +199,8 @@ GameObject:
   - component: {fileID: 8966929919464806317}
   - component: {fileID: 3999634697589270503}
   - component: {fileID: 4950642935795205617}
+  - component: {fileID: 6763216026891289627}
+  - component: {fileID: 9065587982147826171}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -577,11 +579,16 @@ MonoBehaviour:
   m_PickupLayerMask:
     serializedVersion: 2
     m_Bits: 8192
+  m_InteractableLayerMask:
+    serializedVersion: 2
+    m_Bits: 65536
   m_PlayerSelect: 0
   m_PlayerInfo: {fileID: 11400000, guid: f5f4c43b207d10d44ae99a82653f1049, type: 2}
   m_OnPlayerDamage: {fileID: 11400000, guid: fec59b4a96c41a0489ceab4f2a4c0d6b, type: 2}
   m_OnEnergyUsed: {fileID: 11400000, guid: 68ab744b819042b44bd183c5eda15031, type: 2}
   m_OnPlayerDeath: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}
+  m_OnObjectiveCountdown: {fileID: 11400000, guid: 6796b931cfb66be49b52202d8ff78240, type: 2}
+  m_OrbType: 0
 --- !u!114 &3999634697589270503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,3 +621,31 @@ MonoBehaviour:
   m_ExpGivenOnDeath: 0
   m_ConstantX: 0
   m_RatioY: 0
+--- !u!114 &6763216026891289627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277890847289425898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7729777782569e146a295ca0567859bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EquippedWeapon: {fileID: 0}
+  m_EquippedArmor: {fileID: 0}
+  m_EquippedOrb: {fileID: 0}
+--- !u!114 &9065587982147826171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277890847289425898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d065bd76dfb62443bf3ef75e88b54cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InitialCoins: 0

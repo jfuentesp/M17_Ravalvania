@@ -2093,10 +2093,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea85a3cafbb6a1647a6522227e5e20d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Wave: 0
-  m_Score: 0
-  m_Lives: 2
-  m_NumberOfEnemiesByWave: 
   m_OnNextWave: {fileID: 11400000, guid: 58cb7d47492a9aa499407fe679e6f1b9, type: 2}
   m_OnGUIUpdate: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
 --- !u!4 &1264336163
@@ -2996,12 +2992,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af697f02adf0024aa7eb51f600bd313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 68ab744b819042b44bd183c5eda15031, type: 2}
+  Event: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1578691659}
-        m_TargetAssemblyTypeName: streetsofraval.GUIBehaviour, Assembly-CSharp
+        m_TargetAssemblyTypeName: GUIBehaviour, Assembly-CSharp
         m_MethodName: UpdateGUI
         m_Mode: 1
         m_Arguments:

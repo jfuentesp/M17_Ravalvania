@@ -626,6 +626,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62cc740c093fe434982ae4f0bca1b2b4, type: 2}
   - {fileID: 11400000, guid: 619610fde82358c458414df0ec6c8de5, type: 2}
   - {fileID: 11400000, guid: 906597642b25ce147adecb888ecb354b, type: 2}
+  m_OnEnemyDeathExp: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
+  m_OnObjectiveCountdown: {fileID: 11400000, guid: 6796b931cfb66be49b52202d8ff78240, type: 2}
 --- !u!114 &4006561792620681706
 MonoBehaviour:
   m_ObjectHideFlags: 0
