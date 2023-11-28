@@ -8,6 +8,8 @@ public class DamageableBehaviour : MonoBehaviour
     DefenseBehaviour m_Defense;
 
     [SerializeField]
+    GameEvent m_OnGuiEvent;
+    [SerializeField]
     private float m_BaseAttackDamage;
     public float BaseAttackDamage => m_BaseAttackDamage;
     private float m_AttackDamage;
@@ -36,6 +38,7 @@ public class DamageableBehaviour : MonoBehaviour
         else
             damage = damage * damage / m_Defense.Defense;
         m_Health.ChangeHealth(-damage * m_ComboMultiplier);
+        m_OnGuiEvent.Raise();
     }
     //Function that updates base damage (either if a buff or a debuff is applied or on a level up) 
     public void OnUpdateBaseDamage(float damageAmount)

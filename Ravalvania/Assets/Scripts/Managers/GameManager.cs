@@ -74,6 +74,8 @@ public class GameManager : MonoBehaviour
         m_Player2SpawnPoint = m_Player2InitialSpawnPoint;
     }
 
+    
+
     //Substracts a Live and checks if the lives are more than 0. If not, loads the GameOver scene.
     public void OnPlayerDeath()
     {
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
     public void ChangeScene(EDoor doorDestination)
     {
         KeepDataOnSceneChange();
-        m_DestinationDoor = doorDestination;
+        //m_DestinationDoor = doorDestination; ?
         switch (m_DestinationDoor)
         {
             case EDoor.SAFEHOUSE:
@@ -110,7 +112,7 @@ public class GameManager : MonoBehaviour
             SetPlayersPosition(destination.transform.position);
         } else
         {
-            SetPlayersPosition(m_Player1SpawnPoint);
+            SetPlayersPosition(m_Levelmanager.getSpawnPoint);
         }
     }
 

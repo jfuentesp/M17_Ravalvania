@@ -8,6 +8,11 @@ public class EconomyBehaviour : MonoBehaviour
     [SerializeField]
     private int m_InitialCoins;
 
+    private void OnEnable()
+    {
+        ChangeCoins(m_InitialCoins);
+    }
+
     private int m_PlayerCoins;
     public int PlayerCoins => m_PlayerCoins;
 

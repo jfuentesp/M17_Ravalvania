@@ -45,6 +45,11 @@ public class MissionBehaviour : MonoBehaviour
     private EconomyBehaviour m_Player2Economy;
     private LevelingBehaviour m_Player2Leveling;
 
+    private void OnEnable()
+    {
+        m_Tooltip = "Busca al anciano en la casa del bosque, quizás necesite algo...";
+    }
+
     private void Start()
     {
         m_LevelManager = LevelManager.LevelManagerInstance;
@@ -97,7 +102,7 @@ public class MissionBehaviour : MonoBehaviour
                 m_Tooltip = string.Format("Mission: Shoot {0} bullets!", m_ValueRequired - m_CurrentValue);
                 break;
         }
-        Debug.Log(m_Tooltip);
+
     }
 
     public void OnObjectiveCountdown()
@@ -120,5 +125,6 @@ public class MissionBehaviour : MonoBehaviour
         m_Player1Economy.ChangeCoins(m_CoinReward);
         m_Player2Economy.ChangeCoins(m_CoinReward);
         m_MissionType = EMission.NONE;
+        m_Tooltip = "Busca al anciano en la casa, quizás necesite algo...";
     }
 }
