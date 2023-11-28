@@ -21,8 +21,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(JumpBehaviour))]
 [RequireComponent(typeof(LevelingBehaviour))]
 [RequireComponent(typeof(EquipableBehaviour))]
-[RequireComponent(typeof(EconomyBehaviour))]
-public class PlayerBehaviour : MonoBehaviour, IObjectivable
+public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
 {
     //Reference to the InputSystem
     [Header("Reference to the Input System")]
@@ -49,7 +48,6 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
     private DefenseBehaviour m_Defense;
     private LevelingBehaviour m_Leveling;
     private EquipableBehaviour m_Equipable;
-    private EconomyBehaviour m_Economy;
 
     //Player animator
     private Animator m_Animator;
@@ -127,7 +125,6 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
         m_Sprite = GetComponent<SpriteRenderer>();
         m_Leveling = GetComponent<LevelingBehaviour>();
         m_Equipable = GetComponent<EquipableBehaviour>();
-        m_Economy = GetComponent<EconomyBehaviour>();
         m_IsInvulnerable = false;
 
         //Setting the Input Controls
@@ -256,6 +253,17 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
         gameObject.SetActive(false);
         m_OnPlayerDeath.Raise();
     }
+
+    public SaveData.PlayerData SavePlayer()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Load(SaveData.PlayerData _playerData)
+    {
+        throw new NotImplementedException();
+    }
+
 
     /******** !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState ********/
     private void ChangeState(PlayerMachineStates newState)
@@ -533,6 +541,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable
                 break;
         }
     }
+
+
     /* !!!!!!! FINISHING ACTIONS !!!!!!! */
 }
 

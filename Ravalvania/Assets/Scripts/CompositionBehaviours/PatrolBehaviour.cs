@@ -23,10 +23,16 @@ public class PatrolBehaviour : MonoBehaviour
         m_Moving = GetComponent<MovableBehaviour>();
     }
 
+    private void OnEnable()
+    {
+        m_Direction = m_DefaultDirection == Direction.RIGHT ? Vector2.right : -Vector2.right;
+        m_Moving = GetComponent<MovableBehaviour>();
+    }
+
     public void OnPatrolByTime()
     {
-        m_Direction = m_Moving.IsFlipped ? -Vector2.right : Vector2.right;
-        if(m_PatrolCoroutine == null)
+        //m_Direction = m_Moving.IsFlipped ? -Vector2.right : Vector2.right;
+        if (m_PatrolCoroutine == null)
             m_PatrolCoroutine = StartCoroutine(PatrolByTimeCoroutine());
     }
 
@@ -40,7 +46,6 @@ public class PatrolBehaviour : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log(m_Direction);
             yield return new WaitForSeconds(m_PatrolTime);
             m_Direction *= -1;
         }   

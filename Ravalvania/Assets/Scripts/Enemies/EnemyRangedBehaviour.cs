@@ -85,8 +85,7 @@ public class EnemyRangedBehaviour : MonoBehaviour, IObjectivable
     void Start()
     {
         m_Mission = LevelManager.LevelManagerInstance.GetComponent<MissionBehaviour>();
-        InitEnemy();
-        InitState(EnemyMachineStates.PATROL);
+        //InitState(EnemyMachineStates.PATROL);
     }
 
     // Update is called once per frame
@@ -97,6 +96,8 @@ public class EnemyRangedBehaviour : MonoBehaviour, IObjectivable
 
     void OnEnable()
     {
+
+        InitEnemy();
         InitState(EnemyMachineStates.PATROL);
         m_IsInvulnerable = false;
     }

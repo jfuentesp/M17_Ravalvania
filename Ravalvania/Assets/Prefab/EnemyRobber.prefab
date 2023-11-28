@@ -137,10 +137,10 @@ GameObject:
   - component: {fileID: -2526279225080888008}
   - component: {fileID: -344343773907116210}
   - component: {fileID: -4066434893318279787}
-  - component: {fileID: 5826090949682673570}
   - component: {fileID: 8768474242185979973}
   - component: {fileID: 2831079310756553513}
   - component: {fileID: 7011598063934286192}
+  - component: {fileID: 5826090949682673570}
   m_Layer: 7
   m_Name: EnemyRobber
   m_TagString: Enemy
@@ -384,24 +384,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Coins: 0
   m_Pickups: []
---- !u!114 &5826090949682673570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3504963644105037084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11867f06388a70a4ab929b9fa25a72d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EnemyTier:
-  - {fileID: 11400000, guid: 70ee3a7772119834ea90d45f6d225ee3, type: 2}
-  - {fileID: 11400000, guid: 40f039789b5494f4782a523a1750a370, type: 2}
-  - {fileID: 11400000, guid: ac812832ad085fd4da561edb23e0c656, type: 2}
-  m_OnEnemyDeathExp: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
-  m_OnObjectiveCountdown: {fileID: 11400000, guid: 6796b931cfb66be49b52202d8ff78240, type: 2}
 --- !u!114 &8768474242185979973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374f313e5f09a6348a2a32fddb7fd8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PatrolTime: 3
+  m_PatrolTime: 2
   m_DefaultDirection: 0
 --- !u!114 &2831079310756553513
 MonoBehaviour:
@@ -448,6 +430,24 @@ MonoBehaviour:
   m_ExpGivenOnDeath: 0
   m_ConstantX: 0
   m_RatioY: 0
+--- !u!114 &5826090949682673570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504963644105037084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11867f06388a70a4ab929b9fa25a72d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EnemyTier:
+  - {fileID: 11400000, guid: 70ee3a7772119834ea90d45f6d225ee3, type: 2}
+  - {fileID: 11400000, guid: 40f039789b5494f4782a523a1750a370, type: 2}
+  - {fileID: 11400000, guid: ac812832ad085fd4da561edb23e0c656, type: 2}
+  m_OnEnemyDeathExp: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
+  m_OnObjectiveCountdown: {fileID: 11400000, guid: 6796b931cfb66be49b52202d8ff78240, type: 2}
 --- !u!1 &5268943914328177657
 GameObject:
   m_ObjectHideFlags: 0

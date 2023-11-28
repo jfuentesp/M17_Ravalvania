@@ -26,6 +26,7 @@ public class MovableBehaviour : MonoBehaviour
     private void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody2D>();
+        m_IsFlipped = false;
     }
 
     private void Start()
