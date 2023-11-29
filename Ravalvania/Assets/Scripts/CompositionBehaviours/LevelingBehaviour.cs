@@ -86,6 +86,17 @@ public class LevelingBehaviour : MonoBehaviour
         m_Defense.OnAddDefense(m_Level);
     }
 
+    public void SetLevelOnLoad(int level)
+    {
+        m_Level = 1;
+        IncreaseStatsOnLevelUp();
+        for(int i = 1; i < level; i++)
+        {
+            m_Level = i;
+            IncreaseStatsOnLevelUp();
+        }
+    }
+
     public void OnSetExperienceOnDeath(int experience)
     {
         m_ExpGivenOnDeath = experience;

@@ -45,6 +45,9 @@ public class MissionBehaviour : MonoBehaviour
     private EconomyBehaviour m_Player2Economy;
     private LevelingBehaviour m_Player2Leveling;
 
+    [SerializeField]
+    private GameEvent m_OnGUIUpdate;
+
     private void Start()
     {
         m_LevelManager = LevelManager.LevelManagerInstance;
@@ -120,5 +123,23 @@ public class MissionBehaviour : MonoBehaviour
         m_Player1Economy.ChangeCoins(m_CoinReward);
         m_Player2Economy.ChangeCoins(m_CoinReward);
         m_MissionType = EMission.NONE;
+    }
+
+    public SaveData.MissionData SaveMission()
+    {
+        return new SaveData.MissionData(m_MissionType, m_ValueRequired, m_Tooltip, m_CurrentValue, m_IsMissionCompleted, m_ObjectiveType, m_CoinReward, m_ExpReward);
+    }
+
+    public void LoadMission(SaveData.MissionData _missionData)
+    {
+        m_MissionType = _missionData.missionType;
+        m_ValueRequired = _missionData.valuerequired;
+        m_Tooltip = _missionData.tooltip;
+        m_CurrentValue = _missionData.currentvalue;
+        m_IsMissionCompleted = _missionData.isMissionCompleted;
+        m_ObjectiveType = _missionData.objectiveType;
+        m_CoinReward = _missionData.coinReward;
+        m_ExpReward = _missionData.expReward;
+        m_OnGUIUpdate.Raise();
     }
 }

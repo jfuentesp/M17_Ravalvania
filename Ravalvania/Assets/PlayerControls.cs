@@ -98,6 +98,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SaveLoad"",
+                    ""type"": ""Button"",
+                    ""id"": ""c039fe04-1d15-45b8-af5c-3443383ad1cc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -430,6 +439,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e62acf5-a85b-4fa3-9884-643872078263"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""player1"",
+                    ""action"": ""SaveLoad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""925977ab-33f3-4168-b8d5-5bad9f76b470"",
+                    ""path"": ""<Keyboard>/home"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""player2"",
+                    ""action"": ""SaveLoad"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -457,6 +488,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_Crouch = m_PlayerActions.FindAction("Crouch", throwIfNotFound: true);
         m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
         m_PlayerActions_Inventory = m_PlayerActions.FindAction("Inventory", throwIfNotFound: true);
+        m_PlayerActions_SaveLoad = m_PlayerActions.FindAction("SaveLoad", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -526,6 +558,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Crouch;
     private readonly InputAction m_PlayerActions_Interact;
     private readonly InputAction m_PlayerActions_Inventory;
+    private readonly InputAction m_PlayerActions_SaveLoad;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -538,6 +571,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Crouch => m_Wrapper.m_PlayerActions_Crouch;
         public InputAction @Interact => m_Wrapper.m_PlayerActions_Interact;
         public InputAction @Inventory => m_Wrapper.m_PlayerActions_Inventory;
+        public InputAction @SaveLoad => m_Wrapper.m_PlayerActions_SaveLoad;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -571,6 +605,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Inventory.started += instance.OnInventory;
             @Inventory.performed += instance.OnInventory;
             @Inventory.canceled += instance.OnInventory;
+            @SaveLoad.started += instance.OnSaveLoad;
+            @SaveLoad.performed += instance.OnSaveLoad;
+            @SaveLoad.canceled += instance.OnSaveLoad;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -599,6 +636,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Inventory.started -= instance.OnInventory;
             @Inventory.performed -= instance.OnInventory;
             @Inventory.canceled -= instance.OnInventory;
+            @SaveLoad.started -= instance.OnSaveLoad;
+            @SaveLoad.performed -= instance.OnSaveLoad;
+            @SaveLoad.canceled -= instance.OnSaveLoad;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -644,5 +684,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnCrouch(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnSaveLoad(InputAction.CallbackContext context);
     }
 }

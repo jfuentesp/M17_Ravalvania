@@ -99,6 +99,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
     private GameEvent m_OnPlayerDeath;
     [SerializeField]
     private GameEvent m_OnObjectiveCountdown;
+    [SerializeField]
+    private GameEvent m_OnGUIUpdate;
 
     [Header("Current Orb to set the Super")]
     [SerializeField]
@@ -256,12 +258,22 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
 
     public SaveData.PlayerData SavePlayer()
     {
-        throw new NotImplementedException();
+        return new SaveData.PlayerData(m_Leveling.Level, m_Leveling.Experience, m_Health.CurrentHealth, m_Mana.CurrentMana, transform.position, m_Equipable.EquippedWeapon, m_Equipable.EquippedArmor, m_Equipable.EquippedOrb);
     }
 
     public void Load(SaveData.PlayerData _playerData)
     {
-        throw new NotImplementedException();
+        m_Leveling.SetLevelOnLoad(_playerData.level);
+        m_Mana.OnChangeMana(_playerData.mana);
+        m_Health.ChangeHealth(_playerData.hp);
+        transform.position = _playerData.position;
+        if(_playerData.weapon != null)
+            m_Equipable.SetWeapon(_playerData.weapon);
+        if(_playerData.armor != null)
+            m_Equipable.SetArmor(_playerData.armor);
+        if(_playerData.orb != null)
+            m_Equipable.SetOrb(_playerData.orb);
+        m_OnGUIUpdate.Raise();
     }
 
 

@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SaveLoad",
+                    "type": "Button",
+                    "id": "c039fe04-1d15-45b8-af5c-3443383ad1cc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -408,6 +417,28 @@
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6e62acf5-a85b-4fa3-9884-643872078263",
+                    "path": "<Keyboard>/g",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "player1",
+                    "action": "SaveLoad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "925977ab-33f3-4168-b8d5-5bad9f76b470",
+                    "path": "<Keyboard>/home",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "player2",
+                    "action": "SaveLoad",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+[Serializable]
 public class SaveData
 {
 
@@ -10,6 +12,7 @@ public class SaveData
     public struct PlayerData
     {
         public int level;
+        public int experience;
         public float hp;
         public float mana;
         public Vector3 position;
@@ -17,10 +20,11 @@ public class SaveData
         public Armor armor;
         public Orb orb;
 
-        public PlayerData(int PlayerLevel, float PlayerHP, float PlayerMana, Vector3 Playerposition,
+        public PlayerData(int PlayerLevel, int PlayerExperience, float PlayerHP, float PlayerMana, Vector3 Playerposition,
             Weapon EquippedWeapon, Armor EquippedArmor, Orb EquippedOrb)
         {
             level = PlayerLevel;
+            experience = PlayerExperience;
             hp = PlayerHP;
             mana = PlayerMana;
             position = Playerposition;
@@ -29,22 +33,60 @@ public class SaveData
             orb = EquippedOrb;
         }
     }
-
     [Serializable]
     public struct MissionData
     {
+        public EMission missionType;
+        public int valuerequired;
+        public string tooltip;
+        public int currentvalue;
+        public bool isMissionCompleted;
+        public int objectiveType;
+        public int coinReward;
+        public int expReward;
+
+        public MissionData(EMission MissionType, int ValueRequired, string Tooltip, int CurrentValue, bool IsMissionCompleted, 
+            int ObjectiveType, int CoinReward, int ExpReward)
+        {
+            missionType = MissionType;
+            valuerequired = ValueRequired;
+            tooltip = Tooltip;
+            currentvalue = CurrentValue;
+            isMissionCompleted = IsMissionCompleted;
+            objectiveType = ObjectiveType;
+            coinReward = CoinReward;
+            expReward = ExpReward;
+        }
 
     }
 
-    [Serializable]
-    public struct InventoryData
+    public void SavePlayers()
     {
+        player1 = LevelManager.LevelManagerInstance.Player1.SavePlayer();
+        player2 = LevelManager.LevelManagerInstance.Player2.SavePlayer();
+    }
 
+    public void SaveMission()
+    {
+        mission = LevelManager.LevelManagerInstance.Mission.SaveMission();
+    }
+
+    public void SaveScene()
+    {
+        scene = SceneManager.GetActiveScene().name;
+        doorDestination = GameManager.GameManagerInstance.DestinationDoor;
+    }
+
+    public void SaveMoney()
+    {
+        money = LevelManager.LevelManagerInstance.Money.PlayerCoins;
     }
 
     public string scene;
     public int money;
+    public MissionData mission;
     public PlayerData player1;
     public PlayerData player2;
+    public EDoor doorDestination;
 
 }

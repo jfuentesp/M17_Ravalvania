@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     private const string m_WoodScene = "Forest";
 
     private EDoor m_DestinationDoor;
+    public EDoor DestinationDoor => m_DestinationDoor;
 
     private LevelManager m_Levelmanager;
         
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
 
     bool m_NewGame;
 
-    private const string m_SaveFileName = "savedgame.json";
+    SaveDataManager m_SaveDataManager;
 
     private void Awake()
     {
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
         }
         m_NewGame = true;
         DontDestroyOnLoad(this.gameObject);
-        m_DestinationDoor = EDoor.NONE;
+        m_DestinationDoor = EDoor.NONE; 
         SceneManager.sceneLoaded += OnSceneLoaded; //Everytime a new scene finishes at loading we execute this function by subscribing to the event
     }
 
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
         m_Player2InitialSpawnPoint = m_Levelmanager.Player2.transform.position;
         m_Player1SpawnPoint = m_Player1InitialSpawnPoint;
         m_Player2SpawnPoint = m_Player2InitialSpawnPoint;
+        m_SaveDataManager = GetComponent<SaveDataManager>();
     }
 
     //Substracts a Live and checks if the lives are more than 0. If not, loads the GameOver scene.
@@ -100,6 +102,16 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+            m_SaveDataManager.SaveData();
+
+        if (Input.GetKeyDown(KeyCode.H))
+            m_SaveDataManager.LoadData();
+    }
+
 
     public void OnSceneLoaded(Scene scene, LoadSceneMode loadmode)
     {
@@ -161,16 +173,6 @@ public class GameManager : MonoBehaviour
                 break;
         }
         return destination;
-    }
-
-    public void SaveData()
-    {
-
-    }
-
-    public void LoadData()
-    {
-
     }
 }
 
