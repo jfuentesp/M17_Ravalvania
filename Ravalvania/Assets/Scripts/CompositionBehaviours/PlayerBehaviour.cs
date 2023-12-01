@@ -169,7 +169,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
             ChangeState(PlayerMachineStates.HIT);
             if (!m_Health.IsAlive)
                 OnDeath();
-            Debug.Log(m_Health.CurrentHealth);
+            
         }
 
         if (collision.CompareTag("EnemyProjectile") && !m_IsInvulnerable)

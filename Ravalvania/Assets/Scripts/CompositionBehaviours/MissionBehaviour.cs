@@ -47,6 +47,11 @@ public class MissionBehaviour : MonoBehaviour
 
     [SerializeField]
     private GameEvent m_OnGUIUpdate;
+    
+    private void OnEnable()
+    {
+        m_Tooltip = "Busca al anciano en la casa del bosque, quiz�s necesite algo...";
+    }
 
     private void Start()
     {
@@ -100,7 +105,7 @@ public class MissionBehaviour : MonoBehaviour
                 m_Tooltip = string.Format("Mission: Shoot {0} bullets!", m_ValueRequired - m_CurrentValue);
                 break;
         }
-        Debug.Log(m_Tooltip);
+
     }
 
     public void OnObjectiveCountdown()
@@ -123,6 +128,7 @@ public class MissionBehaviour : MonoBehaviour
         m_Player1Economy.ChangeCoins(m_CoinReward);
         m_Player2Economy.ChangeCoins(m_CoinReward);
         m_MissionType = EMission.NONE;
+        m_Tooltip = "Busca al anciano en la casa, quiz�s necesite algo...";
     }
 
     public SaveData.MissionData SaveMission()

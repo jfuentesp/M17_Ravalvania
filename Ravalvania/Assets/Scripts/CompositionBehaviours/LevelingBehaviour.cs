@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class LevelingBehaviour : MonoBehaviour 
 {
+    [SerializeField]
+    GameEvent m_OnGUIEvent;
+
+
     [Header("Primary stats for leveling system")]
     [SerializeField]
     private int m_Level = 1;
@@ -26,6 +30,8 @@ public class LevelingBehaviour : MonoBehaviour
     public int LevelMax => m_LevelMax;
     public int Experience => m_Experience;
     public int ExpGivenOnDeath => m_ExpGivenOnDeath;
+
+    public int ExperienceUntilNextLevel => m_ExperienceUntilNextLevel;
 
     //Components required to levelup
     private HealthBehaviour m_Health;
@@ -70,6 +76,7 @@ public class LevelingBehaviour : MonoBehaviour
     {
         m_Level++;
         m_ExperienceUntilNextLevel = CalculateNextLevelExperience();
+        m_Experience = 0;
         IncreaseStatsOnLevelUp();
     }
     
@@ -77,6 +84,7 @@ public class LevelingBehaviour : MonoBehaviour
     {
         m_Experience += experience;
         CheckLevelUp();
+        m_OnGUIEvent.Raise();
     }
 
     public void IncreaseStatsOnLevelUp()

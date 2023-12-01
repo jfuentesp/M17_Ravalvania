@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ManaBehaviour : MonoBehaviour
 {
+    [SerializeField]
+    GameEvent m_OnGUIEvent;
+
     [Header("Mana of the Entity")]
     [SerializeField]
     private float m_MaxMana;
@@ -37,5 +40,6 @@ public class ManaBehaviour : MonoBehaviour
             m_CurrentMana = 0;
         if (m_CurrentMana > m_MaxMana)
             m_CurrentMana = m_MaxMana;
+        m_OnGUIEvent.Raise();
     }
 }

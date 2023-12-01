@@ -12,6 +12,10 @@ public class LevelManager : MonoBehaviour
     //Instance of the LevelManager. Refers to this own gameobject. It needs to be an instance if the prefabs should refer to this object. (As enemies, for example)
     private static LevelManager m_Instance;
     public static LevelManager LevelManagerInstance => m_Instance; //A getter for the instance of the manager. Similar to get { return m_Instance }. (Accessor)
+   
+    [SerializeField, Header("First spawn point")]
+    private Transform spawnPoint;
+    public Vector3 getSpawnPoint => spawnPoint.transform.position;
 
     [Header("Reference to the players")]
     [SerializeField]
