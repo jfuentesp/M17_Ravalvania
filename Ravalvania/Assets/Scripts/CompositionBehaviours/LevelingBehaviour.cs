@@ -6,7 +6,7 @@ public class LevelingBehaviour : MonoBehaviour
 {
     [Header("Primary stats for leveling system")]
     [SerializeField]
-    private int m_Level;
+    private int m_Level = 1;
     [SerializeField]
     private int m_LevelMax;
     [SerializeField]
@@ -14,9 +14,9 @@ public class LevelingBehaviour : MonoBehaviour
     [SerializeField]
     private int m_ExpGivenOnDeath;
     [SerializeField]
-    private float m_ConstantX; //Default 0.05
+    private float m_ConstantX = 0.05f; //Default 0.05
     [SerializeField]
-    private float m_RatioY; // Default 2
+    private float m_RatioY = 2; // Default 2
     //Example table with the default values https://docs.google.com/spreadsheets/d/1uFed4cKE1BxxZ19BKuAbbo7Gk6_ezCDmFMV5fwCCxqw/edit#gid=1282610619
 
     private int m_ExperienceUntilNextLevel;
@@ -33,16 +33,16 @@ public class LevelingBehaviour : MonoBehaviour
     private DefenseBehaviour m_Defense;
     private ManaBehaviour m_Mana;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        m_Level = 1;
+        m_ConstantX = 0.05f;
+        m_RatioY = 2;
         m_Health = GetComponent<HealthBehaviour>();
         m_Damage = GetComponentInChildren<DamageableBehaviour>();
         m_Defense = GetComponent<DefenseBehaviour>();
         m_Mana = GetComponent<ManaBehaviour>();
         //Player experience and level starts fresh. So player experience is 0 and level is 1.
-        m_Level = 1;
-        m_Experience = 0;
         m_ExperienceUntilNextLevel = CalculateNextLevelExperience();
     }
 
@@ -50,7 +50,8 @@ public class LevelingBehaviour : MonoBehaviour
     // by affecting the amount required and Ratio affecting how quickly you gain (higher the Y, higher the gaps between levels
     private int CalculateNextLevelExperience()
     {
-        int nextLevelRequirement = (int)Mathf.Pow((m_Level / m_ConstantX), m_RatioY);
+        float expRequiredCalculation = Mathf.Pow(((float)m_Level / m_ConstantX), m_RatioY);
+        int nextLevelRequirement = (int) expRequiredCalculation;
         return nextLevelRequirement;
     }
 
@@ -92,7 +93,7 @@ public class LevelingBehaviour : MonoBehaviour
         IncreaseStatsOnLevelUp();
         for(int i = 1; i < level; i++)
         {
-            m_Level = i;
+            LevelUp();
             IncreaseStatsOnLevelUp();
         }
     }

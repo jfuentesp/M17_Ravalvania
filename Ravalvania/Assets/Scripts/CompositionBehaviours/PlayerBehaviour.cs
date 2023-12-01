@@ -261,12 +261,13 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
         return new SaveData.PlayerData(m_Leveling.Level, m_Leveling.Experience, m_Health.CurrentHealth, m_Mana.CurrentMana, transform.position, m_Equipable.EquippedWeapon, m_Equipable.EquippedArmor, m_Equipable.EquippedOrb);
     }
 
-    public void Load(SaveData.PlayerData _playerData)
+    public void Load(SaveData.PlayerData _playerData, bool loadSavedPosition)
     {
         m_Leveling.SetLevelOnLoad(_playerData.level);
         m_Mana.OnChangeMana(_playerData.mana);
         m_Health.ChangeHealth(_playerData.hp);
-        transform.position = _playerData.position;
+        if(loadSavedPosition)
+            transform.position = _playerData.position;
         if(_playerData.weapon != null)
             m_Equipable.SetWeapon(_playerData.weapon);
         if(_playerData.armor != null)

@@ -41,5 +41,5 @@ public interface IObjectivable
 public interface ISaveableObject
 {
     public PlayerData SavePlayer();
-    public void Load(PlayerData _playerData);
+    public void Load(PlayerData _playerData, bool loadSavedPosition);
 }

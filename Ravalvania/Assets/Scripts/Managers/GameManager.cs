@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
@@ -43,8 +44,10 @@ public class GameManager : MonoBehaviour
     int m_CurrentMoney;
 
     bool m_NewGame;
+    bool m_IsPositionSetAfterLoadingSaveGame;
 
     SaveDataManager m_SaveDataManager;
+    SaveData m_LastDataPersistance;
 
     private void Awake()
     {
@@ -76,7 +79,17 @@ public class GameManager : MonoBehaviour
         m_SaveDataManager = GetComponent<SaveDataManager>();
     }
 
-    //Substracts a Live and checks if the lives are more than 0. If not, loads the GameOver scene.
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+            m_SaveDataManager.SaveData();
+
+        if (Input.GetKeyDown(KeyCode.H))
+            m_SaveDataManager.LoadData();
+    }
+
+
+    //Substracts all the money earned and respawns both players in the respawn
     public void OnPlayerDeath()
     {
         
@@ -103,20 +116,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-            m_SaveDataManager.SaveData();
-
-        if (Input.GetKeyDown(KeyCode.H))
-            m_SaveDataManager.LoadData();
-    }
-
-
     public void OnSceneLoaded(Scene scene, LoadSceneMode loadmode)
     {
         m_Levelmanager = LevelManager.LevelManagerInstance;
         DoorBehaviour destination = FindDestinationDoorOnLoad(m_DestinationDoor);
+        if(m_LastDataPersistance!= null)
+            m_Levelmanager.LoadDataPersistanceOnChangeScene(m_LastDataPersistance);
+        if(m_IsPositionSetAfterLoadingSaveGame)
+        {
+            m_IsPositionSetAfterLoadingSaveGame = false;
+            return;
+        }
         if(destination != null)
         {
             SetPlayersPosition(destination.transform.position);
@@ -132,25 +142,19 @@ public class GameManager : MonoBehaviour
         m_Levelmanager.Player2.transform.position = position + Vector3.right;
     }
 
-    public void InitializeDataOnSceneChange()
+    public void SetDestinationDoor(EDoor door)
     {
-        if (!m_NewGame)
-        {
-            m_Levelmanager.OnLoadInfoNewScene(m_Player1, m_Player2, m_CurrentMission, m_CurrentMoney);
-            return;
-        }
-        m_NewGame = false;
+        m_DestinationDoor = door;
+    }
+
+    public void SetLoadBoolean(bool value)
+    {
+        m_IsPositionSetAfterLoadingSaveGame = value;
     }
 
     public void KeepDataOnSceneChange()
     {
-        if(!m_NewGame)
-        {
-            m_Player1 = m_Levelmanager.Player1;
-            m_Player2 = m_Levelmanager.Player2;
-            m_CurrentMission = m_Levelmanager.Mission;
-            m_CurrentMoney = m_Levelmanager.Money.PlayerCoins;
-        }
+        m_LastDataPersistance = m_SaveDataManager.DataPersistanceOnChangeScene();
     }
 
     //Finds the object reference in the scene to get the destination position

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(MissionBehaviour))]
 [RequireComponent(typeof(EconomyBehaviour))]
@@ -32,6 +33,8 @@ public class LevelManager : MonoBehaviour
     private List<DoorBehaviour> m_LevelDoors;
     public List<DoorBehaviour> LevelDoors => m_LevelDoors;
 
+    private GameManager m_GameManager;
+
     private void Awake()
     {
         //First, we initialize an instance of Player. If there is already an instance, it destroys the element and returns.
@@ -44,21 +47,32 @@ public class LevelManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-    }
 
-    private void Start()
-    {
         m_Mission = GetComponent<MissionBehaviour>();
         m_Money = GetComponent<EconomyBehaviour>();
     }
 
-    public void OnLoadInfoNewScene(PlayerBehaviour p1, PlayerBehaviour p2, MissionBehaviour mission, int money)
+    private void Start()
     {
-
+        m_GameManager = GameManager.GameManagerInstance;
+    }
+    
+    public SaveData.GameData SaveGameData()
+    {
+        return new SaveData.GameData(m_Money.PlayerCoins, SceneManager.GetActiveScene().name, m_GameManager.DestinationDoor);
     }
 
-    public void GetSaveData()
+    public void LoadGameData(SaveData.GameData _gameData)
     {
+        m_GameManager.SetDestinationDoor(_gameData.doorDestination);
+        m_Money.ChangeCoins(_gameData.money);
+    }
 
+    public void LoadDataPersistanceOnChangeScene(SaveData persistanceData)
+    {
+        m_Money.ChangeCoins(persistanceData.gameData.money);
+        m_Player1.Load(persistanceData.player1, false);
+        m_Player2.Load(persistanceData.player2, false);
+        m_Mission.LoadMission(persistanceData.mission);
     }
 }

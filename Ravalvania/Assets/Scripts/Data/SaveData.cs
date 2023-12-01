@@ -60,10 +60,30 @@ public class SaveData
 
     }
 
+    [Serializable]
+    public struct GameData
+    {
+        public int money;
+        public string currentscene;
+        public EDoor doorDestination;
+        
+        public GameData(int PlayerCoins, string CurrentScene, EDoor DoorDestination)
+        {
+            money = PlayerCoins;
+            currentscene = CurrentScene;
+            doorDestination = DoorDestination;
+        }
+    }
+
     public void SavePlayers()
     {
         player1 = LevelManager.LevelManagerInstance.Player1.SavePlayer();
         player2 = LevelManager.LevelManagerInstance.Player2.SavePlayer();
+    }
+
+    public void SaveGameData()
+    {
+        gameData = LevelManager.LevelManagerInstance.SaveGameData();
     }
 
     public void SaveMission()
@@ -71,22 +91,9 @@ public class SaveData
         mission = LevelManager.LevelManagerInstance.Mission.SaveMission();
     }
 
-    public void SaveScene()
-    {
-        scene = SceneManager.GetActiveScene().name;
-        doorDestination = GameManager.GameManagerInstance.DestinationDoor;
-    }
-
-    public void SaveMoney()
-    {
-        money = LevelManager.LevelManagerInstance.Money.PlayerCoins;
-    }
-
-    public string scene;
-    public int money;
+    public GameData gameData;
     public MissionData mission;
     public PlayerData player1;
     public PlayerData player2;
-    public EDoor doorDestination;
 
 }
