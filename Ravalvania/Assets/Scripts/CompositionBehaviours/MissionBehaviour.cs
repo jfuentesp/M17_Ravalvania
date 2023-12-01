@@ -50,7 +50,7 @@ public class MissionBehaviour : MonoBehaviour
     
     private void OnEnable()
     {
-        m_Tooltip = "Busca al anciano en la casa del bosque, quiz�s necesite algo...";
+        m_Tooltip = "Speak with the Major in the Woodhouse, he may need your help...";
     }
 
     private void Start()
@@ -128,7 +128,7 @@ public class MissionBehaviour : MonoBehaviour
         m_Player1Economy.ChangeCoins(m_CoinReward);
         m_Player2Economy.ChangeCoins(m_CoinReward);
         m_MissionType = EMission.NONE;
-        m_Tooltip = "Busca al anciano en la casa, quiz�s necesite algo...";
+        m_Tooltip = "Speak with the Major in the Woodhouse, he may need your help...";
     }
 
     public SaveData.MissionData SaveMission()
