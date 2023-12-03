@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88c7974b6998064b85f8eae0e453de4, type: 3}
   m_Name: ShieldOrb
   m_EditorClassIdentifier: 
+  m_Id: ShieldOrb
+  m_Description: An orb that allows you to use your magic power to shield yourself.
+  m_Sprite: {fileID: -2102011238, guid: 366edffd513231648ac262befa0e84f8, type: 3}
+  m_ShopPrice: 300
   m_OrbName: Shield Orb
-  m_Cost: 130
   m_OrbType: 2

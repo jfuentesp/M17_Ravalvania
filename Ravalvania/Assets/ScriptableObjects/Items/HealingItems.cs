@@ -5,15 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "HealingItems", menuName = "Inventory/Item/HealingItems")]
 public class HealingItems : Item
 {
-    public float Heal;
+    [SerializeField]
+    private float m_HealAmount;
+    public float Heal => m_HealAmount;
     public override bool UsedBy(GameObject go)
     {
-        if (!go.TryGetComponent<IHealable>(out IHealable healable))
+        if (!go.TryGetComponent<HealableBehaviour>(out HealableBehaviour healable))
         {
             return false;
         }
-
-        healable.heal(Heal);
+        healable.OnHeal(m_HealAmount);
         return true;
     }
 }

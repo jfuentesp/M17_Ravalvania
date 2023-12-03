@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88c7974b6998064b85f8eae0e453de4, type: 3}
   m_Name: GrenadeOrb
   m_EditorClassIdentifier: 
+  m_Id: GrenadeOrb
+  m_Description: An orb that allows you to make magical explosives.
+  m_Sprite: {fileID: 81551509, guid: 366edffd513231648ac262befa0e84f8, type: 3}
+  m_ShopPrice: 300
   m_OrbName: Grenade Orb
-  m_Cost: 150
   m_OrbType: 3

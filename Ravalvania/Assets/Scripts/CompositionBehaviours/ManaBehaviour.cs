@@ -32,6 +32,11 @@ public class ManaBehaviour : MonoBehaviour
         m_CurrentMana += maxMana;
     }
 
+    public void SetMana(float mana)
+    {
+        m_CurrentMana = mana;
+    }
+
     // Public function that changes the amount of mana of the Entity
     public void OnChangeMana(float manaAmount)
     {

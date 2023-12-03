@@ -24,14 +24,14 @@ public class EquipableBehaviour : MonoBehaviour
         if (m_EquippedWeapon != null)
             DetachWeapon();
         m_EquippedWeapon = weapon;
-        m_Damage.OnUpdateDamage(weapon.Damage);
+        m_Damage.OnAddDamage(weapon.Damage);
     }
     
     public void DetachWeapon()
     {
         if(m_EquippedWeapon != null)
         {
-            m_Damage.OnUpdateDamage(-m_EquippedWeapon.Damage);
+            m_Damage.OnAddDamage(-m_EquippedWeapon.Damage);
             m_EquippedWeapon = null;
         }
     }

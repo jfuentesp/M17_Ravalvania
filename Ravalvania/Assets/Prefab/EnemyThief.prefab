@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883033426c128c043a9d5579456af11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OnGuiEvent: {fileID: 0}
+  m_OnGuiEvent: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
   m_BaseAttackDamage: 1
 --- !u!1 &4066682554415274380
 GameObject:
@@ -391,7 +391,7 @@ Transform:
   - {fileID: 48825757315740324}
   - {fileID: 1719111760315071668}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6758062996290819521
 SpriteRenderer:
@@ -670,7 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 209bf07ffdf52c24c9994825a1dee5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OnGUIEvent: {fileID: 0}
+  m_OnGUIEvent: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
   m_Level: 0
   m_LevelMax: 0
   m_Experience: 0

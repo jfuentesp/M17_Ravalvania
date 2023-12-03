@@ -16,6 +16,6 @@ MonoBehaviour:
   m_PlayerMaxMana: 25
   m_PlayerDamage: 1
   m_PlayerSpeed: 3
-  m_PlayerDefense: 0
+  m_PlayerDefense: 1
   m_Experience: 0
   m_Level: 1

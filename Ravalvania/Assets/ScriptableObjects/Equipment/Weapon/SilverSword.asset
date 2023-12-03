@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bf4d47351eb684588fc56fac8e2e49, type: 3}
   m_Name: SilverSword
   m_EditorClassIdentifier: 
+  m_Id: SilverSword
+  m_Description: A thin sword made of silver. +2 to Attack.
+  m_Sprite: {fileID: -1527474939, guid: b320294e10874024b8abe736c3b127ca, type: 3}
+  m_ShopPrice: 200
   m_WeaponName: Silver Sword
-  m_Cost: 100
   m_Damage: 2

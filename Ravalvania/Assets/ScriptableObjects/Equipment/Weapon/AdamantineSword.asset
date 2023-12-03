@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bf4d47351eb684588fc56fac8e2e49, type: 3}
   m_Name: AdamantineSword
   m_EditorClassIdentifier: 
+  m_Id: AdamantineSword
+  m_Description: A sword made with a magic mineral. +7 to Attack.
+  m_Sprite: {fileID: 1879161887, guid: b320294e10874024b8abe736c3b127ca, type: 3}
+  m_ShopPrice: 1400
   m_WeaponName: Adamantine Sword
-  m_Cost: 700
   m_Damage: 7

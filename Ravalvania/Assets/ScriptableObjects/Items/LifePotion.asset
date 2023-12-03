@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bb13db6af8aee24fa6433c2a8096ad5, type: 3}
-  m_Name: LeatherArmor 2
+  m_Script: {fileID: 11500000, guid: 056c458e9a3cd2e4e8da6d5a85996e9e, type: 3}
+  m_Name: LifePotion
   m_EditorClassIdentifier: 
-  m_ArmorName: Leather Armor
-  m_Cost: 100
-  m_Defense: 2
+  m_Id: LifePotion
+  m_Description: A fresh life potion.
+  m_Sprite: {fileID: 1499860612, guid: b320294e10874024b8abe736c3b127ca, type: 3}
+  m_ShopPrice: 90
+  m_HealAmount: 15

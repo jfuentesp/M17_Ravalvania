@@ -7,52 +7,65 @@ using UnityEngine.UIElements;
 
 public class InventoryBehaviour : MonoBehaviour
 {
-    private PlayerBehaviour Owner;
-    //private List<ItemSlot> items;
-    private bool InventoryAbierto;
     [SerializeField]
-    private Inventory m_Backpack;
+    private EPlayer m_Owner;
+
     [SerializeField]
-    private GameEvent m_GUIEvent;
+    private Inventory m_P1Backpack;
+    [SerializeField]
+    private Inventory m_P2Backpack;
+    [SerializeField]
+    private GameEvent m_InventoryRefreshEvent;
+    [SerializeField]
+    private GameObject m_P1Inventory;
+    [SerializeField]
+    private GameObject m_P2Inventory;
     // Start is called before the first frame update
     void Awake()
     {
-        
-    }
-    
+        m_Owner = GetComponentInParent<PlayerBehaviour>().PlayerSelect;
+    }   
 
-    // Update is called once per frame
-    void Update()
+    public void OnInventoryOpen(EPlayer player)
     {
-        
-    }
-    /*
-    public void AbrirInventario()
-    {
-        if(InventoryAbierto)
+        if(player == EPlayer.PLAYER1)
         {
-            //Tanca Inventari
-            InventoryAbierto = false;
-        }
+            if (!m_P1Inventory.activeInHierarchy)
+            {
+                m_P1Inventory?.SetActive(true);
+                return;
+            }
+            m_P1Inventory?.SetActive(false);
+        } 
         else
         {
-            InventoryAbierto=true;
+            if (!m_P2Inventory.activeInHierarchy)
+            {
+                m_P2Inventory?.SetActive(true);
+                return;
+            }
+            m_P2Inventory?.SetActive(false);
         }
     }
-    */
+
     public void ConsumeItem(Item item)
     {
         if (!item.UsedBy(gameObject))
             return;
 
-        m_Backpack.RemoveItem(item);
-        m_GUIEvent.Raise();
+        if(m_Owner == EPlayer.PLAYER1)
+            m_P1Backpack.RemoveItem(item);
+        if(m_Owner == EPlayer.PLAYER2)
+            m_P2Backpack.RemoveItem(item);
+        m_InventoryRefreshEvent.Raise();
     }
 
     public void AddItem(Item item)
     {
-        m_Backpack.AddItem(item);
-        m_GUIEvent.Raise();
+        if(m_Owner == EPlayer.PLAYER1)
+            m_P1Backpack.AddItem(item);
+        if (m_Owner == EPlayer.PLAYER2)
+            m_P2Backpack.AddItem(item);
+        m_InventoryRefreshEvent.Raise();
     }
-
 }

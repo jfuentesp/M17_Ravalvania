@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2bf4d47351eb684588fc56fac8e2e49, type: 3}
   m_Name: SteelSword
   m_EditorClassIdentifier: 
+  m_Id: SteelSword
+  m_Description: A fine sword made of steel. +4 to Attack.
+  m_Sprite: {fileID: -924584786, guid: b320294e10874024b8abe736c3b127ca, type: 3}
+  m_ShopPrice: 600
   m_WeaponName: Steel Sword
-  m_Cost: 300
   m_Damage: 4

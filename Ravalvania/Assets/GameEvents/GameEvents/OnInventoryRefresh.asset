@@ -9,13 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19f47db610a6f641a1c6da4c915622a, type: 3}
-  m_Name: Player2BaseInfo
+  m_Script: {fileID: 11500000, guid: 5855d188416991e4d9ee1d6cbde1dc23, type: 3}
+  m_Name: OnInventoryRefresh
   m_EditorClassIdentifier: 
-  m_PlayerMaxHP: 30
-  m_PlayerMaxMana: 25
-  m_PlayerDamage: 1
-  m_PlayerSpeed: 3
-  m_PlayerDefense: 1
-  m_Experience: 0
-  m_Level: 1

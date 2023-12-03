@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e88c7974b6998064b85f8eae0e453de4, type: 3}
   m_Name: SlashOrb
   m_EditorClassIdentifier: 
+  m_Id: SlashingOrb
+  m_Description: A common orb that allows you to deal a shockwave.
+  m_Sprite: {fileID: -1584663737, guid: 366edffd513231648ac262befa0e84f8, type: 3}
+  m_ShopPrice: 200
   m_OrbName: Slashing Orb
-  m_Cost: 100
   m_OrbType: 1

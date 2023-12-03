@@ -12,12 +12,12 @@ public class DefenseBehaviour : MonoBehaviour
     public float Defense => m_Defense;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        m_Defense = m_BaseDefense;
+        m_Defense = 1;
     }
 
-    public void OnSetBaseDefense(float baseDefense)
+    public void OnAddBaseDefense(float baseDefense)
     {
         m_BaseDefense = baseDefense;
     }

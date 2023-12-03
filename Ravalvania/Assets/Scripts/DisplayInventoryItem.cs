@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DesplegarItem : MonoBehaviour
+public class DisplayInventoryItem : MonoBehaviour
 {
     [Header("Functionality")]
     [SerializeField]
@@ -20,8 +20,8 @@ public class DesplegarItem : MonoBehaviour
 
     public void Load(Item item)
     {
-        m_IDText.text = item.Id;
-        m_Image.sprite = item.Sprite;
+        //m_IDText.text = item.Id;
+        m_Image.sprite = item.Sprite; 
         GetComponent<Button>().onClick.RemoveAllListeners();
         GetComponent<Button>().onClick.AddListener(() => RaiseEvent(item));
     }

@@ -78,6 +78,7 @@ public class LevelingBehaviour : MonoBehaviour
         m_ExperienceUntilNextLevel = CalculateNextLevelExperience();
         m_Experience = 0;
         IncreaseStatsOnLevelUp();
+        Debug.Log("Entro en el levelup y en teoria estoy haciendo levelup");
     }
     
     public void AddExperience(int experience)
@@ -91,19 +92,19 @@ public class LevelingBehaviour : MonoBehaviour
     {
         m_Health.AddMaxHealth(m_Level * 2);
         m_Mana.AddMaxMana(m_Level * 2);
-        m_Damage.OnUpdateDamage(m_Level);
+        m_Damage.OnAddDamage(m_Level);
         m_Defense.OnAddDefense(m_Level);
+        Debug.Log("En teoria estoy haciendo subida de estadisticas.");
     }
 
     public void SetLevelOnLoad(int level)
     {
-        m_Level = 1;
-        IncreaseStatsOnLevelUp();
-        for(int i = 1; i < level; i++)
+        for(int i = m_Level; i < level; i++)
         {
+            Debug.Log("Entro en el level on load");
             LevelUp();
-            IncreaseStatsOnLevelUp();
         }
+        Debug.Log(string.Format("Level: {0} | ExpToNextLevel: {1} | Attack: {2} | Def: {3}", m_Level, m_ExperienceUntilNextLevel, m_Damage.AttackDamage, m_Defense.Defense));
     }
 
     public void OnSetExperienceOnDeath(int experience)

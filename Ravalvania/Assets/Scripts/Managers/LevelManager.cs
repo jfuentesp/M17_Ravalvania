@@ -51,7 +51,6 @@ public class LevelManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-
         m_Mission = GetComponent<MissionBehaviour>();
         m_Money = GetComponent<EconomyBehaviour>();
     }

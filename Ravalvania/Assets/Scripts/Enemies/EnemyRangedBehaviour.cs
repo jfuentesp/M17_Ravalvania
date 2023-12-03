@@ -133,7 +133,7 @@ public class EnemyRangedBehaviour : MonoBehaviour, IObjectivable
         EnemyScriptableObject enemyInfo = m_EnemyTier[rand];
         m_Health.SetMaxHealthBase(enemyInfo.EnemyMaxHP);
         m_Damaging.OnSetDamage(enemyInfo.EnemyDamage);
-        m_Defense.OnSetBaseDefense(enemyInfo.EnemyDefense);
+        m_Defense.OnAddBaseDefense(enemyInfo.EnemyDefense);
         m_Moving.SetSpeed(enemyInfo.EnemySpeed);
         m_SpriteRenderer.color = enemyInfo.SpriteColor;
         m_Dropping.SetCoins(enemyInfo.MoneyValue);

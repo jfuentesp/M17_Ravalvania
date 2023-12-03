@@ -31,7 +31,7 @@ public interface IItem
 }
 public interface IInteractable
 {
-    public void interact();
+    public void interact(EPlayer player);
 }
 public interface IObjectivable
 {

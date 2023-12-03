@@ -14,6 +14,9 @@ public abstract class Item : ScriptableObject, IItem
     [SerializeField]
     protected Sprite m_Sprite = null;
     public Sprite Sprite { get => m_Sprite; set => m_Sprite = value; }
+    [SerializeField]
+    protected int m_ShopPrice;
+    public int Price { get => m_ShopPrice; set => m_ShopPrice = value; }
 
     public abstract bool UsedBy(GameObject go);
 }

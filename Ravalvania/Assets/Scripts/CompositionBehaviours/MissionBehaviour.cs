@@ -40,9 +40,8 @@ public class MissionBehaviour : MonoBehaviour
     public int CoinReward => m_CoinReward;
     public int ExpReward => m_ExpReward;
 
-    private EconomyBehaviour m_Player1Economy;
+    private EconomyBehaviour m_Economy;
     private LevelingBehaviour m_Player1Leveling;
-    private EconomyBehaviour m_Player2Economy;
     private LevelingBehaviour m_Player2Leveling;
 
     [SerializeField]
@@ -56,10 +55,6 @@ public class MissionBehaviour : MonoBehaviour
     private void Start()
     {
         m_LevelManager = LevelManager.LevelManagerInstance;
-        m_Player1Economy = m_LevelManager.Player1.GetComponent<EconomyBehaviour>();
-        m_Player1Leveling = m_LevelManager.Player1.GetComponent<LevelingBehaviour>();
-        m_Player2Economy = m_LevelManager.Player2.GetComponent<EconomyBehaviour>();
-        m_Player2Leveling = m_LevelManager.Player2.GetComponent<LevelingBehaviour>();
         m_MissionType = EMission.NONE;
     }
 
@@ -76,7 +71,7 @@ public class MissionBehaviour : MonoBehaviour
             case 0:
                 m_MissionType = EMission.KILL;
                 m_ValueRequired = 10;
-                EnemyScriptableObject enemyrequirement = m_Enemies[Random.Range(0, m_Enemies.Count)];
+                EnemyScriptableObject enemyrequirement = m_Enemies[Random.Range(0, m_Enemies.Count-1)];
                 m_ObjectiveName = enemyrequirement.EnemyName;
                 m_ObjectiveType = enemyrequirement.EnemyType;
                 m_Tooltip = string.Format("Mission: Kill {0} {1}!", m_ValueRequired-m_CurrentValue, m_ObjectiveName);
@@ -84,10 +79,10 @@ public class MissionBehaviour : MonoBehaviour
             case 1:
                 m_MissionType = EMission.PICK;
                 m_ValueRequired = 10;
-                PickupScriptableObject pickuprequirement = m_Pickups[Random.Range(0, m_Enemies.Count)];
+                PickupScriptableObject pickuprequirement = m_Pickups[Random.Range(0, m_Pickups.Count-1)];
                 m_ObjectiveName = pickuprequirement.PickupName;
                 m_ObjectiveType = pickuprequirement.PickupID;
-                m_Tooltip = string.Format("Mission: Collect {0} {1}!", m_ValueRequired - m_CurrentValue, m_ObjectiveName);
+                m_Tooltip = string.Format("Mission: Collect {0} {1}!", m_ValueRequired-m_CurrentValue, m_ObjectiveName);
                 break;
             case 2:
                 m_MissionType = EMission.JUMP;
@@ -105,30 +100,58 @@ public class MissionBehaviour : MonoBehaviour
                 m_Tooltip = string.Format("Mission: Shoot {0} bullets!", m_ValueRequired - m_CurrentValue);
                 break;
         }
+    }
 
+    public void UpdateTooltip(EMission missionType)
+    {
+        switch (missionType)
+        {
+            case EMission.KILL:
+                m_Tooltip = string.Format("Mission: Kill {0} {1}!", m_ValueRequired - m_CurrentValue, m_ObjectiveName);
+                break;
+            case EMission.JUMP:
+                m_Tooltip = string.Format("Mission: Jump {0} times!", m_ValueRequired - m_CurrentValue);
+                break;
+            case EMission.HIT:
+                m_Tooltip = string.Format("Mission: Hit enemies {0} times!", m_ValueRequired - m_CurrentValue);
+                break;
+            case EMission.SHOOT:
+                m_Tooltip = string.Format("Mission: Shoot {0} bullets!", m_ValueRequired - m_CurrentValue);
+                break;
+            case EMission.PICK:
+                m_Tooltip = string.Format("Mission: Collect {0} {1}!", m_ValueRequired - m_CurrentValue, m_ObjectiveName);
+                break;
+        }
     }
 
     public void OnObjectiveCountdown()
     {
+        Debug.Log("Entro dentro.");
         if (!m_IsMissionCompleted)
         {
+            Debug.Log("Entrando dentro mas dentro." + m_CurrentValue + " y " + m_ValueRequired);
             m_CurrentValue++;
+            UpdateTooltip(m_MissionType);
             if (m_CurrentValue >= m_ValueRequired)
             {
                 m_IsMissionCompleted = true;
                 m_Tooltip = "Mission accomplished! Collect your rewards at the Safehouse";
             }
         }
+        m_OnGUIUpdate.Raise();
     }
 
     public void OnGiveRewards()
     {
+        m_Economy = m_LevelManager.GetComponent<EconomyBehaviour>();
+        m_Player1Leveling = m_LevelManager.Player1.GetComponent<LevelingBehaviour>();
+        m_Player2Leveling = m_LevelManager.Player2.GetComponent<LevelingBehaviour>();
         m_Player1Leveling.AddExperience(m_ExpReward);
         m_Player2Leveling.AddExperience(m_ExpReward);
-        m_Player1Economy.ChangeCoins(m_CoinReward);
-        m_Player2Economy.ChangeCoins(m_CoinReward);
+        m_Economy.ChangeCoins(m_CoinReward);
         m_MissionType = EMission.NONE;
         m_Tooltip = "Speak with the Major in the Woodhouse, he may need your help...";
+        m_OnGUIUpdate.Raise();
     }
 
     public SaveData.MissionData SaveMission()
@@ -146,6 +169,6 @@ public class MissionBehaviour : MonoBehaviour
         m_ObjectiveType = _missionData.objectiveType;
         m_CoinReward = _missionData.coinReward;
         m_ExpReward = _missionData.expReward;
-        m_OnGUIUpdate.Raise();
+        //m_OnGUIUpdate.Raise();
     }
 }

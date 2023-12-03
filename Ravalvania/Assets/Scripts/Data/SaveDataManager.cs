@@ -21,13 +21,16 @@ public class SaveDataManager : MonoBehaviour
 
         try
         {
+            Debug.Log("Ahora estoy salvando datos.");
+
+            Debug.Log(jsonData);
+
             File.WriteAllText(m_SaveFileName, jsonData);
         }
         catch(Exception e)
         {
             Debug.LogError($"Error while trying to save the current data in {Path.Combine(Application.persistentDataPath, m_SaveFileName)}. Error throws {e}");
         }
-
     }
 
     //Data persistance on change scenes. Returns all the saved data.
@@ -43,16 +46,19 @@ public class SaveDataManager : MonoBehaviour
     //Reads data from a json file and calls the loading functions
     public void LoadData()
     {
+        Debug.Log("Ahora estoy cargando datos.");
         try
         {
             string savedData = File.ReadAllText(m_SaveFileName); //Reads all Json data in the filename
-
             SaveData data = new SaveData();
             JsonUtility.FromJsonOverwrite(savedData, data);
+            Debug.Log(data);
+
             GameManager.GameManagerInstance.SetLoadBoolean(true);
-            SceneManager.LoadScene(data.gameData.currentscene);
+            GameManager.GameManagerInstance.ChangeScene(data.gameData.doorDestination);
             LevelManager.LevelManagerInstance.LoadGameData(data.gameData);
             LevelManager.LevelManagerInstance.Mission.LoadMission(data.mission);
+            Debug.Log(string.Format("Player hp: {0} | Player exp: {1} | Player level: {2}", data.player2.hp, data.player2.experience, data.player2.level));
             LevelManager.LevelManagerInstance.Player1.Load(data.player1, true);
             LevelManager.LevelManagerInstance.Player2.Load(data.player2, true);
         } 

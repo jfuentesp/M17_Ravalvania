@@ -10,5 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c028ff320c9b5f541902b04b7d46cf14, type: 3}
-  m_Name: Mochilla
+  m_Name: Player1Inventory
   m_EditorClassIdentifier: 
+  m_Mochilla:
+  - item: {fileID: 11400000, guid: a94bc8ae01dd7244bbc4f68f0295b122, type: 2}
+    amount: 1

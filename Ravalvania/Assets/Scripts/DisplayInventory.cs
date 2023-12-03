@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DesplegarInventari : MonoBehaviour
+public class DisplayInventory : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
     private GameObject m_ParentInventory;
     [SerializeField]
-    private GameObject m_ItemPrefab;
+    private GameObject m_InventoryItemPrefab;
     [SerializeField]
     private Inventory m_Backpack;
 
@@ -26,8 +26,8 @@ public class DesplegarInventari : MonoBehaviour
     {
         foreach (Inventory.ItemSlot itemSlot in m_Backpack.m_Mochilla)
         {
-            GameObject displayedItem = Instantiate(m_ItemPrefab, m_ParentInventory.transform);
-            displayedItem.GetComponent<DesplegarItem>().Load(itemSlot);
+            GameObject displayedItem = Instantiate(m_InventoryItemPrefab, m_ParentInventory.transform);
+            displayedItem.GetComponent<DisplayInventoryItem>().Load(itemSlot);
         }
     }
 

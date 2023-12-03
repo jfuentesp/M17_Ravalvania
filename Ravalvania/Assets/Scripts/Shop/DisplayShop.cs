@@ -14,7 +14,7 @@ public class DisplayShop : MonoBehaviour
     [SerializeField]
     private Item[] m_ItemsToDisplay;
 
-    private void OnEnable()
+    private void Start()
     {
         foreach (Item item in m_ItemsToDisplay)
         {

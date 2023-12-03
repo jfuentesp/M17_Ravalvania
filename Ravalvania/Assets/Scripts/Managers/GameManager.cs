@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
 
 
+[RequireComponent(typeof(SaveDataManager))]
 public class GameManager : MonoBehaviour
 {
     //Instance of the GameManager. Refers to this own gameobject.
@@ -43,7 +44,6 @@ public class GameManager : MonoBehaviour
     MissionBehaviour m_CurrentMission;
     int m_CurrentMoney;
 
-    bool m_NewGame;
     bool m_IsPositionSetAfterLoadingSaveGame;
 
     SaveDataManager m_SaveDataManager;
@@ -61,10 +61,11 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-        m_NewGame = true;
         DontDestroyOnLoad(this.gameObject);
         m_DestinationDoor = EDoor.NONE; 
         SceneManager.sceneLoaded += OnSceneLoaded; //Everytime a new scene finishes at loading we execute this function by subscribing to the event
+        m_SaveDataManager = GetComponent<SaveDataManager>();
+        
     }
 
     // Start is called before the first frame update
@@ -76,7 +77,6 @@ public class GameManager : MonoBehaviour
         m_Player2InitialSpawnPoint = m_Levelmanager.Player2.transform.position;
         m_Player1SpawnPoint = m_Player1InitialSpawnPoint;
         m_Player2SpawnPoint = m_Player2InitialSpawnPoint;
-        m_SaveDataManager = GetComponent<SaveDataManager>();
     }
 
     private void Update()
@@ -113,6 +113,9 @@ public class GameManager : MonoBehaviour
             case EDoor.WOODCAVE:
                 SceneManager.LoadScene(m_WoodScene);
                 break;
+            default:
+                SceneManager.LoadScene(m_WoodScene);
+                break;
         }
     }
 
@@ -120,7 +123,7 @@ public class GameManager : MonoBehaviour
     {
         m_Levelmanager = LevelManager.LevelManagerInstance;
         DoorBehaviour destination = FindDestinationDoorOnLoad(m_DestinationDoor);
-        if(m_LastDataPersistance!= null)
+        if(m_LastDataPersistance != null)
             m_Levelmanager.LoadDataPersistanceOnChangeScene(m_LastDataPersistance);
         if(m_IsPositionSetAfterLoadingSaveGame)
         {

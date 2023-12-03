@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 056c458e9a3cd2e4e8da6d5a85996e9e, type: 3}
+  m_Script: {fileID: 11500000, guid: 964b7c0d692000b46b4ab07ca13908da, type: 3}
   m_Name: Vendas
   m_EditorClassIdentifier: 
-  m_Id: 1
+  m_Id: Vendas
   m_Description: Quieres vendas bro?
-  m_Sprite: {fileID: 0}
-  Heal: 10
+  m_Sprite: {fileID: 1221200438, guid: b320294e10874024b8abe736c3b127ca, type: 3}
+  m_ShopPrice: 50
+  m_HealAmount: 2
+  m_HealTime: 10
+  m_HealSpeed: 2

@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883033426c128c043a9d5579456af11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OnGuiEvent: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
   m_BaseAttackDamage: 1
 --- !u!1 &4277890847289425898
 GameObject:
@@ -200,7 +201,7 @@ GameObject:
   - component: {fileID: 3999634697589270503}
   - component: {fileID: 4950642935795205617}
   - component: {fileID: 6763216026891289627}
-  - component: {fileID: 9065587982147826171}
+  - component: {fileID: 5475673041582411568}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -222,7 +223,7 @@ Transform:
   m_Children:
   - {fileID: 5751870261559897417}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8851716734337085908
 SpriteRenderer:
@@ -511,6 +512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cef3b5d8943849a45ac105c209486fdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OnGUIEvent: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
   m_MaxMana: 25
 --- !u!114 &6952605901803565421
 MonoBehaviour:
@@ -616,6 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 209bf07ffdf52c24c9994825a1dee5cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_OnGUIEvent: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
   m_Level: 0
   m_LevelMax: 20
   m_Experience: 390
@@ -637,7 +640,7 @@ MonoBehaviour:
   m_EquippedWeapon: {fileID: 0}
   m_EquippedArmor: {fileID: 0}
   m_EquippedOrb: {fileID: 0}
---- !u!114 &9065587982147826171
+--- !u!114 &5475673041582411568
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -646,7 +649,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 4277890847289425898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d065bd76dfb62443bf3ef75e88b54cd, type: 3}
+  m_Script: {fileID: 11500000, guid: c6c4ae550d2767c409be8ce104a03e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitialCoins: 0
+  m_Owner: 0
+  m_P1Backpack: {fileID: 11400000, guid: 55b413af4dcec9b4285a0e9d9fc9d28b, type: 2}
+  m_P2Backpack: {fileID: 11400000, guid: bc45b7d669fdb8745b7ea13890685f3a, type: 2}
+  m_InventoryRefreshEvent: {fileID: 11400000, guid: 035a002d91fde1044b13b76610dd6391, type: 2}
+  m_P1Inventory: {fileID: 0}
+  m_P2Inventory: {fileID: 0}

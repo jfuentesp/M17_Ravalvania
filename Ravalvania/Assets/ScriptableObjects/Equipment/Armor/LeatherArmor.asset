@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bb13db6af8aee24fa6433c2a8096ad5, type: 3}
-  m_Name: ScaleArmor
+  m_Name: LeatherArmor
   m_EditorClassIdentifier: 
-  m_Id: ScaleArmor
-  m_Description: An armor made of iron scales. +2 to Defense.
-  m_Sprite: {fileID: -12032078, guid: b320294e10874024b8abe736c3b127ca, type: 3}
-  m_ShopPrice: 500
-  m_ArmorName: Scale Armor
-  m_Defense: 2
+  m_Id: LeatherArmor
+  m_Description: An armor made of leather. +1 to Defense.
+  m_Sprite: {fileID: 2073741472, guid: b320294e10874024b8abe736c3b127ca, type: 3}
+  m_ShopPrice: 150
+  m_ArmorName: Leather Armor
+  m_Cost: 0
+  m_Defense: 1

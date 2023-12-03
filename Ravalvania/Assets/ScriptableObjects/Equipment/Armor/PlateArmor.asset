@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb13db6af8aee24fa6433c2a8096ad5, type: 3}
   m_Name: PlateArmor
   m_EditorClassIdentifier: 
+  m_Id: PlateArmor
+  m_Description: An armor made of steel plates. +4 to Defense.
+  m_Sprite: {fileID: -1628172097, guid: b320294e10874024b8abe736c3b127ca, type: 3}
+  m_ShopPrice: 1000
   m_ArmorName: Plate Armor
-  m_Cost: 500
-  m_Defense: 6
+  m_Defense: 4

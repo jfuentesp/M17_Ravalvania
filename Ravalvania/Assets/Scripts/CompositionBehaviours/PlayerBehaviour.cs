@@ -21,6 +21,7 @@ using UnityEngine.InputSystem.EnhancedTouch;
 [RequireComponent(typeof(JumpBehaviour))]
 [RequireComponent(typeof(LevelingBehaviour))]
 [RequireComponent(typeof(EquipableBehaviour))]
+[RequireComponent(typeof(InventoryBehaviour))]
 public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
 {
     //Reference to the InputSystem
@@ -28,7 +29,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
     [SerializeField]
     private InputActionAsset m_InputAsset;
     private InputActionAsset m_Input;
-    public InputActionAsset Input => m_Input;
+    public InputActionAsset Input1 => m_Input;
     private InputAction m_MovementAction;
     public InputAction MovementAction => m_MovementAction;
     private InputActionMap m_CurrentActionMap;
@@ -48,6 +49,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
     private DefenseBehaviour m_Defense;
     private LevelingBehaviour m_Leveling;
     private EquipableBehaviour m_Equipable;
+    private InventoryBehaviour m_Inventory;
 
     //Player animator
     private Animator m_Animator;
@@ -85,6 +87,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
     [Header("Is this object player1 or player2?")]
     [SerializeField]
     private EPlayer m_PlayerSelect;
+    public EPlayer PlayerSelect => m_PlayerSelect;
 
     [Header("Reference to the base statistics")]
     [SerializeField]
@@ -105,6 +108,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
     [Header("Current Orb to set the Super")]
     [SerializeField]
     private EOrb m_OrbType;
+
+    bool m_IsStartingAfterLoad;
 
     //Mission component to check if an objective is clear and call the objective event to countdown
     private MissionBehaviour m_Mission;
@@ -127,6 +132,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
         m_Sprite = GetComponent<SpriteRenderer>();
         m_Leveling = GetComponent<LevelingBehaviour>();
         m_Equipable = GetComponent<EquipableBehaviour>();
+        m_Inventory = GetComponent<InventoryBehaviour>();
         m_IsInvulnerable = false;
 
         //Setting the Input Controls
@@ -136,6 +142,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
         //If the PlayerSelected Enum is Player1, will use the P1 inputs. If its 2, it will use the P2 inputs.
         m_CurrentActionMap.bindingMask = m_PlayerSelect == EPlayer.PLAYER1 ? InputBinding.MaskByGroup("player1") : InputBinding.MaskByGroup("player2");
         m_MovementAction = m_CurrentActionMap.FindAction("Movement");
+        OnPlayerInit();
     }
 
     private void OnEnable()
@@ -146,6 +153,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
         m_CurrentActionMap.FindAction("Crouch").started += Crouch;
         m_CurrentActionMap.FindAction("Crouch").canceled += ReturnToIdleState;
         m_CurrentActionMap.FindAction("Interact").performed += Interact;
+        m_CurrentActionMap.FindAction("Inventory").performed += Inventory;
         m_CurrentActionMap.Enable();
         m_IsInvulnerable = false;
     }
@@ -158,6 +166,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
         m_CurrentActionMap.FindAction("Crouch").started -= Crouch;
         m_CurrentActionMap.FindAction("Crouch").canceled -= ReturnToIdleState;
         m_CurrentActionMap.FindAction("Interact").performed -= Interact;
+        m_CurrentActionMap.FindAction("Inventory").performed -= Inventory;
         m_CurrentActionMap.Disable();
     }
 
@@ -188,8 +197,9 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
     {
         //In this case, we can use InitState directly instead of ChangeState as it doesn't have to Exit any state previously. 
         InitState(PlayerMachineStates.IDLE);
-        OnPlayerInit();
         m_Mission = LevelManager.LevelManagerInstance.GetComponent<MissionBehaviour>();
+
+        //m_OnGUIUpdate.Raise();
     }
 
     // Update is called once per frame
@@ -197,20 +207,27 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
     {
         //Each frame, player behaviour will be listening 
         UpdateState();
+
+        //Debug if Increases stats while leveling
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Debug.Log(string.Format("Atk: {0} | Def: {1} | HP: {2} | MP: {3} | Level: {4} | ExpRequired: {5}", m_Damaging.AttackDamage, m_Defense.Defense, m_Health.MaxHealth, m_Mana.MaxMana, m_Leveling.Level, m_Leveling.ExperienceUntilNextLevel));
+        }
     }
 
     private void OnPlayerInit()
     {
-        m_Damaging.OnUpdateBaseDamage(m_PlayerInfo.PlayerDamage);
-        m_Health.SetMaxHealthBase(m_PlayerInfo.PlayerMaxHP);
-        m_Mana.SetMaxManaBase(m_PlayerInfo.PlayerMaxMana);
-        m_Defense.OnSetBaseDefense(m_PlayerInfo.PlayerDefense);
+        m_Damaging.OnAddDamage(m_PlayerInfo.PlayerDamage);
+        m_Health.AddMaxHealth(m_PlayerInfo.PlayerMaxHP);
+        m_Mana.AddMaxMana(m_PlayerInfo.PlayerMaxMana);
+        m_Defense.OnAddDefense(m_PlayerInfo.PlayerDefense);
         m_Moving.SetSpeedBase(m_PlayerInfo.PlayerSpeed);
         m_OrbType = EOrb.NONE;
     }
 
     public void OnObjectiveCheck(EMission type)
     {
+        Debug.Log(m_Mission.MissionType + " and " + type);
         if (m_Mission.MissionType == type)
             m_OnObjectiveCountdown.Raise();
     }
@@ -222,12 +239,17 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
 
     public void Interact(InputAction.CallbackContext context)
     {
-        //This gets the gameobject of the pickup, just as it would do in OnTriggerEnter/Stay, but with less load since it's a "Raycast"
+        //This gets the gameobject of the interactable, just as it would do in OnTriggerEnter/Stay, but with less load since it's a "Raycast"
         if (Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_InteractableLayerMask))
         {
-            GameObject pickup = Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_InteractableLayerMask).collider.gameObject;
-            pickup.GetComponent<IInteractable>().interact();
+            GameObject interactable = Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_InteractableLayerMask).collider.gameObject;
+            interactable.GetComponent<IInteractable>().interact(m_PlayerSelect);
         } 
+    }
+
+    public void Inventory(InputAction.CallbackContext context)
+    {
+        m_Inventory.OnInventoryOpen(m_PlayerSelect);
     }
 
     //Function used to go back to idle state after performing an inputname.canceled action
@@ -264,7 +286,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
     public void Load(SaveData.PlayerData _playerData, bool loadSavedPosition)
     {
         m_Leveling.SetLevelOnLoad(_playerData.level);
-        m_Mana.OnChangeMana(_playerData.mana);
+        m_Mana.SetMana(_playerData.mana);
         m_Health.ChangeHealth(_playerData.hp);
         if(loadSavedPosition)
             transform.position = _playerData.position;
@@ -274,7 +296,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
             m_Equipable.SetArmor(_playerData.armor);
         if(_playerData.orb != null)
             m_Equipable.SetOrb(_playerData.orb);
-        m_OnGUIUpdate.Raise();
+        //m_OnGUIUpdate.Raise();
     }
 
 
@@ -332,7 +354,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
                 m_Animator.Play(m_Combo1AnimationName);
                 //Then we call for the shooting action and we pass the spawnpoint. We do substract the mana in the UpdateState().
                 m_Shooting.Shoot();
-                m_Mana.OnChangeMana(m_ManaCost.ManaCost);
+                m_Mana.OnChangeMana(-m_ManaCost.ManaCost);
                 m_OnEnergyUsed.Raise();
                 OnObjectiveCheck(EMission.SHOOT);
                 break;
@@ -415,6 +437,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
             case PlayerMachineStates.JUMP:
                 if (m_Rigidbody.velocity == Vector2.zero)
                     ChangeState(PlayerMachineStates.IDLE);
+                if (m_MovementAction.ReadValue<Vector2>().x != 0)
+                    ChangeState(PlayerMachineStates.WALK);
                 break;
 
             case PlayerMachineStates.CROUCH:
@@ -449,15 +473,11 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
             case PlayerMachineStates.ATTACK1:
                 if (m_Combo.ComboAvailable && m_ManaCost.ManaCost <= m_Mana.CurrentMana)
                     ChangeState(PlayerMachineStates.COMBO1);
-                else
-                    ChangeState(PlayerMachineStates.ATTACK1);
                 break;
 
             case PlayerMachineStates.ATTACK2:
                 if (m_Combo.ComboAvailable)
                     ChangeState(PlayerMachineStates.ATTACK1);
-                else
-                    ChangeState(PlayerMachineStates.ATTACK2);
                 break;
 
             case PlayerMachineStates.CROUCH:
@@ -512,17 +532,14 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
 
     private void Jump(InputAction.CallbackContext context)
     {
-        Debug.Log("Im falling and i cant get up: "+m_Rigidbody.velocity.y);
         switch (m_CurrentState)
         {
             case PlayerMachineStates.IDLE:
-                if (m_Rigidbody.velocity.y == 0)
-                    ChangeState(PlayerMachineStates.JUMP);
+                ChangeState(PlayerMachineStates.JUMP);
                 break;
 
             case PlayerMachineStates.WALK:
-                if (m_Rigidbody.velocity.y == 0)
-                    ChangeState(PlayerMachineStates.JUMP);
+                ChangeState(PlayerMachineStates.JUMP);
                 break;
 
             default:

@@ -28,12 +28,16 @@ public class HealthBehaviour : MonoBehaviour
     [SerializeField]
     private bool m_GivesExpOnDeath;
 
+    private void Awake()
+    {
+        m_CurrentHealth = m_MaxHealth;
+        m_IsAlive = true;
+    }
+
     void Start()
     {
         if(m_GivesExpOnDeath)
-            m_Leveling = GetComponent<LevelingBehaviour>();
-        m_CurrentHealth = m_MaxHealth;       
-        m_IsAlive = true;
+            m_Leveling = GetComponent<LevelingBehaviour>();  
     }
 
     public void SetMaxHealthBase(float maxHealth)
