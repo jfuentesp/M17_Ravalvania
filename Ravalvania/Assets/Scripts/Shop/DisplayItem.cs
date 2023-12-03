@@ -8,7 +8,7 @@ public class DisplayItem : MonoBehaviour
 {
     [Header("Purchase Event")]
     [SerializeField]
-    private GameEventItem m_PurchaseEvent;
+    private GameEventItemPlayer m_PurchaseEvent;
 
     [Header("Display")]
     [SerializeField]
@@ -19,15 +19,20 @@ public class DisplayItem : MonoBehaviour
     private Button m_Button;
 
     private Item m_Item;
+    private EPlayer m_PlayerStore;
+
+    EconomyBehaviour m_Money;
 
     // Start is called before the first frame update
     void Start()
     {
         m_Button.onClick.AddListener(RaiseEvent);
+        m_Money = LevelManager.LevelManagerInstance.GetComponent<EconomyBehaviour>();
     }
 
-    public void LoadItem(Item item)
+    public void LoadItem(Item item, EPlayer player)
     {
+        m_PlayerStore = player;
         m_Item = item;
         m_Image.sprite = item.Sprite;
         m_Price.text = item.Price + "G";
@@ -35,6 +40,10 @@ public class DisplayItem : MonoBehaviour
 
     private void RaiseEvent()
     {
-        m_PurchaseEvent.Raise(m_Item);
+        if(m_Money.PlayerCoins >= m_Item.Price)
+        {
+            m_Money.ChangeCoins(-m_Item.Price);
+            m_PurchaseEvent.Raise(m_Item, m_PlayerStore);
+        }
     }
 }

@@ -60,11 +60,11 @@ public class InventoryBehaviour : MonoBehaviour
         m_InventoryRefreshEvent.Raise();
     }
 
-    public void AddItem(Item item)
+    public void AddItem(Item item, EPlayer player)
     {
-        if(m_Owner == EPlayer.PLAYER1)
+        if(player == EPlayer.PLAYER1 && m_Owner == player)
             m_P1Backpack.AddItem(item);
-        if (m_Owner == EPlayer.PLAYER2)
+        if(player == EPlayer.PLAYER2 && m_Owner == player)
             m_P2Backpack.AddItem(item);
         m_InventoryRefreshEvent.Raise();
     }

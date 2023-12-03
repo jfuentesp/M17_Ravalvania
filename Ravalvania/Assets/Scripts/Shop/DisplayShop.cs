@@ -14,12 +14,15 @@ public class DisplayShop : MonoBehaviour
     [SerializeField]
     private Item[] m_ItemsToDisplay;
 
+    [SerializeField]
+    private EPlayer m_PlayerSelect;
+
     private void Start()
     {
         foreach (Item item in m_ItemsToDisplay)
         {
             GameObject displayedItem = Instantiate(m_DisplayItemPrefab, m_DisplayShop.transform);
-            displayedItem.GetComponent<DisplayItem>().LoadItem(item);
+            displayedItem.GetComponent<DisplayItem>().LoadItem(item, m_PlayerSelect);
         }
     }
 }

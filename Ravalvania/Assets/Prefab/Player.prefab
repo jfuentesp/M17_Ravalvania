@@ -202,8 +202,8 @@ GameObject:
   - component: {fileID: 4950642935795205617}
   - component: {fileID: 6763216026891289627}
   - component: {fileID: 5475673041582411568}
-  - component: {fileID: 3623843943534806950}
   - component: {fileID: 241311180556547920}
+  - component: {fileID: 3924104553341248219}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -663,34 +663,6 @@ MonoBehaviour:
   m_InventoryRefreshEvent: {fileID: 11400000, guid: 035a002d91fde1044b13b76610dd6391, type: 2}
   m_P1Inventory: {fileID: 0}
   m_P2Inventory: {fileID: 0}
---- !u!114 &3623843943534806950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4277890847289425898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50cc814a2fe497746a8a996c79fa1f9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: d34a12be8a4bec3478afc499c4d68dff, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5475673041582411568}
-        m_TargetAssemblyTypeName: InventoryBehaviour, Assembly-CSharp
-        m_MethodName: AddItem
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &241311180556547920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,6 +682,34 @@ MonoBehaviour:
       - m_Target: {fileID: 5475673041582411568}
         m_TargetAssemblyTypeName: InventoryBehaviour, Assembly-CSharp
         m_MethodName: ConsumeItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3924104553341248219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4277890847289425898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88f6d41aed7b3db4a83f045d6158faab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 9ff0e9a9f6cc2104786bb44d3f2e985f, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5475673041582411568}
+        m_TargetAssemblyTypeName: InventoryBehaviour, Assembly-CSharp
+        m_MethodName: AddItem
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

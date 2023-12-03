@@ -16939,6 +16939,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: f5f4c43b207d10d44ae99a82653f1049, type: 2}
     - target: {fileID: 9046121316828188487, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: m_MaxHealth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9046121316828188487, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
       propertyPath: m_OnDeathEvent
       value: 
       objectReference: {fileID: 11400000, guid: 6bf98119b85c0634098b4fbd089677db, type: 2}

@@ -10,7 +10,7 @@ public class EconomyBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        m_InitialCoins = 0;
+        m_InitialCoins = 500;
         ChangeCoins(m_InitialCoins);
     }
 
