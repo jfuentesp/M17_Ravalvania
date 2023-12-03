@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 156695629}
   - component: {fileID: 156695633}
   - component: {fileID: 156695634}
+  - component: {fileID: 156695635}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -371,6 +372,34 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: MissionBehaviour, Assembly-CSharp
         m_MethodName: OnObjectiveCountdown
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &156695635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 156695628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f63eb494f441e8146b4ea46b66af9647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 456454c93b6309145952b3b93cd4b996, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 156695633}
+        m_TargetAssemblyTypeName: EconomyBehaviour, Assembly-CSharp
+        m_MethodName: ChangeCoins
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

@@ -596,7 +596,7 @@ using UnityEngine.InputSystem;
                     //This gets the gameobject of the pickup, just as it would do in OnTriggerEnter/Stay, but with less load since it's a "Raycast"
                     if (Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_PickupLayerMask)) {
                         GameObject pickup = Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_PickupLayerMask).collider.gameObject;
-                        pickup.GetComponent<PickupBehaviour>().GetPickup();
+                        pickup.GetComponent<PickupBehaviour>().GetPickup(EPlayer.PLAYER1);
                         Destroy(pickup.gameObject);
                     }
                     break;

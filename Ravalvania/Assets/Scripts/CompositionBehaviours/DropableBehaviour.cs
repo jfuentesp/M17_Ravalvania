@@ -12,16 +12,17 @@ public class DropableBehaviour : MonoBehaviour
     private int m_Coins;
     public int Coins => m_Coins;
     [SerializeField]
-    private List<PickupScriptableObject> m_Pickups;
-    // Start is called before the first frame update
-    private void Awake()
-    {
-        
-    }
+    private GameObject m_PickupPrefab;
+
 
     public void DropOnDestroy()
     {
-
+        float chance = Random.value;
+        if(chance > 0.5f)
+        {
+            GameObject pickup = Instantiate(m_PickupPrefab);
+            pickup.transform.position = transform.position;
+        }
     }
 
     public void SetCoins(int coinsToSet)

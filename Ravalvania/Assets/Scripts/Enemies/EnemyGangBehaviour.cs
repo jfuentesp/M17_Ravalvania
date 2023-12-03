@@ -150,6 +150,7 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
 
     public void OnDeath()
     {
+        m_Dropping.DropOnDestroy();
         gameObject.SetActive(false);
     }
 

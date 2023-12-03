@@ -562,9 +562,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0659aff1e9c84284590ddbc35b523fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitialSpeed: 2
-  m_VelocityClamp: 2
-  m_ForceToAdd: 1
+  m_InitialSpeed: 3
+  m_VelocityClamp: 3
+  m_ForceToAdd: 2
   m_IsFlipped: 0
 --- !u!114 &2508743996317794500
 MonoBehaviour:
@@ -614,7 +614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Coins: 0
-  m_Pickups: []
+  m_PickupPrefab: {fileID: 37607804136430605, guid: d8a0feecb9658b54b96840013a3e37c1, type: 3}
 --- !u!114 &827020750205830924
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PickupID: 5
   m_PickupName: treasure
-  m_PickupValue: 1000
+  m_PickupValue: 600
   m_PickupEffectDuration: 0
   m_PickupColor: {r: 1, g: 1, b: 1, a: 1}
   m_PickupSprite: {fileID: 291446518, guid: b320294e10874024b8abe736c3b127ca, type: 3}

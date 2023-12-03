@@ -453,8 +453,9 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
                 if (Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_PickupLayerMask))
                 {
                     GameObject pickup = Physics2D.CircleCast(transform.position, 0.5f, Vector2.up, 0.5f, m_PickupLayerMask).collider.gameObject;
-                    pickup.GetComponent<PickupBehaviour>().GetPickup();
+                    pickup.GetComponent<PickupBehaviour>().GetPickup(m_PlayerSelect);
                     Destroy(pickup.gameObject);
+                    m_OnGUIUpdate.Raise();
                 }
                 break;
 

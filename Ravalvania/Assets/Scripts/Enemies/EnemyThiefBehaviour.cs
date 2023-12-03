@@ -151,6 +151,7 @@ public class EnemyThiefBehaviour : MonoBehaviour, IObjectivable
 
     public void OnDeath()
     {
+        m_Dropping.DropOnDestroy();
         gameObject.SetActive(false);
     }
 

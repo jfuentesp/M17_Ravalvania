@@ -130,7 +130,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 37607804136430605}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -148,7 +148,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!114 &6315557076813892273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +169,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 162165b3b1c825747bbe92a160876b76, type: 2}
   - {fileID: 11400000, guid: 0430815d64681174fbaebe57467ab377, type: 2}
   m_PickupDuration: 5
-  m_OnPickupScore: {fileID: 11400000, guid: 456454c93b6309145952b3b93cd4b996, type: 2}
-  m_OnPickupHealth: {fileID: 11400000, guid: 0c0631d6a69fb11419c95c419b04e732, type: 2}
-  m_OnPickupMana: {fileID: 11400000, guid: a342f5574f29af54186d7da2dfc764ca, type: 2}
-  m_OnPickupLife: {fileID: 11400000, guid: 49e974ad2731d7b47867654a00fb8fdd, type: 2}
+  m_OnPickupCoins: {fileID: 11400000, guid: 456454c93b6309145952b3b93cd4b996, type: 2}
+  m_OnPickupHealthPotion: {fileID: 11400000, guid: e0ebe9e2eb1cfb84fb3341ac47ad0804, type: 2}
+  m_OnPickupManaPotion: {fileID: 11400000, guid: dc32069f6e85dcc458f1ff65fa6f57ec, type: 2}
+  m_OnPickupBandage: {fileID: 11400000, guid: 7f98f061c5e4fcd46aa150794f2f66c0, type: 2}
+  m_Bandage: {fileID: 11400000, guid: a94bc8ae01dd7244bbc4f68f0295b122, type: 2}
+  m_Potion: {fileID: 11400000, guid: 36edcdafd75a9d14bbb402f13a559171, type: 2}
+  m_Mana: {fileID: 11400000, guid: 03d63860df4c9414b886fb7f9d76425e, type: 2}

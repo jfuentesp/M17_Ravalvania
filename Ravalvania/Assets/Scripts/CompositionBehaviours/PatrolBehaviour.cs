@@ -11,7 +11,7 @@ public class PatrolBehaviour : MonoBehaviour
     [Header("Patrol time if need to patrol over time to switch sides")]
     [SerializeField]
     private float m_PatrolTime;
-    private Coroutine m_PatrolCoroutine;
+    
     [SerializeField]
     private LayerMask m_GroundLayerMask;
 
@@ -39,11 +39,12 @@ public class PatrolBehaviour : MonoBehaviour
         }      
     }
 
+    private Coroutine m_PatrolCoroutine;
+
     public void OnPatrolByTime()
     {
         //m_Direction = m_Moving.IsFlipped ? -Vector2.right : Vector2.right;
-        if (m_PatrolCoroutine == null)
-            m_PatrolCoroutine = StartCoroutine(PatrolByTimeCoroutine());
+        m_PatrolCoroutine = StartCoroutine(PatrolByTimeCoroutine());
     }
 
     public void OnPatrolStop()
