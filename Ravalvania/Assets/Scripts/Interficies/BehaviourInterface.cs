@@ -27,7 +27,7 @@ public interface IItem
     public string Description { get; set; }
     public Sprite Sprite { get; set; }
 
-    public bool UsedBy(GameObject go);
+    public bool UsedBy(GameObject go, EPlayer player, EPlayer owner);
 }
 public interface IInteractable
 {

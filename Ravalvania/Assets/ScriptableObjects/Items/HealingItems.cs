@@ -8,13 +8,17 @@ public class HealingItems : Item
     [SerializeField]
     private float m_HealAmount;
     public float Heal => m_HealAmount;
-    public override bool UsedBy(GameObject go)
+    public override bool UsedBy(GameObject go, EPlayer player, EPlayer owner)
     {
         if (!go.TryGetComponent<HealableBehaviour>(out HealableBehaviour healable))
         {
             return false;
         }
-        healable.OnHeal(m_HealAmount);
-        return true;
+        if(player == owner)
+        {
+            healable.OnHeal(m_HealAmount);
+            return true;
+        }       
+        return false;
     }
 }

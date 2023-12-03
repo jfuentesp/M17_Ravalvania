@@ -15657,6 +15657,22 @@ PrefabInstance:
       propertyPath: m_MaxMana
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2106868431122688913, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1081613529}
+    - target: {fileID: 2106868431122688913, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ConsumeItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 2106868431122688913, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InventoryBehaviour, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2106868431122688913, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2258415623658503569, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
       propertyPath: m_Force
       value: 500
@@ -15709,6 +15725,22 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: f2b2f37b9d051034da9a141291cdf25d, type: 2}
+    - target: {fileID: 3623843943534806950, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1081613529}
+    - target: {fileID: 3623843943534806950, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623843943534806950, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InventoryBehaviour, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623843943534806950, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3999634697589270503, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
       propertyPath: m_BaseDefense
       value: 0
@@ -15764,6 +15796,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66b5c01dbe2332e4abcec1fce88b1e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1081613529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5475673041582411568, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+  m_PrefabInstance: {fileID: 1081613527}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c4ae550d2767c409be8ce104a03e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1091978485
@@ -16779,6 +16822,22 @@ PrefabInstance:
       propertyPath: m_MaxMana
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2106868431122688913, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1398213951}
+    - target: {fileID: 2106868431122688913, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ConsumeItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 2106868431122688913, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InventoryBehaviour, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2106868431122688913, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2258415623658503569, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
       propertyPath: m_Force
       value: 500
@@ -16831,6 +16890,22 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 799f4acada9582e41afca7d868f1dc55, type: 2}
+    - target: {fileID: 3623843943534806950, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1398213951}
+    - target: {fileID: 3623843943534806950, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623843943534806950, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: InventoryBehaviour, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3623843943534806950, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3999634697589270503, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
       propertyPath: m_BaseDefense
       value: 0
@@ -16885,6 +16960,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 66b5c01dbe2332e4abcec1fce88b1e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1398213951 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5475673041582411568, guid: 53f2a3cb5671d75439b0d3d31c122e01, type: 3}
+  m_PrefabInstance: {fileID: 1398213949}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c4ae550d2767c409be8ce104a03e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1419503665

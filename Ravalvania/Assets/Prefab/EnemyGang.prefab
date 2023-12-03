@@ -596,6 +596,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PatrolTime: 2
+  m_GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
   m_DefaultDirection: 0
 --- !u!114 &399451473741577770
 MonoBehaviour:

@@ -14,13 +14,17 @@ public class Weapon : Item
     public string Name => m_WeaponName;
     public float Damage => m_Damage;
 
-    public override bool UsedBy(GameObject go)
+    public override bool UsedBy(GameObject go, EPlayer player, EPlayer owner)
     {
         if (!go.TryGetComponent<EquipableBehaviour>(out EquipableBehaviour equipable))
         {
             return false;
         }
-        equipable.SetWeapon(this);
-        return true;
+        if (player == owner)
+        {
+            equipable.SetWeapon(this);
+            return true;
+        }
+        return false;
     }
 }

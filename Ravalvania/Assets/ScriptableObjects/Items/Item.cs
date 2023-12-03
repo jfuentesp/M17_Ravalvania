@@ -18,5 +18,5 @@ public abstract class Item : ScriptableObject, IItem
     protected int m_ShopPrice;
     public int Price { get => m_ShopPrice; set => m_ShopPrice = value; }
 
-    public abstract bool UsedBy(GameObject go);
+    public abstract bool UsedBy(GameObject go, EPlayer player, EPlayer owner);
 }

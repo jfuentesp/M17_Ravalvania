@@ -610,7 +610,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 374f313e5f09a6348a2a32fddb7fd8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PatrolTime: 2
+  m_PatrolTime: 4
+  m_GroundLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
   m_DefaultDirection: 0
 --- !u!114 &6839367916145125611
 MonoBehaviour:

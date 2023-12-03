@@ -8,13 +8,17 @@ public class ManaItems : Item
     [SerializeField]
     private float m_ManaAmount;
     public float Mana => m_ManaAmount;
-    public override bool UsedBy(GameObject go)
+    public override bool UsedBy(GameObject go, EPlayer player, EPlayer owner)
     {
         if (!go.TryGetComponent<ManaBehaviour>(out ManaBehaviour fillable))
         {
             return false;
         }
-        fillable.OnChangeMana(m_ManaAmount);
-        return true;
+        if (player == owner)
+        {
+            fillable.OnChangeMana(m_ManaAmount);
+            return true;
+        }
+        return false;
     }
 }

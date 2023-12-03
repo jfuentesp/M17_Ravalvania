@@ -27,7 +27,7 @@ public class DisplayInventory : MonoBehaviour
         foreach (Inventory.ItemSlot itemSlot in m_Backpack.m_Mochilla)
         {
             GameObject displayedItem = Instantiate(m_InventoryItemPrefab, m_ParentInventory.transform);
-            displayedItem.GetComponent<DisplayInventoryItem>().Load(itemSlot);
+            displayedItem.GetComponent<DisplayInventoryItem>().Load(itemSlot, m_Backpack.m_PlayerSelect);
         }
     }
 

@@ -19,12 +19,20 @@ public class EquipableBehaviour : MonoBehaviour
     public Armor EquippedArmor => m_EquippedArmor;
     public Orb EquippedOrb => m_EquippedOrb;
 
+    private void Awake()
+    {
+        m_Damage = GetComponentInChildren<DamageableBehaviour>();
+        m_Defense = GetComponent<DefenseBehaviour>();
+        m_PlayerOrb = GetComponent<PlayerBehaviour>();
+    }
+
     public void SetWeapon(Weapon weapon)
     {
         if (m_EquippedWeapon != null)
             DetachWeapon();
         m_EquippedWeapon = weapon;
-        m_Damage.OnAddDamage(weapon.Damage);
+        Debug.Log(string.Format("Equipped weapon: {0} | Weapon is: {1} | Damage is: {2}", weapon.Name, m_EquippedWeapon.Name, m_EquippedWeapon.Damage));
+        m_Damage.OnAddDamage(m_EquippedWeapon.Damage);
     }
     
     public void DetachWeapon()

@@ -14,13 +14,17 @@ public class HealingOnTimeItems : Item
     public float Heal => m_HealAmount;
     public float Time => m_HealTime;
     public float Speed => m_HealSpeed;
-    public override bool UsedBy(GameObject go)
+    public override bool UsedBy(GameObject go, EPlayer player, EPlayer owner)
     {
         if (!go.TryGetComponent<HealableBehaviour>(out HealableBehaviour healable))
         {
             return false;
         }
-        healable.OnHealOnTime(m_HealAmount, m_HealTime, m_HealSpeed);
-        return true;
+        if (player == owner)
+        {
+            healable.OnHealOnTime(m_HealAmount, m_HealTime, m_HealSpeed);
+            return true;
+        }
+        return false;
     }
 }

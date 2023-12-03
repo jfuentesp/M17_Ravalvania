@@ -13,13 +13,17 @@ public class Armor : Item
     public string Name => m_ArmorName;
     public float Defense => m_Defense;
 
-    public override bool UsedBy(GameObject go)
+    public override bool UsedBy(GameObject go, EPlayer player, EPlayer owner)
     {
         if(!go.TryGetComponent<EquipableBehaviour>(out EquipableBehaviour equipable))
         {
             return false;
         }
-        equipable.SetArmor(this);
-        return true;
+        if (player == owner)
+        {
+            equipable.SetArmor(this);
+            return true;
+        }
+        return false;
     }
 }

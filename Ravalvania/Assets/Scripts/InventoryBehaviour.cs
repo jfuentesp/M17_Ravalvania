@@ -48,14 +48,14 @@ public class InventoryBehaviour : MonoBehaviour
         }
     }
 
-    public void ConsumeItem(Item item)
+    public void ConsumeItem(Item item, EPlayer player)
     {
-        if (!item.UsedBy(gameObject))
+        if (!item.UsedBy(gameObject, player, m_Owner))
             return;
 
-        if(m_Owner == EPlayer.PLAYER1)
+        if(player == EPlayer.PLAYER1)
             m_P1Backpack.RemoveItem(item);
-        if(m_Owner == EPlayer.PLAYER2)
+        if(player == EPlayer.PLAYER2)
             m_P2Backpack.RemoveItem(item);
         m_InventoryRefreshEvent.Raise();
     }

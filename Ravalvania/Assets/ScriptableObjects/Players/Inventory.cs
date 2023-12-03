@@ -23,7 +23,9 @@ public class Inventory : ScriptableObject
 
     [SerializeField]
     public List<ItemSlot> m_Mochilla = new List<ItemSlot>();
-    
+
+    [SerializeField]
+    public EPlayer m_PlayerSelect;
 
     
     public void AddItem(Item usedItem)

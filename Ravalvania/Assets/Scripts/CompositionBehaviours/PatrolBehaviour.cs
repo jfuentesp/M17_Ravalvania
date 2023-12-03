@@ -12,6 +12,8 @@ public class PatrolBehaviour : MonoBehaviour
     [SerializeField]
     private float m_PatrolTime;
     private Coroutine m_PatrolCoroutine;
+    [SerializeField]
+    private LayerMask m_GroundLayerMask;
 
     private enum Direction { RIGHT, LEFT }
     [SerializeField]
@@ -27,6 +29,14 @@ public class PatrolBehaviour : MonoBehaviour
     {
         m_Direction = m_DefaultDirection == Direction.RIGHT ? Vector2.right : -Vector2.right;
         m_Moving = GetComponent<MovableBehaviour>();
+    }
+
+    private void Update()
+    {
+        if (!Physics2D.Raycast(transform.position + Vector3.right, Vector2.down, (gameObject.transform.localScale.y / 2) * 1.2f, m_GroundLayerMask))
+        {
+            //m_Direction *= -1;
+        }      
     }
 
     public void OnPatrolByTime()
@@ -47,7 +57,10 @@ public class PatrolBehaviour : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(m_PatrolTime);
+            Debug.Log("Inicio de corutina");
+            m_Moving.OnStopMovement();
             m_Direction *= -1;
+            m_Moving.OnFlipCharacter(m_Direction);
         }   
     }
 }

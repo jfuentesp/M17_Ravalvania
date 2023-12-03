@@ -13,13 +13,17 @@ public class Orb : Item
     public string Name => m_OrbName;
     public EOrb OrbType => m_OrbType;
 
-    public override bool UsedBy(GameObject go)
+    public override bool UsedBy(GameObject go, EPlayer player, EPlayer owner)
     {
         if (!go.TryGetComponent<EquipableBehaviour>(out EquipableBehaviour equipable))
         {
             return false;
         }
-        equipable.SetOrb(this);
-        return true;
+        if (player == owner)
+        {
+            equipable.SetOrb(this);
+            return true;
+        }
+        return false;
     }
 }

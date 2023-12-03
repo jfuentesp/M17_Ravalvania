@@ -316,7 +316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa931faee22da94f8307d783d02d215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Event: {fileID: 11400000, guid: cc5d1b208ef313143ae345c41f54e514, type: 2}
-  m_IDText: {fileID: 0}
+  m_Event: {fileID: 11400000, guid: a90346e611aec3f4da10d43080178692, type: 2}
   m_AmountText: {fileID: 3522587332523738108}
   m_Image: {fileID: 1675898152543841419}

@@ -8,33 +8,31 @@ public class DisplayInventoryItem : MonoBehaviour
 {
     [Header("Functionality")]
     [SerializeField]
-    private GameEventItem m_Event;
+    private GameEventItemPlayer m_Event;
 
     [Header("Display")]
-    [SerializeField]
     private TextMeshProUGUI m_IDText;
     [SerializeField]
     private TextMeshProUGUI m_AmountText;
     [SerializeField]
     private Image m_Image;
 
-    public void Load(Item item)
+    public void Load(Item item, EPlayer player)
     {
-        //m_IDText.text = item.Id;
         m_Image.sprite = item.Sprite; 
         GetComponent<Button>().onClick.RemoveAllListeners();
-        GetComponent<Button>().onClick.AddListener(() => RaiseEvent(item));
+        GetComponent<Button>().onClick.AddListener(() => RaiseEvent(item, player));
     }
 
-    public void Load(Inventory.ItemSlot itemSlot)
+    public void Load(Inventory.ItemSlot itemSlot, EPlayer player)
     {
-        Load(itemSlot.item);
+        Load(itemSlot.item, player);
         m_AmountText.text = itemSlot.amount.ToString();
     }
 
-    private void RaiseEvent(Item item)
+    private void RaiseEvent(Item item, EPlayer player)
     {
-        m_Event.Raise(item);
+        m_Event.Raise(item, player);
     }
 
 }
