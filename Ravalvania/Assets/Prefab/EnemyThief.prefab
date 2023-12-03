@@ -238,6 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnGuiEvent: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
   m_BaseAttackDamage: 1
+  m_KnockbackPower: 1
 --- !u!1 &4066682554415274380
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,6 +599,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnGuiEvent: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
   m_BaseAttackDamage: 2
+  m_KnockbackPower: 0
 --- !u!114 &1028928642715436051
 MonoBehaviour:
   m_ObjectHideFlags: 0

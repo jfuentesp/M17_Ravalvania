@@ -62,6 +62,11 @@ public class MovableBehaviour : MonoBehaviour
         m_Rigidbody.transform.eulerAngles = m_IsFlipped ? Vector3.up * 180 : Vector3.zero;
     }
 
+    public void OnKnockback(Vector2 direction, float knockbackpower)
+    {
+        m_Rigidbody.AddForce(direction * knockbackpower, ForceMode2D.Impulse);
+    }
+
     public void SetSpeedBase(float speed)
     {
         m_InitialSpeed = speed;

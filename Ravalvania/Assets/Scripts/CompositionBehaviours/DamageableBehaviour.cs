@@ -15,13 +15,17 @@ public class DamageableBehaviour : MonoBehaviour
     private float m_AttackDamage;
     public float AttackDamage => m_AttackDamage;
     private float m_ComboMultiplier;
+    [SerializeField]
+    private float m_KnockbackPower;
+    public float KnockbackPower => m_KnockbackPower;
+
 
     private void Awake()
     {
         m_Health = GetComponentInParent<HealthBehaviour>();
         m_Defense = GetComponentInParent<DefenseBehaviour>();
         m_AttackDamage = 1;
-        m_ComboMultiplier = 1;
+        m_ComboMultiplier = 2;
     }
 
     //Function that substracts damage to the Health component

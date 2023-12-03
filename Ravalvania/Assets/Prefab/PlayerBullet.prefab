@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OnGuiEvent: {fileID: 11400000, guid: 56715cd4a85e19a4faaeed2f3d92ee79, type: 2}
   m_BaseAttackDamage: 1
+  m_KnockbackPower: 1
 --- !u!114 &8138562777568490070
 MonoBehaviour:
   m_ObjectHideFlags: 0

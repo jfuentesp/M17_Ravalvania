@@ -63,6 +63,9 @@ public class EnemyRangedBehaviour : MonoBehaviour, IObjectivable
     private GameEvent m_OnObjectiveCountdown;
     private int m_EnemyID;
 
+    Vector2 m_LastAttackSide;
+    float m_LastKnockbackPower;
+
     private void Awake()
     {
         m_Animator = GetComponent<Animator>();
@@ -107,6 +110,8 @@ public class EnemyRangedBehaviour : MonoBehaviour, IObjectivable
         if (collision.CompareTag("PlayerHitbox") && !m_IsInvulnerable)
         {
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponentInChildren<DamageableBehaviour>().AttackDamage);
+            m_LastAttackSide = collision.transform.position.x < transform.position.x ? Vector2.right : -Vector2.right;
+            m_LastKnockbackPower = collision.gameObject.GetComponentInChildren<DamageableBehaviour>().KnockbackPower;
             ChangeState(EnemyMachineStates.HIT);
             if (!m_Health.IsAlive)
                 ChangeState(EnemyMachineStates.DEAD);
@@ -115,6 +120,8 @@ public class EnemyRangedBehaviour : MonoBehaviour, IObjectivable
         if (collision.CompareTag("PlayerProjectile") && !m_IsInvulnerable)
         {
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponent<DamageableBehaviour>().AttackDamage);
+            m_LastAttackSide = collision.transform.position.x < transform.position.x ? Vector2.right : -Vector2.right;
+            m_LastKnockbackPower = collision.gameObject.GetComponentInChildren<DamageableBehaviour>().KnockbackPower;
             ChangeState(EnemyMachineStates.HIT);
             Destroy(collision.gameObject);
             if (!m_Health.IsAlive)
@@ -189,6 +196,9 @@ public class EnemyRangedBehaviour : MonoBehaviour, IObjectivable
             case EnemyMachineStates.HIT:
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_HitAnimationName);
+                m_Moving.OnKnockback(m_LastAttackSide, m_LastKnockbackPower);
+                if (m_Mission.MissionType == EMission.HIT)
+                    m_OnObjectiveCountdown.Raise();
                 break;
 
             case EnemyMachineStates.FLEE:

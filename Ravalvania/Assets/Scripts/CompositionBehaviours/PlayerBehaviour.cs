@@ -110,6 +110,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
     private EOrb m_OrbType;
 
     bool m_IsStartingAfterLoad;
+    Vector2 m_LastAttackSide;
+    float m_LastKnockbackPower;
 
     //Mission component to check if an objective is clear and call the objective event to countdown
     private MissionBehaviour m_Mission;
@@ -175,6 +177,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
         if (collision.CompareTag("EnemyHitbox") && !m_IsInvulnerable)
         {
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponentInChildren<DamageableBehaviour>().AttackDamage);
+            m_LastAttackSide = collision.transform.position.x < transform.position.x ? Vector2.right : -Vector2.right;
+            m_LastKnockbackPower = collision.gameObject.GetComponentInChildren<DamageableBehaviour>().KnockbackPower;
             ChangeState(PlayerMachineStates.HIT);
             if (!m_Health.IsAlive)
                 OnDeath();
@@ -184,6 +188,8 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
         if (collision.CompareTag("EnemyProjectile") && !m_IsInvulnerable)
         {
             m_Damaging.OnDealingDamage(collision.gameObject.GetComponent<DamageableBehaviour>().AttackDamage);
+            m_LastAttackSide = collision.transform.position.x < transform.position.x ? Vector2.right : -Vector2.right;
+            m_LastKnockbackPower = collision.gameObject.GetComponentInChildren<DamageableBehaviour>().KnockbackPower;
             ChangeState(PlayerMachineStates.HIT);
             Destroy(collision.gameObject);
             if (!m_Health.IsAlive)
@@ -370,6 +376,7 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
                 //Will play the animation and then set the state to Idle
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_HitAnimationName);
+                m_Moving.OnKnockback(m_LastAttackSide, m_LastKnockbackPower);
                 StartCoroutine(OnPlayerHitCoroutine());
                 break;
 
