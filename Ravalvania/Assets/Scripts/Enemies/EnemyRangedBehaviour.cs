@@ -256,6 +256,7 @@ public class EnemyRangedBehaviour : MonoBehaviour, IObjectivable
 
             case EnemyMachineStates.PATROL:
                 m_Moving.OnMoveByForce(m_Patrol.PatrolDirection);
+                Debug.Log(m_Patrol.PatrolDirection);
                 if (m_Chase.TargetDetected)
                     ChangeState(EnemyMachineStates.CHASE);
                 break;

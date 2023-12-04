@@ -85,12 +85,11 @@ public class EnemyThiefBehaviour : MonoBehaviour, IObjectivable
     private void Start()
     {
         m_Mission = LevelManager.LevelManagerInstance.GetComponent<MissionBehaviour>();
-        InitEnemy();
-        InitState(EnemyMachineStates.PATROL);
     }
 
     void OnEnable()
     {
+        InitEnemy();
         InitState(EnemyMachineStates.PATROL);
         m_IsInvulnerable = false;
     }

@@ -83,12 +83,11 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
     void Start()
     {
         m_Mission = LevelManager.LevelManagerInstance.GetComponent<MissionBehaviour>();
-        InitEnemy();
-        InitState(EnemyMachineStates.PATROL);
     }
 
     void OnEnable()
     {
+        InitEnemy();
         InitState(EnemyMachineStates.PATROL);
         m_IsInvulnerable = false;
     }
@@ -208,6 +207,7 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
                 break;
 
             case EnemyMachineStates.DEAD:
+                m_IsInvulnerable = true;
                 m_Moving.OnStopMovement();
                 m_Animator.Play(m_DieAnimationName);
                 if (m_Mission != null && m_Mission.MissionType == EMission.KILL && m_Mission.ObjectiveType == m_EnemyID)
@@ -249,6 +249,7 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
 
             case EnemyMachineStates.PATROL:
                 m_Moving.OnMoveByForce(m_Patrol.PatrolDirection);
+                Debug.Log(m_Patrol.PatrolDirection);
                 if (m_Chase.TargetDetected)
                     ChangeState(EnemyMachineStates.CHASE);
                 break;

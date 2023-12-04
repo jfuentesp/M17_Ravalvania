@@ -23,6 +23,11 @@ public class ShootableBehaviour : MonoBehaviour, IObjectivable
         prefab.GetComponent<BulletBehaviour>().InitBullet(direction);
     }
 
+    public void ParabolicShoot(GameObject target, float forceY)
+    {
+        float shooterX = transform.position.x;
+    }
+
     public void OnObjectiveCheck(EMission type)
     {
         if(EMission.SHOOT == type)
