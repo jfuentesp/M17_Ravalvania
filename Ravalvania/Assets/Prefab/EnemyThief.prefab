@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 1235149116153982570}
   - component: {fileID: 9038322239278264643}
   - component: {fileID: 5570512642124954377}
+  - component: {fileID: -8390641872946082349}
   m_Layer: 7
   m_Name: EnemyThief
   m_TagString: Enemy
@@ -682,3 +683,33 @@ MonoBehaviour:
   m_ExpGivenOnDeath: 0
   m_ConstantX: 0
   m_RatioY: 0
+--- !u!114 &-8390641872946082349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8127328366898293269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.5, y: -1, z: 0}
+  - {x: -0.5, y: 1, z: 0}
+  - {x: 0.5, y: 1, z: 0}
+  - {x: 0.5, y: -1, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -784780
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0.5, y: 1, z: 0}

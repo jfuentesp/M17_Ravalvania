@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 2831079310756553513}
   - component: {fileID: 7011598063934286192}
   - component: {fileID: 5826090949682673570}
+  - component: {fileID: -4865137572714483534}
   m_Layer: 7
   m_Name: EnemyRobber
   m_TagString: Enemy
@@ -456,6 +457,36 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ac812832ad085fd4da561edb23e0c656, type: 2}
   m_OnEnemyDeathExp: {fileID: 11400000, guid: a602d7a897fe2fb4bb16995c3e09279f, type: 2}
   m_OnObjectiveCountdown: {fileID: 11400000, guid: 6796b931cfb66be49b52202d8ff78240, type: 2}
+--- !u!114 &-4865137572714483534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3504963644105037084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.5, y: -1, z: 0}
+  - {x: -0.5, y: 1, z: 0}
+  - {x: 0.5, y: 1, z: 0}
+  - {x: 0.5, y: -1, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -786044
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0.5, y: 1, z: 0}
 --- !u!1 &5268943914328177657
 GameObject:
   m_ObjectHideFlags: 0
