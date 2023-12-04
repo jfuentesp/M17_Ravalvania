@@ -10,6 +10,7 @@ public class ChaseBehaviour : MonoBehaviour
     private bool m_TargetDetected;
     public bool TargetDetected => m_TargetDetected;
     private GameObject m_Target;
+    public GameObject Target => m_Target;
 
     private void Awake()
     {

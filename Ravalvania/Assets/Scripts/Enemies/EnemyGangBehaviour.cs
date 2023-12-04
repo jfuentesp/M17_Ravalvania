@@ -10,6 +10,7 @@ using UnityEngine;
 [RequireComponent(typeof(DropableBehaviour))]
 [RequireComponent(typeof(DefenseBehaviour))]
 [RequireComponent(typeof(LevelingBehaviour))]
+[RequireComponent(typeof(ShootableBehaviour))]
 public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
 {
     //Components
@@ -23,6 +24,7 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
     private DropableBehaviour m_Dropping;
     private DefenseBehaviour m_Defense;
     private LevelingBehaviour m_Leveling;
+    private ShootableBehaviour m_Shooting;
 
     //Animator
     private Animator m_Animator;
@@ -70,6 +72,7 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
         m_Health = GetComponent<HealthBehaviour>();
         m_Damaging = GetComponentInChildren<DamageableBehaviour>();
         m_Patrol = GetComponent<PatrolBehaviour>();
+        m_Shooting = GetComponent<ShootableBehaviour>();
         m_Chase = GetComponentInChildren<ChaseBehaviour>();
         m_Attacking = GetComponentInChildren<AttackableBehaviour>();
         m_Dropping = GetComponent<DropableBehaviour>();
@@ -151,6 +154,11 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
     {
         m_Dropping.DropOnDestroy();
         gameObject.SetActive(false);
+    }
+
+    public void ShootAnim()
+    {
+        m_Shooting.ParabolicShoot(m_Chase.Target, 0, 2);
     }
 
     /* !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState */

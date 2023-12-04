@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootableBehaviour : MonoBehaviour, IObjectivable
+public class ShootableBehaviour : MonoBehaviour
 {
     [Header("Prefab of the bullet to instantiate")]
     [SerializeField]
@@ -23,16 +23,10 @@ public class ShootableBehaviour : MonoBehaviour, IObjectivable
         prefab.GetComponent<BulletBehaviour>().InitBullet(direction);
     }
 
-    public void ParabolicShoot(GameObject target, float forceY)
+    public void ParabolicShoot(GameObject target, float maxheight, float bulletspeed)
     {
-        float shooterX = transform.position.x;
-    }
-
-    public void OnObjectiveCheck(EMission type)
-    {
-        if(EMission.SHOOT == type)
-        {
-
-        }
+        GameObject prefab = Instantiate(m_BulletPrefab);
+        prefab.transform.position = transform.position;
+        prefab.GetComponent<ParabolaBehaviour>().ShootingParabola(target, gameObject, maxheight, bulletspeed);
     }
 }
