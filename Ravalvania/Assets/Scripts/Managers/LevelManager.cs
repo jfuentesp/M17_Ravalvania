@@ -78,4 +78,11 @@ public class LevelManager : MonoBehaviour
         m_Player2.Load(persistanceData.player2, false);
         m_Mission.LoadMission(persistanceData.mission);
     }
+
+    public void OnPlayerRespawn()
+    {
+        m_Money.SetCoins(0);
+        m_Player1.RefillPlayer();
+        m_Player2.RefillPlayer();
+    }
 }

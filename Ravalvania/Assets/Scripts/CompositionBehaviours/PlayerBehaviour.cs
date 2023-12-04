@@ -278,11 +278,17 @@ public class PlayerBehaviour : MonoBehaviour, IObjectivable, ISaveableObject
         m_OrbType = orbType;
     }
 
-    private void OnDeath()
+    public void OnDeath()
     {
         gameObject.SetActive(false);
         m_OnPlayerDeath.Raise();
     }
+
+    public void RefillPlayer()
+    {
+        m_Health.ChangeHealth(m_Health.MaxHealth);
+        m_Mana.OnChangeMana(m_Mana.MaxMana);
+    } 
 
     public SaveData.PlayerData SavePlayer()
     {

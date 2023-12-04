@@ -33,10 +33,10 @@ public class PatrolBehaviour : MonoBehaviour
 
     private void Update()
     {
-        Debug.DrawRay(transform.position + Vector3.right / 2, Vector2.down*1.5f, Color.green, 2f);
+        //Debug.DrawRay(transform.position + Vector3.right / 2, Vector2.down*1.5f, Color.green, 2f);
         if (!Physics2D.Raycast(transform.position + Vector3.right/2, Vector2.down*1.5f, gameObject.transform.localScale.y * 1.2f, m_GroundLayerMask))
         {     
-            m_Direction *= -1;
+            //m_Direction *= -1;
         }      
     }
 
@@ -59,9 +59,7 @@ public class PatrolBehaviour : MonoBehaviour
         while (true)
         {
             m_Direction *= -1;
-            Debug.Log(gameObject.name + " Inicio corrutina ");
             yield return new WaitForSeconds(m_PatrolTime);           
-            Debug.Log("Vuelta de corrutina");
         }   
     }
 }

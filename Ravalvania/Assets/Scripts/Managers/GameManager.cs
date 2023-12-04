@@ -27,11 +27,9 @@ public class GameManager : MonoBehaviour
 
     [Header("GameEvents for the Game Mechanics")]
     [SerializeField]
-    GameEvent m_OnNextWave;
-    //[SerializeField]
-    //GameEventVoid m_OnPlayerRespawn;
-    [SerializeField]
     GameEvent m_OnGUIUpdate;
+    [SerializeField]
+    GameEvent m_OnPlayerRespawn;
 
     //Player spawnpoints
     Vector3 m_Player1InitialSpawnPoint;
@@ -42,7 +40,6 @@ public class GameManager : MonoBehaviour
     PlayerBehaviour m_Player1;
     PlayerBehaviour m_Player2;
     MissionBehaviour m_CurrentMission;
-    int m_CurrentMoney;
 
     bool m_IsPositionSetAfterLoadingSaveGame;
 
@@ -92,7 +89,9 @@ public class GameManager : MonoBehaviour
     //Substracts all the money earned and respawns both players in the respawn
     public void OnPlayerDeath()
     {
-        
+        m_DestinationDoor = EDoor.NONE;
+        ChangeScene(m_DestinationDoor);
+        m_OnPlayerRespawn.Raise();
     }
 
     public void ChangeScene(EDoor doorDestination)

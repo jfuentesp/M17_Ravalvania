@@ -10,12 +10,17 @@ public class EconomyBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        m_InitialCoins = 500;
-        ChangeCoins(m_InitialCoins);
+        //m_InitialCoins = 500;
+        //ChangeCoins(m_InitialCoins);
     }
 
     private int m_PlayerCoins;
     public int PlayerCoins => m_PlayerCoins;
+
+    public void SetCoins(int coins)
+    {
+        m_PlayerCoins = coins;
+    }
 
     public void ChangeCoins(int amount)
     {

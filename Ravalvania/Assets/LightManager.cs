@@ -18,6 +18,9 @@ public class LightManager : MonoBehaviour
 
     private Light2D m_LightSettings;
 
+    [SerializeField]
+    List<Light2D> m_Lights;
+
     private void Awake()
     {
         m_LightSettings = GetComponent<Light2D>();
@@ -36,18 +39,26 @@ public class LightManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(120f);
+            yield return new WaitForSeconds(10f);
             if (m_IsDayTime)
             {
                 m_IsDayTime = false;
                 m_LightSettings.intensity = m_NightTimeIntensity;
                 m_LightSettings.color = m_NightTimeColor;
+                foreach(Light2D light in m_Lights)
+                {
+                    light.enabled = true;
+                }
             }
             else
             {
                 m_IsDayTime = true;
                 m_LightSettings.intensity = m_DayLightIntensity;
                 m_LightSettings.color = m_DayLightColor;
+                foreach (Light2D light in m_Lights)
+                {
+                    light.enabled = false;
+                }
             }
         }
     }
