@@ -20,6 +20,7 @@ public class PickupBehaviour : MonoBehaviour
     List<PickupScriptableObject> m_ScriptablePickups;
 
     private Rigidbody2D m_Rigidbody;
+    private CircleCollider2D m_Collider;
 
     private int m_PickupID;
     private string m_PickupName;
@@ -51,12 +52,11 @@ public class PickupBehaviour : MonoBehaviour
     [SerializeField]
     private Item m_Mana;
 
-    private Vector2 m_SpawnPoint;
-
     private void Awake()
     {
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
         m_Rigidbody = GetComponent<Rigidbody2D>();
+        m_Collider = GetComponent<CircleCollider2D>();
     }
 
     // Start is called before the first frame update

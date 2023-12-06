@@ -158,7 +158,8 @@ public class EnemyGangBehaviour : MonoBehaviour, IObjectivable
 
     public void ShootAnim()
     {
-        m_Shooting.ParabolicShoot(m_Chase.Target, 0, 2);
+        if(m_Chase.Target != null)
+            m_Shooting.ParabolicShoot(m_Chase.Target, 0, 1);
     }
 
     /* !!! BUILDING UP STATE MACHINE !!! Always change state with the function ChangeState */

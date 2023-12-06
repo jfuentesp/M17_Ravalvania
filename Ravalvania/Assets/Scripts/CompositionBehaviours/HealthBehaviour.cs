@@ -71,8 +71,10 @@ public class HealthBehaviour : MonoBehaviour
             if (m_GivesExpOnDeath)
             {
                 m_OnDeathExpEvent.Raise(m_Leveling.ExpGivenOnDeath);
+            } else
+            {
+                m_OnDeathEvent.Raise();
             }
-            m_OnDeathEvent.Raise();
         }            
         if (m_IsDestroyedOnDeath)
         {
