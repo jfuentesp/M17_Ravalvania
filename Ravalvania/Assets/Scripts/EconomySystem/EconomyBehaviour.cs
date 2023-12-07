@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class stores all the economy system. No currency has been inflated in the process.
+/// </summary>
 public class EconomyBehaviour : MonoBehaviour
 {
     [Header("Economy initial stats")]

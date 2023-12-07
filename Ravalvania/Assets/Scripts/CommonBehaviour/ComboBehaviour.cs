@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class implementates a short combo window with a boolean.
+/// </summary>
+
 public class ComboBehaviour : MonoBehaviour
 {
+
+
     private bool m_ComboAvailable;
     public bool ComboAvailable => m_ComboAvailable;
 

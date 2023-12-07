@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class gives the object the capability to patrol an area.
+/// </summary>
 [RequireComponent(typeof(MovableBehaviour))]
 public class PatrolBehaviour : MonoBehaviour
 {
@@ -31,20 +34,10 @@ public class PatrolBehaviour : MonoBehaviour
         m_Moving = GetComponent<MovableBehaviour>();
     }
 
-    private void Update()
-    {
-        //Debug.DrawRay(transform.position + Vector3.right / 2, Vector2.down*1.5f, Color.green, 2f);
-        if (!Physics2D.Raycast(transform.position + Vector3.right/2, Vector2.down*1.5f, gameObject.transform.localScale.y * 1.2f, m_GroundLayerMask))
-        {     
-            //m_Direction *= -1;
-        }      
-    }
-
     private Coroutine m_PatrolCoroutine;
 
     public void OnPatrolByTime()
     {
-        //m_Direction = m_Moving.IsFlipped ? -Vector2.right : Vector2.right;
         m_PatrolCoroutine = StartCoroutine(PatrolByTimeCoroutine());
     }
 

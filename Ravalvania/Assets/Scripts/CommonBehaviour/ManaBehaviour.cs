@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class sets the capability to hold a resource to use special skills.
+/// </summary>
 public class ManaBehaviour : MonoBehaviour
 {
     [SerializeField]
@@ -37,7 +40,10 @@ public class ManaBehaviour : MonoBehaviour
         m_CurrentMana = mana;
     }
 
-    // Public function that changes the amount of mana of the Entity
+    /// <summary>
+    /// Public function that changes the amount of mana of the Entity
+    /// </summary>
+    /// <param name="manaAmount"></param>
     public void OnChangeMana(float manaAmount)
     {
         m_CurrentMana += manaAmount;

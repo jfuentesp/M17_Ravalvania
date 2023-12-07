@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class defines a Health element for the object. It manages the state of the element to be destroyed.
+/// </summary>
 public class HealthBehaviour : MonoBehaviour
 {
     private LevelingBehaviour m_Leveling;
@@ -51,7 +54,10 @@ public class HealthBehaviour : MonoBehaviour
         m_CurrentHealth += maxHealth;
     }
 
-    //Public function that Changes health. If health drops to zero, the object is no longer alive, so it can notify other elements.
+    /// <summary>
+    /// Public function that Changes health. If health drops to zero, the object is no longer alive, so it can notify other elements.
+    /// </summary>
+    /// <param name="amountToChange"></param>
     public void ChangeHealth(float amountToChange)
     {
         m_CurrentHealth += amountToChange;
@@ -64,6 +70,9 @@ public class HealthBehaviour : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// A function that manages the object death. If it's an enemy, it triggers an event that adds an amount of experience. If it's the player, it raises an event that respawns the player.
+    /// </summary>
     public void OnDeath()
     {
         if (m_OnDeathEvent != null || m_OnDeathExpEvent != null)

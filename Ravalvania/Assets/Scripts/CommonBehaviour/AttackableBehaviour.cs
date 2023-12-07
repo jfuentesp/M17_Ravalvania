@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class works as a melee attackable detection. Used in a collision box to let the attacker that the target is in the area.
+/// </summary>
 
 public class AttackableBehaviour : MonoBehaviour
 {

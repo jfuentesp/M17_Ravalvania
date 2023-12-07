@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using streetsofraval;
 using UnityEngine;
 
+/// <summary>
+/// This class sets the object to drop elements once it's destroyed or disabled.
+/// </summary>
 public class DropableBehaviour : MonoBehaviour
 {
     private int m_ScoreValue;
@@ -14,7 +17,9 @@ public class DropableBehaviour : MonoBehaviour
     [SerializeField]
     private GameObject m_PickupPrefab;
 
-
+    /// <summary>
+    /// Drops a random item based on a specified amount of chance.
+    /// </summary>
     public void DropOnDestroy()
     {
         float chance = Random.value;

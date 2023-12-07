@@ -4,8 +4,13 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// This class works as a chasing behaviour. The object will chase the target until it exits the area.
+/// </summary>
 public class ChaseBehaviour : MonoBehaviour
 {
+
+
     private MovableBehaviour m_Moving;
     private bool m_TargetDetected;
     public bool TargetDetected => m_TargetDetected;
@@ -41,6 +46,9 @@ public class ChaseBehaviour : MonoBehaviour
         m_TargetDetected = isDetected;
     }
 
+    /// <summary>
+    /// Checks wether the target is detected or not. If it's detected, it will follow its position. If not, it will stop.
+    /// </summary>
     public void OnTargetChase()
     {
         if(m_Target == null)

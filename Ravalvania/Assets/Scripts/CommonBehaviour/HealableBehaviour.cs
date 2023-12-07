@@ -2,6 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// This class is implemented to any object that holds Health and can be restored.
+/// </summary>
+
+
 [RequireComponent(typeof(HealthBehaviour))]
 public class HealableBehaviour : MonoBehaviour
 {
@@ -12,7 +18,10 @@ public class HealableBehaviour : MonoBehaviour
         m_Health = GetComponent<HealthBehaviour>();
     }
 
-    //Function that adds health points to the Health compoment
+    /// <summary>
+    /// Function that adds health points to the Health compoment
+    /// </summary>
+    /// <param name="healAmount"></param>
     public void OnHeal(float healAmount)
     {
         m_Health.ChangeHealth(healAmount);
@@ -20,6 +29,12 @@ public class HealableBehaviour : MonoBehaviour
 
     private Coroutine m_HoTCoroutine;
 
+    /// <summary>
+    /// Function that adds health points to the Health component by time. It executes a coroutine that does the job.
+    /// </summary>
+    /// <param name="healAmount"></param>
+    /// <param name="time"></param>
+    /// <param name="speed"></param>
     public void OnHealOnTime(float healAmount, float time, float speed)
     {
         m_HoTCoroutine = StartCoroutine(HealOnTimeCoroutine(healAmount, time, speed));

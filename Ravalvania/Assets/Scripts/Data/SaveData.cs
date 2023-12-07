@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+/// <summary>
+/// A class that stores all the data objects and structs to save the game progress.
+/// </summary>
 [Serializable]
 public class SaveData
 {

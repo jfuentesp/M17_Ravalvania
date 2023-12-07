@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// An external class to set the amount of mana cost to an ability. It's a test.
+/// </summary>
+
 [RequireComponent(typeof(ManaBehaviour))]
 public class ManaCostBehaviour : MonoBehaviour
 {
@@ -9,7 +13,9 @@ public class ManaCostBehaviour : MonoBehaviour
     [SerializeField]
     private float m_ManaCost;
     public float ManaCost => m_ManaCost;
-    //In case that we need more than one ManaCost we can do a List of costs (attacks)
+    /// <summary>
+    /// In case that we need more than one ManaCost we can do a List of costs (attacks)
+    /// </summary>
 
     private void Awake()
     {

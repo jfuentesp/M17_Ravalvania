@@ -5,12 +5,17 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// This class holds all the SaveGame system logic
+/// </summary>
 public class SaveDataManager : MonoBehaviour
 {
     //Name of the save game file
     private const string m_SaveFileName = "savedgame.json";
 
-    //Saves data and stores all data in a json file
+    /// <summary>
+    /// Saves data and stores all data in a json file
+    /// </summary>
     public void SaveData()
     {
         SaveData data = new SaveData();
@@ -21,8 +26,7 @@ public class SaveDataManager : MonoBehaviour
 
         try
         {
-            Debug.Log("Ahora estoy salvando datos.");
-
+            Debug.Log("Saving data.");
             Debug.Log(jsonData);
 
             File.WriteAllText(m_SaveFileName, jsonData);
@@ -33,7 +37,10 @@ public class SaveDataManager : MonoBehaviour
         }
     }
 
-    //Data persistance on change scenes. Returns all the saved data.
+    /// <summary>
+    /// Data persistance on change scenes. Returns all the saved data.
+    /// </summary>
+    /// <returns></returns>
     public SaveData DataPersistanceOnChangeScene()
     {
         SaveData data = new SaveData();
@@ -43,10 +50,12 @@ public class SaveDataManager : MonoBehaviour
         return data;
     }
 
-    //Reads data from a json file and calls the loading functions
+    /// <summary>
+    /// Reads data from a json file and calls the loading functions
+    /// </summary>
     public void LoadData()
     {
-        Debug.Log("Ahora estoy cargando datos.");
+        Debug.Log("Loading data.");
         try
         {
             string savedData = File.ReadAllText(m_SaveFileName); //Reads all Json data in the filename
